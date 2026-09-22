@@ -1,0 +1,78 @@
+/* Self-hosted webfonts.
+
+   The brief rules out fonts.googleapis.com: a consulting site on a South
+   African mobile connection cannot afford the extra DNS lookup, TLS handshake
+   and round trip before text can paint.
+
+   The .woff2 files are NOT in the repo — they are binaries and they have not
+   been downloaded yet. See public/fonts/README.md for the exact steps to
+   produce them. Until they are present these rules simply do not match and
+   every element falls back to the local stack declared in tokens.css
+   (Helvetica Neue / Segoe UI / ui-monospace), which is why the site is
+   readable and correctly laid out without them.
+
+   Paths point into public/ rather than src/assets/ on purpose. A missing file
+   under public/ is a silent 404 and a graceful fallback; a missing file
+   referenced through the bundler is a hard build failure.
+
+   Only the five weights the design actually uses are declared. Do not add
+   more "just in case" — each one is a separate download. */
+
+/* Archivo — display face. 600 for H3 and nav-scale headings, 700 for H1/H2,
+   the big numbers and the wordmark. */
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/archivo-latin-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/archivo-latin-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+/* Source Sans 3 — body face. 400 for copy, 600 for buttons, nav and labels. */
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("/fonts/source-sans-3-latin-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("/fonts/source-sans-3-latin-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+/* IBM Plex Mono — data face. Used for the four phase labels and nothing else. */
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/ibm-plex-mono-latin-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}

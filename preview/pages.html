@@ -1,0 +1,173 @@
+<!doctype html>
+<!--
+  TGM GROUP — STANDALONE PREVIEW. NOT THE WEBSITE.
+
+  A hand-built mirror of the Astro source in ../src, so the site can be looked
+  at before Node is installed. It will drift; edit the Astro source, not this.
+  Do not deploy these files: they have no JSON-LD, no canonical URL, no sitemap
+  and no real font strategy.
+
+  TWO DELIBERATE DIFFERENCES FROM THE BUILD:
+  1. Fonts load from Google so you can see the real typefaces. The actual site
+     self-hosts them and must never load from fonts.googleapis.com.
+  2. Links point at local .html files (services.html) rather than the site's
+     real routes (/services/), so navigation works from the file system.
+-->
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preview contact sheet | TGM Group</title>
+<meta name="description" content="Every page in the TGM Group v1 scope, as a static preview.">
+<link rel="icon" href="../public/favicon.svg" type="image/svg+xml">
+<!-- PREVIEW ONLY — see the note above. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="preview.css">
+</head>
+
+<body class="page-preview">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="index.html" aria-label="TGM Group — home" class="logo t-wordmark" style="--logo-colour:var(--navy);--logo-size:26px">TGM GROUP</a>
+
+    <nav class="desktop-nav" aria-label="Primary">
+      <ul>
+        <li><a href="services.html" class="nav-link t-nav">Services</a></li>
+        <li><a href="approach.html" class="nav-link t-nav">Approach</a></li>
+        <li><a href="index.html#evidence" class="nav-link t-nav">Evidence</a></li>
+        <li><a href="about.html" class="nav-link t-nav">About</a></li>
+      </ul>
+      <a href="contact.html" class="btn btn-navy">Book a discovery call</a>
+    </nav>
+
+    <details class="mobile-nav">
+      <summary class="menu-button" aria-label="Menu">
+        <svg class="icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <svg class="icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true">
+          <line x1="4" y1="4" x2="20" y2="20"></line>
+          <line x1="20" y1="4" x2="4" y2="20"></line>
+        </svg>
+      </summary>
+      <div class="menu-panel">
+        <nav aria-label="Primary, mobile">
+          <ul>
+            <li><a href="services.html" class="mobile-link">Services</a></li>
+            <li><a href="approach.html" class="mobile-link">Approach</a></li>
+            <li><a href="index.html#evidence" class="mobile-link">Evidence</a></li>
+            <li><a href="about.html" class="mobile-link">About</a></li>
+          </ul>
+        </nav>
+        <a href="contact.html" class="btn btn-gold btn-block">Book a discovery call</a>
+      </div>
+    </details>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="rule" aria-hidden="true"></span>
+      <h1 class="t-hero page-title">Preview contact sheet</h1>
+      <p class="t-lead page-lead">Every page in the v1 scope, as a static mirror of the Astro source. This page is part of the preview only and has no equivalent on the real site.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="preview-index">
+        <a class="preview-card preview-card-gold" href="index.html">
+          <h2>Home</h2>
+          <p>Hero and motif, proof strip, dark statement, six-cell services grid, four phases, evidence, two practices, CTA band.</p>
+        </a>
+        <a class="preview-card preview-card-teal" href="services.html">
+          <h2>Services</h2>
+          <p>Five practices, one section each, with outcomes. Alternating surfaces instead of dividers.</p>
+        </a>
+        <a class="preview-card" href="approach.html">
+          <h2>Approach</h2>
+          <p>The four-phase engagement model expanded, with duration and an explicit stopping point for each phase.</p>
+        </a>
+        <a class="preview-card preview-card-gold" href="about.html">
+          <h2>About</h2>
+          <p>The group, the two practices, Trevor, and the company details block. Carries two visible gaps.</p>
+        </a>
+        <a class="preview-card preview-card-teal" href="contact.html">
+          <h2>Contact</h2>
+          <p>Direct details plus the enquiry form with POPIA consent. The submit is disabled until an endpoint is set.</p>
+        </a>
+        <a class="preview-card" href="privacy.html">
+          <h2>Privacy policy</h2>
+          <p>POPIA. Draft, awaiting legal review.</p>
+        </a>
+        <a class="preview-card" href="terms.html">
+          <h2>Terms of use</h2>
+          <p>ECTA section 43 disclosures. Draft, awaiting legal review.</p>
+        </a>
+        <a class="preview-card" href="paia.html">
+          <h2>PAIA manual</h2>
+          <p>Statutory obligation under section 51. Draft, not yet compliant.</p>
+        </a>
+        <a class="preview-card" href="404.html">
+          <h2>404</h2>
+          <p>Not found.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer on-dark">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo t-wordmark" style="--logo-colour:var(--ink-inverse);--logo-size:22px">TGM GROUP</span>
+        <p class="t-body-sm brand-copy">
+          A South African business transformation and growth partner. We fix the
+          operations, systems and data underneath the strategy, then stay to make
+          sure it holds.
+        </p>
+      </div>
+
+      <nav class="footer-group" aria-label="Company">
+        <h2 class="footer-heading t-caption">Company</h2>
+        <ul>
+          <li><a href="services.html" class="footer-link t-body-sm">Services</a></li>
+          <li><a href="approach.html" class="footer-link t-body-sm">Approach</a></li>
+          <li><a href="about.html" class="footer-link t-body-sm">About</a></li>
+          <li><a href="contact.html" class="footer-link t-body-sm">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer-group">
+        <h2 class="footer-heading t-caption">Contact</h2>
+        <ul>
+          <li><a href="mailto:info@trevorgmenyatsogroup.co.za" class="footer-link t-body-sm">info@trevorgmenyatsogroup.co.za</a></li>
+          <li><a href="tel:+27815171016" class="footer-link t-body-sm">081 517 1016</a></li>
+          <!-- LinkedIn omitted: the URL has not been supplied. -->
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="t-caption">&copy; 2026 TGM Group. All rights reserved.</p>
+      <ul class="legal">
+        <li><a href="privacy.html" class="footer-link t-caption">Privacy</a></li>
+        <li><a href="terms.html" class="footer-link t-caption">Terms</a></li>
+        <li><a href="paia.html" class="footer-link t-caption">PAIA manual</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<div class="preview-flag">PREVIEW — not the built site</div>
+</body>
+</html>

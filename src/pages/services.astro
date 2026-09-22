@@ -1,0 +1,192 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { breadcrumbSchema } from '../lib/schema';
+
+const entries = (await getCollection('services')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+/* Render each markdown body up front so the template stays a template. */
+const services = await Promise.all(
+  entries.map(async (entry) => ({
+    ...entry,
+    Content: (await render(entry)).Content,
+  }))
+);
+---
+
+<Base
+  title="Services — operations, growth, analytics and AI | TGM Group"
+  description="Five areas of work across two practices: business growth, operational excellence, AI and automation, strategic execution, and leadership and capability. TGM Group, South Africa."
+  jsonLd={[breadcrumbSchema([{ name: 'Services', href: '/services/' }])]}
+>
+  <PageHero
+    accent="teal"
+    title="Five areas of work, two practices"
+    lead="Most engagements start in one of these and touch a second. The constraint is rarely where the symptom is, so we would rather scope the work after the diagnosis than before it."
+  />
+
+  {/* A contents list. Five sections is enough for it to earn its place, and
+       it gives keyboard users a way past the whole page. */}
+  <nav class="wrap contents" aria-label="On this page">
+    <ul>
+      {
+        services.map((service) => (
+          <li>
+            <a href={`#${service.id}`} class="contents-link t-body-sm">
+              {service.data.title}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  {
+    services.map((service) => (
+      <section id={service.id} class="service section">
+        <div class="wrap service-inner">
+          <div class="service-head">
+            <span
+              class:list={['rule', service.data.accent === 'teal' && 'rule-teal']}
+              aria-hidden="true"
+            />
+            <h2 class="t-h2 service-title">{service.data.title}</h2>
+            <p class="t-caption service-practice">{service.data.practice}</p>
+          </div>
+
+          <div class="service-body">
+            <div class="prose">
+              <service.Content />
+            </div>
+
+            <div class="outcomes">
+              <h3 class="t-caption outcomes-heading">What you end up with</h3>
+              <ul class="outcomes-list">
+                {service.data.outcomes.map((outcome) => (
+                  <li class="t-body-sm">{outcome}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <CtaBand />
+</Base>
+
+<style>
+  .contents {
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .contents ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .contents-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--teal-ink);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+  }
+
+  .contents-link:hover {
+    border-bottom-color: var(--teal-ink);
+  }
+
+  /* Alternating surfaces separate the five sections without a divider or a
+     shadow — TGM separates with hairlines and surface changes. */
+  .service:nth-of-type(even) {
+    background: var(--surface-sunken);
+  }
+
+  .service-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  .service-title {
+    margin-top: var(--space-4);
+    color: var(--ink);
+  }
+
+  .service-practice {
+    margin-top: var(--space-3);
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
+  .service-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .outcomes {
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border-strong);
+  }
+
+  .outcomes-heading {
+    margin: 0 0 var(--space-3);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .outcomes-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3) var(--space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .outcomes-list li {
+    position: relative;
+    padding-left: var(--space-4);
+    color: var(--ink-muted);
+  }
+
+  .outcomes-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 8px;
+    height: 2px;
+    background: var(--gold);
+  }
+
+  @media (max-width: 900px) {
+    .service-inner {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-4);
+    }
+    .outcomes-list {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

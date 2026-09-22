@@ -1,0 +1,31 @@
+---
+/* Shown at the top of every legal page.
+
+   These pages are drafts written to the right shape, not legal advice, and
+   they have not been reviewed by an attorney. Saying so on the page is both
+   the honest thing and the safe thing — a privacy policy that makes promises
+   the business has not agreed to is a liability, not a compliance measure.
+
+   DELETE THIS COMPONENT'S USAGE once each page has been signed off. Do not
+   delete the component until all three are done. */
+---
+
+<div class="notice" role="note">
+  <p class="t-body-sm">
+    <strong>Draft — awaiting legal review.</strong>
+    <slot />
+  </p>
+</div>
+
+<style>
+  .notice {
+    padding: var(--space-4);
+    background: var(--surface-sunken);
+    border-left: 3px solid var(--gold);
+  }
+
+  .notice p {
+    margin: 0;
+    color: var(--ink);
+  }
+</style>

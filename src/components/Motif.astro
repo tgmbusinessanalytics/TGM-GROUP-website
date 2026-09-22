@@ -1,0 +1,83 @@
+---
+/* The brand's own mark, abstracted: four ascending bars cut by three thin
+   horizontal rules that read as chart gridlines through data.
+
+   This is the one decorative element on the site. There is no hero photograph
+   because no client or team photography exists yet, and a stock boardroom
+   image would undo everything the rest of the page is doing.
+
+   Geometry is driven by three custom properties so the mobile variant is a
+   genuine rescale rather than a second hand-built shape:
+
+     --bar-w   bar width        84px desktop / 64px mobile
+     --pitch   centre spacing  108px desktop / 80px mobile
+     --k       height scale      1 desktop / 0.7619 mobile (64/84)
+
+   Desktop heights are 180 / 268 / 356 / 460 and the rules sit 92, 214 and
+   336px from the bottom. Mobile multiplies all seven figures by --k, which
+   keeps the gridlines crossing the same bars at the same relative points.
+
+   Decorative, so aria-hidden. Nothing here carries meaning that is not also
+   in the text beside it. */
+
+const bars = [
+  { height: 180, colour: 'var(--navy)' },
+  { height: 268, colour: 'var(--teal)' },
+  { height: 356, colour: 'var(--teal)' },
+  { height: 460, colour: 'var(--gold)' },
+];
+
+const rules = [92, 214, 336];
+---
+
+<div class="motif" aria-hidden="true">
+  {
+    bars.map((bar, i) => (
+      <span
+        class="bar"
+        style={`--i:${i};--h:${bar.height};background:${bar.colour}`}
+      />
+    ))
+  }
+  {rules.map((offset) => <span class="gridline" style={`--y:${offset}`} />)}
+</div>
+
+<style>
+  .motif {
+    --bar-w: 84px;
+    --pitch: 108px;
+    --k: 1;
+
+    position: relative;
+    flex: none;
+    width: calc(3 * var(--pitch) + var(--bar-w));
+    height: calc(460px * var(--k));
+  }
+
+  .bar {
+    position: absolute;
+    bottom: 0;
+    left: calc(var(--i) * var(--pitch));
+    width: var(--bar-w);
+    height: calc(var(--h) * 1px * var(--k));
+  }
+
+  /* 2px of --surface cutting the full width of the motif. Sits above the bars
+     so it reads as a gridline drawn through them. */
+  .gridline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(var(--y) * 1px * var(--k));
+    height: 2px;
+    background: var(--surface);
+  }
+
+  @media (max-width: 768px) {
+    .motif {
+      --bar-w: 64px;
+      --pitch: 80px;
+      --k: 0.7619;
+    }
+  }
+</style>

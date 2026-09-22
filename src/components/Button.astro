@@ -1,0 +1,48 @@
+---
+/* Renders an <a> when it navigates and a <button> when it acts. There is no
+   third option and no role attribute on a div. */
+
+interface Props {
+  href?: string;
+  type?: 'button' | 'submit';
+  variant?: 'gold' | 'navy' | 'outline';
+  size?: 'default' | 'lg';
+  block?: boolean;
+  /* Only meaningful on the <button> branch. A link cannot be disabled — if a
+     destination is unavailable, do not render the link. */
+  disabled?: boolean;
+  class?: string;
+}
+
+const {
+  href,
+  type = 'button',
+  variant = 'gold',
+  size = 'default',
+  block = false,
+  disabled = false,
+  class: extra = '',
+} = Astro.props;
+
+const classes = [
+  'btn',
+  `btn-${variant}`,
+  size === 'lg' ? 'btn-lg' : '',
+  block ? 'btn-block' : '',
+  extra,
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+{
+  href ? (
+    <a href={href} class={classes}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class={classes} disabled={disabled || undefined}>
+      <slot />
+    </button>
+  )
+}

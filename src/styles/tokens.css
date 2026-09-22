@@ -1,0 +1,115 @@
+/* TGM Group design tokens
+   Generated from the TGM Group design system. Values are exact — do not round,
+   re-tint or "improve" them. Every contrast figure below is measured.
+
+   THE ONE RULE THAT BREAKS THIS DESIGN:
+   --gold on white is 1.76:1. Gold is a SHAPE colour — rules, bars, fills,
+   button backgrounds. It is never text on a light ground. For gold that must
+   read as words, use --gold-ink. */
+
+:root {
+  /* Surfaces */
+  --surface:          #FFFFFF;
+  --surface-sunken:   #F2F5F8;  /* recessed bands, cards, table headers */
+  --surface-inverse:  #27364A;  /* dark CTA band */
+  --surface-deep:     #16202E;  /* footer, statement sections */
+
+  /* Text */
+  --ink:              #16202E;  /* 16.4:1 on surface */
+  --ink-muted:        #55637A;  /* 6.08:1 on surface, 5.56:1 on sunken */
+  --ink-inverse:      #FFFFFF;  /* 12.3:1 on surface-inverse, 16.4:1 on deep */
+  --ink-inverse-muted:#9AA8BC;  /* 6.8:1 on surface-deep. NOT for use on surface-inverse */
+
+  /* Brand */
+  --navy:             #27364A;  /* primary */
+  --navy-deep:        #16202E;
+  --navy-mid:         #4A5C78;  /* 6.79:1 on surface — secondary text, not body */
+  --teal:             #177E6E;  /* fills; carries white text at 4.95:1 */
+  --teal-ink:         #0F6155;  /* teal AS TEXT on surface — 7.34:1 */
+  --teal-accent:      #35A891;  /* fills on dark; carries --navy-deep text at 5.59:1 */
+  --gold:             #F0BC20;  /* SHAPES ONLY on light. Carries --navy text at 6.96:1 */
+  --gold-ink:         #7A5C00;  /* gold AS TEXT on surface — 6.25:1 */
+
+  /* On-colours */
+  --on-gold:          #27364A;
+  --on-teal:          #FFFFFF;
+
+  /* Lines */
+  --hairline:         #DCE3EB;  /* decorative only, below 3:1 by design */
+  --hairline-dark:    #33415A;  /* decorative, on surface-deep */
+  --border-strong:    #8A94A3;  /* meaningful borders — 3.07:1 on surface */
+  --focus-ring:       #0F6155;  /* 7.34:1 on surface */
+
+  /* Sub-brands — accent only, never a separate palette */
+  --brand-services:   #F0BC20;  /* TGM Business Services */
+  --brand-analytics:  #177E6E;  /* TGM Business Analytics */
+
+  /* Charts — separated by lightness as well as hue, so they survive
+     greyscale print and red-green colour blindness. --chart-6 is gold
+     and must always carry a direct label. */
+  --chart-1:          #27364A;
+  --chart-2:          #6B3F5E;
+  --chart-3:          #177E6E;
+  --chart-4:          #6E8CAC;
+  --chart-5:          #63B5A3;
+  --chart-6:          #F0BC20;
+
+  /* Type */
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-body:    "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --font-data:    "IBM Plex Mono", ui-monospace, "Courier New", monospace;
+
+  /* Web type scale. The design system's scale is slide-sized (1920x1080);
+     these are the web equivalents used in the homepage design. */
+  --text-hero:      74px;  /* line-height 1.0,  tracking -0.025em, weight 700 */
+  --text-h2:        48px;  /* line-height 1.05, tracking -0.02em,  weight 700 */
+  --text-h2-dark:   54px;  /* statement section only */
+  --text-h3:        26px;  /* line-height 1.2,  weight 600 */
+  --text-bignum:    72px;  /* line-height 0.9,  tracking -0.03em, weight 700 */
+  --text-lead:      23px;  /* line-height 1.5 */
+  --text-body:      19px;  /* line-height 1.5 */
+  --text-body-sm:   18px;  /* line-height 1.5 */
+  --text-caption:   15px;  /* line-height 1.4 */
+  --text-nav:       16px;  /* weight 600 */
+  --text-mono:      16px;  /* weight 600, phase labels */
+
+  /* Mobile overrides at <= 768px */
+  --text-hero-m:    42px;
+  --text-h2-m:      34px;
+  --text-h3-m:      22px;
+  --text-bignum-m:  60px;
+  --text-lead-m:    19px;
+  --text-body-m:    17px;
+
+  /* Spacing */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  16px;
+  --space-4:  24px;
+  --space-5:  40px;
+  --space-6:  64px;
+  --space-7:  112px;   /* vertical section padding, desktop */
+  --gutter:   80px;    /* horizontal page margin, desktop */
+  --gutter-m: 20px;    /* horizontal page margin, mobile */
+  --section-m: 56px;   /* vertical section padding, mobile */
+  --maxw:     1440px;
+
+  /* Radius — TGM composes in rectangles; radius-none is the default */
+  --radius-none: 0px;
+  --radius-sm:   4px;   /* buttons, chips */
+  --radius-md:   12px;  /* cards */
+  --radius-lg:   20px;  /* large feature panels */
+
+  /* Shadow — TGM separates with hairlines and surface changes, not shadow */
+  --shadow-none: none;
+  --shadow-lift: 0 2px 8px rgba(22, 32, 46, 0.10); /* popovers only */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

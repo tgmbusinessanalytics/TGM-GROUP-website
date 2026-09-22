@@ -1,0 +1,66 @@
+---
+/* OPEN ITEM 1 in CLAUDE.md, and the "Critical gap" section of
+   src/assets/logo/LOGO-NOTES.md.
+
+   The design calls for the mark at 150x56 in the header. The only artwork that
+   exists is tgm-logo-primary.png, and it does not fit that slot:
+
+   - It is 802x516 — a 1.55:1 stacked lockup, not the 2.68:1 wordmark the
+     header was designed around. At 150px wide it stands 96px tall, which is
+     the entire height of the header.
+   - Sized to fit the header instead, it falls below the 120px minimum width
+     that LOGO-NOTES.md sets, where the GROUP line closes up.
+   - It is raster on an opaque white background, so it cannot go on the footer
+     or the dark CTA band at all.
+
+   So the header and the footer both use the Archivo wordmark that LOGO-NOTES.md
+   specifies as the documented substitution. One consistent wordmark reads
+   better than a mark that is undersized in one place and replaced in another.
+
+   TO SWAP WHEN THE VECTOR ARRIVES: set LOGO_MODE to 'mark' below and drop
+   tgm-logo.svg and tgm-logo-reversed.svg into src/assets/logo/. Nothing else
+   on the site needs to change. */
+
+const LOGO_MODE: 'wordmark' | 'mark' = 'wordmark';
+
+interface Props {
+  /* 'light' renders navy ink for use on --surface.
+     'dark' renders white ink for --surface-deep and --surface-inverse. */
+  variant?: 'light' | 'dark';
+  /* Header uses 26px, footer uses the 22px the design spec sets. */
+  size?: number;
+  /* The header logo is a link home and needs no extra label; the footer
+     wordmark is not a link. */
+  as?: 'link' | 'text';
+}
+
+const { variant = 'light', size = 26, as = 'link' } = Astro.props;
+
+const colour = variant === 'dark' ? 'var(--ink-inverse)' : 'var(--navy)';
+const Tag = as === 'link' ? 'a' : 'span';
+const attrs = as === 'link' ? { href: '/', 'aria-label': 'TGM Group — home' } : {};
+---
+
+{
+  LOGO_MODE === 'wordmark' ? (
+    <Tag {...attrs} class="logo t-wordmark" style={`--logo-colour:${colour};--logo-size:${size}px`}>
+      TGM GROUP
+    </Tag>
+  ) : (
+    /* Placeholder branch. Deliberately empty until the vector master exists —
+       it must never fall through to the raster on a dark ground. */
+    <Tag {...attrs} class="logo" />
+  )
+}
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--logo-colour);
+    font-size: var(--logo-size);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+</style>

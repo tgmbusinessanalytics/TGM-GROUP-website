@@ -1,0 +1,102 @@
+---
+import Button from './Button.astro';
+
+/* One cell of the six-cell services grid.
+
+   Five cells are services; the sixth is a CTA rather than a seventh service,
+   which is why `variant` exists. Gold and teal alternate by practice — gold
+   cells belong to TGM Business Services, teal to TGM Business Analytics.
+
+   No numbering. Numbered markers appear only in the approach section, because
+   that is the only content on the site that is genuinely a sequence. */
+
+interface Props {
+  title: string;
+  body: string;
+  accent?: 'gold' | 'teal';
+  variant?: 'service' | 'cta';
+  href?: string;
+  ctaLabel?: string;
+  /* Cards on the homepage sit under an h2, so they are h3. */
+  headingLevel?: 2 | 3;
+}
+
+const {
+  title,
+  body,
+  accent = 'gold',
+  variant = 'service',
+  href,
+  ctaLabel,
+  headingLevel = 3,
+} = Astro.props;
+
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+---
+
+<div class:list={['card', variant === 'cta' && 'card-cta', variant === 'cta' && 'on-dark']}>
+  {variant === 'service' && <span class:list={['rule', 'rule-card', accent === 'teal' && 'rule-teal']} aria-hidden="true" />}
+
+  <Heading class="t-h3 card-title">{title}</Heading>
+  <p class="t-body-sm card-body">{body}</p>
+
+  {
+    variant === 'cta' && href && (
+      <div class="card-action">
+        <Button href={href} variant="gold">
+          {ctaLabel}
+        </Button>
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    min-height: 280px;
+    padding: var(--space-5);
+    background: var(--surface-sunken);
+    border-radius: var(--radius-md);
+  }
+
+  .card > .rule {
+    margin-bottom: var(--space-2);
+  }
+
+  .card-title {
+    color: var(--ink);
+  }
+
+  .card-body {
+    color: var(--ink-muted);
+  }
+
+  .card-cta {
+    background: var(--navy);
+  }
+
+  .card-cta .card-title {
+    color: var(--ink-inverse);
+  }
+
+  /* White on --navy is 9.4:1. --ink-inverse-muted is explicitly not for use on
+     this surface, so the CTA card's body copy stays full white. */
+  .card-cta .card-body {
+    color: var(--ink-inverse);
+  }
+
+  .card-action {
+    margin-top: auto;
+    padding-top: var(--space-3);
+  }
+
+  @media (max-width: 768px) {
+    .card {
+      padding: 28px;
+      min-height: 0;
+    }
+  }
+</style>

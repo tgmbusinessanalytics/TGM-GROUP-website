@@ -1,0 +1,54 @@
+---
+/* One of the four engagement phases.
+
+   The 01–04 markers live here and nowhere else on the site. The phase label
+   uses --gold-ink, not --gold: gold on a light ground is 1.76:1 and would be
+   unreadable as text. --gold-ink is 6.25:1 and is the correct token for gold
+   that must read as words.
+
+   The em dash in "01 — Diagnose" is decorative punctuation; the number and the
+   name are both real text, so assistive technology reads the sequence. */
+
+interface Props {
+  number: string;
+  name: string;
+  headline: string;
+  body: string;
+  /* The fourth phase takes a gold top border, the first three navy. */
+  accent?: 'navy' | 'gold';
+}
+
+const { number, name, headline, body, accent = 'navy' } = Astro.props;
+---
+
+<div class:list={['phase', accent === 'gold' && 'phase-gold']}>
+  <p class="t-mono phase-label">{number} — {name}</p>
+  <h3 class="t-h3-sm phase-headline">{headline}</h3>
+  <p class="t-body-sm phase-body">{body}</p>
+</div>
+
+<style>
+  .phase {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+    border-top: 3px solid var(--navy);
+  }
+
+  .phase-gold {
+    border-top-color: var(--gold);
+  }
+
+  .phase-label {
+    color: var(--gold-ink);
+  }
+
+  .phase-headline {
+    color: var(--ink);
+  }
+
+  .phase-body {
+    color: var(--ink-muted);
+  }
+</style>

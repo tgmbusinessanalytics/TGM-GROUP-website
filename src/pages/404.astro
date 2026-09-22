@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { nav, cta } from '../data/site';
+import Button from '../components/Button.astro';
+---
+
+<Base
+  title="Page not found | TGM Group"
+  description="That page does not exist. Links to the main sections of the TGM Group website."
+>
+  <PageHero
+    accent="navy"
+    title="That page does not exist"
+    lead="It may have moved, or the link may be wrong. Everything on the site is one of these:"
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <ul class="links">
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} class="t-h3 link">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <a href="/contact/" class="t-h3 link">Contact</a>
+        </li>
+      </ul>
+
+      <div class="action">
+        <Button href={cta.href} variant="gold">{cta.label}</Button>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: 900px;
+  }
+
+  .link {
+    display: flex;
+    align-items: center;
+    min-height: 64px;
+    padding-block: var(--space-2);
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .link:hover {
+    border-bottom-color: var(--gold);
+  }
+
+  .action {
+    margin-top: var(--space-6);
+  }
+</style>

@@ -1,0 +1,133 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ReviewNotice from '../components/ReviewNotice.astro';
+import { site } from '../data/site';
+import { breadcrumbSchema } from '../lib/schema';
+---
+
+<Base
+  title="Privacy policy | TGM Group"
+  description="How TGM Group collects, uses and protects personal information, in line with the Protection of Personal Information Act."
+  jsonLd={[breadcrumbSchema([{ name: 'Privacy', href: '/privacy/' }])]}
+>
+  <PageHero
+    accent="navy"
+    title="Privacy policy"
+    lead="How we handle personal information, and what you can require of us under the Protection of Personal Information Act."
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="prose">
+        <ReviewNotice>
+          It states what the website actually does, but the retention periods,
+          the information officer's details and the operator arrangements must
+          be confirmed by Trevor and reviewed by an attorney before launch.
+        </ReviewNotice>
+
+        <h2>Who we are</h2>
+        <p>
+          {site.name} is the responsible party for the personal information
+          described here. You can reach us at
+          <a href={`mailto:${site.email}`}>{site.email}</a> or
+          <a href={site.phoneHref}>{site.phoneDisplay}</a>.
+        </p>
+        <p>
+          <strong>Information officer:</strong>
+          <span class="placeholder">[Name and contact details]</span>. Under
+          POPIA every responsible party must register an information officer
+          with the Information Regulator. Confirm this is done and record the
+          details here.
+        </p>
+
+        <h2>What we collect</h2>
+        <p>We collect two kinds of information, and no more than that.</p>
+        <ul>
+          <li>
+            <strong>What you send us.</strong> If you complete the enquiry form
+            or email us, we receive your name, work email address, organisation,
+            the problem category you selected and anything you wrote in the
+            message field.
+          </li>
+          <li>
+            <strong>What the website records.</strong> This site is static and
+            carries no advertising trackers, no analytics cookies and no
+            third-party scripts. Our host keeps standard server logs, which
+            include IP addresses, for security and availability purposes.
+          </li>
+        </ul>
+        <p>
+          We do not use cookies for tracking. We do not build profiles. We do
+          not sell or rent personal information to anyone, under any
+          circumstances.
+        </p>
+
+        <h2>Why we hold it, and for how long</h2>
+        <p>
+          We use what you send to respond to your enquiry, to prepare for a
+          discovery call and, if we go on to work together, to run the
+          engagement. That is the whole purpose.
+        </p>
+        <p>
+          <strong>Retention:</strong> enquiries that do not lead to work are
+          kept for 24 months and then deleted. Records relating to an actual
+          engagement are kept for the period South African law requires for
+          business records —
+          <span class="placeholder">[confirm period with accountant]</span> —
+          and then deleted.
+        </p>
+
+        <h2>Who else sees it</h2>
+        <p>
+          Our enquiry form is processed by a third-party form service, and our
+          email is hosted by a third-party provider. Both act as operators on
+          our instruction and are bound to protect the information.
+        </p>
+        <p>
+          <span class="placeholder">[Name the form service and email host]</span>
+          — these must be named specifically once the form endpoint is
+          configured, along with whether either stores data outside South
+          Africa. POPIA section 72 restricts transfers across borders and the
+          answer belongs on this page rather than in a footnote.
+        </p>
+
+        <h2>Your rights</h2>
+        <p>Under POPIA you may, at any time and at no cost:</p>
+        <ul>
+          <li>Ask what personal information we hold about you</li>
+          <li>Ask us to correct anything that is wrong</li>
+          <li>Ask us to delete it, where we are not required to keep it</li>
+          <li>Object to our processing it</li>
+          <li>
+            Complain to the Information Regulator if you are not satisfied with
+            how we responded
+          </li>
+        </ul>
+        <p>
+          Email <a href={`mailto:${site.email}`}>{site.email}</a> and we will
+          respond within 30 days. Our
+          <a href="/paia/">PAIA manual</a> sets out the formal access procedure.
+        </p>
+
+        <h2>Security</h2>
+        <p>
+          We take reasonable technical and organisational steps to protect
+          personal information. This website is served over HTTPS only. If a
+          breach affecting your information occurs, we will notify you and the
+          Information Regulator as POPIA requires.
+        </p>
+
+        <h2>Changes</h2>
+        <p>
+          If this policy changes materially we will say so on this page and
+          update the date below.
+        </p>
+        <p>
+          <strong>Last updated:</strong>
+          <span class="placeholder">[Date of legal sign-off]</span>
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

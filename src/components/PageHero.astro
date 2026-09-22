@@ -1,0 +1,53 @@
+---
+/* The opening block on every page except the homepage: coloured rule, the
+   single h1, and a lead paragraph. The homepage has its own hero with the
+   motif — this is the quieter inner-page version of the same idea. */
+
+interface Props {
+  title: string;
+  lead: string;
+  accent?: 'gold' | 'teal' | 'navy';
+}
+
+const { title, lead, accent = 'gold' } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="wrap">
+    <span
+      class:list={['rule', accent === 'teal' && 'rule-teal', accent === 'navy' && 'rule-navy']}
+      aria-hidden="true"></span>
+    <h1 class="t-hero page-title">{title}</h1>
+    <p class="t-lead page-lead">{lead}</p>
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-6) var(--space-6);
+  }
+
+  .page-title {
+    margin-top: var(--space-4);
+    max-width: 900px;
+    color: var(--ink);
+    /* The inner pages carry more words than the homepage headline, so the
+       hero step is dialled back a little here. */
+    font-size: 58px;
+  }
+
+  .page-lead {
+    margin-top: var(--space-4);
+    max-width: 620px;
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 768px) {
+    .page-hero {
+      padding-block: var(--space-5) var(--space-5);
+    }
+    .page-title {
+      font-size: var(--text-hero-m);
+    }
+  }
+</style>

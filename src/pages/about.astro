@@ -1,0 +1,341 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site, practices } from '../data/site';
+import { breadcrumbSchema } from '../lib/schema';
+
+/* NOTE ON THIS PAGE'S CONTENT.
+
+   Everything stated here is drawn from the brief: what TGM Group does, the two
+   practices, Trevor's name and role, and the contact details. His professional
+   background, qualifications, years in practice and prior roles are NOT in the
+   brief, so they are not on this page. A consulting site lives or dies on
+   whether the founder is credible, and that section is the single most
+   valuable thing still missing — it is marked as a placeholder rather than
+   filled with a plausible-sounding career.
+
+   The registration details are the same: the CoR15.1A is in the company
+   folder but the registration number was not supplied in a readable form.
+   Placeholders, not guesses. */
+---
+
+<Base
+  title="About TGM Group — who we are and how we work"
+  description="TGM Group is a South African business transformation and growth partner founded by Trevor G. Menyatso, delivering through two practices: TGM Business Services and TGM Business Analytics."
+  jsonLd={[breadcrumbSchema([{ name: 'About', href: '/about/' }])]}
+>
+  <PageHero
+    accent="navy"
+    title="A transformation partner that stays past the diagnosis"
+    lead="TGM Group helps South African organisations improve how they operate, solve the problems underneath the symptoms, adopt AI and automation where it earns its cost, and grow in a way the business can absorb."
+  />
+
+  <section class="section">
+    <div class="wrap about-grid">
+      <div>
+        <span class="rule" aria-hidden="true"></span>
+        <h2 class="t-h2 section-title">What we are</h2>
+      </div>
+      <div class="prose">
+        <p>
+          TGM Group is a business transformation and growth partner working with
+          organisations in South Africa. The work divides into two practices —
+          one focused on how a business runs, the other on what it can see about
+          itself — and most engagements involve both.
+        </p>
+        <p>
+          The position is narrow on purpose. We are not a generalist agency and
+          we do not sell technology. We work on the operating layer: the
+          processes, the decision rights, the reporting and the data that
+          determine whether a strategy turns into anything.
+        </p>
+        <p>
+          We also stay. The common failure of consulting is a well-argued
+          recommendation delivered to a team with no capacity to implement it.
+          Our engagement model has four phases and implementation is two of
+          them.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section practices-section">
+    <div class="wrap">
+      <span class="rule rule-teal" aria-hidden="true"></span>
+      <h2 class="t-h2 section-title">Two practices, one group</h2>
+      <p class="t-lead practices-intro">
+        Separate capabilities, one engagement. You deal with one team and one
+        scope, not two suppliers coordinating with each other.
+      </p>
+
+      <div class="practice-grid">
+        {
+          practices.map((practice) => (
+            <article class:list={['practice-card', `practice-${practice.accent}`]}>
+              <h3 class="t-h3">{practice.name}</h3>
+              <p class="t-body-sm practice-body">{practice.description}</p>
+              <ul class="practice-list">
+                {practice.focus.map((item) => (
+                  <li class="t-body-sm">{item}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap about-grid">
+      <div>
+        <span class="rule" aria-hidden="true"></span>
+        <h2 class="t-h2 section-title">{site.founder}</h2>
+        <p class="t-caption founder-role">{site.founderRole}</p>
+      </div>
+
+      <div class="founder-body">
+        <p class="t-lead founder-lead">
+          Trevor leads every engagement personally. The diagnosis is his work,
+          not a junior's, and he is in the room for the implementation.
+        </p>
+
+        {/* PLACEHOLDER — the highest-value gap on this site.
+             Needs: professional background, sectors worked in, qualifications,
+             how long in practice, and why this work specifically. Two or three
+             paragraphs in his own voice. Do not draft this speculatively. */}
+        <div class="gap-note">
+          <p class="t-body-sm">
+            <span class="placeholder">[Founder biography]</span>
+          </p>
+          <p class="t-caption gap-detail">
+            Professional background, sectors, qualifications and time in
+            practice — to be supplied by Trevor. Left empty deliberately: an
+            invented consulting biography is the fastest way to lose a reader
+            who checks.
+          </p>
+        </div>
+
+        <p class="t-body">
+          In the meantime, the honest version is this: ask him directly. The
+          discovery call is ninety minutes and costs nothing, and it is a
+          better test of whether he knows your problem than a paragraph on a
+          website would be.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section details-section">
+    <div class="wrap">
+      <span class="rule rule-navy" aria-hidden="true"></span>
+      <h2 class="t-h2 section-title">Company details</h2>
+
+      <dl class="details">
+        <div class="detail-row">
+          <dt class="t-caption detail-key">Registered name</dt>
+          <dd class="t-body-sm detail-value">{site.legalName}</dd>
+        </div>
+        <div class="detail-row">
+          <dt class="t-caption detail-key">Registration number</dt>
+          <dd class="t-body-sm detail-value">
+            <span class="placeholder">[Registration number]</span>
+          </dd>
+        </div>
+        <div class="detail-row">
+          <dt class="t-caption detail-key">VAT number</dt>
+          <dd class="t-body-sm detail-value">
+            <span class="placeholder">[VAT number, if registered]</span>
+          </dd>
+        </div>
+        <div class="detail-row">
+          <dt class="t-caption detail-key">Registered address</dt>
+          <dd class="t-body-sm detail-value">
+            {
+              site.address ? (
+                <>
+                  {site.address.street}, {site.address.locality},{' '}
+                  {site.address.region} {site.address.postalCode}
+                </>
+              ) : (
+                <span class="placeholder">[Registered address]</span>
+              )
+            }
+          </dd>
+        </div>
+        <div class="detail-row">
+          <dt class="t-caption detail-key">Email</dt>
+          <dd class="t-body-sm detail-value">
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+          </dd>
+        </div>
+        <div class="detail-row">
+          <dt class="t-caption detail-key">Telephone</dt>
+          <dd class="t-body-sm detail-value">
+            <a href={site.phoneHref}>{site.phoneDisplay}</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  .section-title {
+    margin-top: var(--space-4);
+    color: var(--ink);
+  }
+
+  .founder-role {
+    margin-top: var(--space-3);
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
+  .founder-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .founder-lead {
+    color: var(--ink);
+  }
+
+  .founder-body > p:last-child {
+    color: var(--ink-muted);
+  }
+
+  .gap-note {
+    padding: var(--space-4);
+    border-left: 3px solid var(--gold);
+    background: var(--surface-sunken);
+  }
+
+  .gap-detail {
+    margin-top: var(--space-2);
+    color: var(--ink-muted);
+  }
+
+  .practices-section {
+    background: var(--surface-sunken);
+  }
+
+  .practices-intro {
+    margin-top: var(--space-4);
+    max-width: 620px;
+    color: var(--ink-muted);
+  }
+
+  .practice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+  }
+
+  .practice-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-5);
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-top: 5px solid var(--gold);
+    border-radius: var(--radius-md);
+  }
+
+  .practice-teal {
+    border-top-color: var(--teal);
+  }
+
+  .practice-body {
+    color: var(--ink-muted);
+  }
+
+  .practice-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin: var(--space-2) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .practice-list li {
+    position: relative;
+    padding-left: var(--space-4);
+    color: var(--ink-muted);
+  }
+
+  .practice-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 8px;
+    height: 2px;
+    background: var(--gold);
+  }
+
+  .practice-teal .practice-list li::before {
+    background: var(--teal);
+  }
+
+  .details {
+    margin: var(--space-6) 0 0;
+    max-width: 720px;
+  }
+
+  .detail-row {
+    display: grid;
+    grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
+    gap: var(--space-4);
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .detail-key {
+    margin: 0;
+    color: var(--ink-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .detail-value {
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .detail-value a {
+    color: var(--teal-ink);
+    font-weight: 600;
+  }
+
+  @media (max-width: 900px) {
+    .about-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-4);
+    }
+    .practice-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .detail-row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-1);
+    }
+  }
+</style>

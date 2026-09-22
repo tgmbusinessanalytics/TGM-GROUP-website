@@ -1,0 +1,433 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import { site, FORM_ENDPOINT } from '../data/site';
+import { breadcrumbSchema } from '../lib/schema';
+
+/* The form markup, validation, honeypot, time-trap and POPIA consent are all
+   complete. The only missing piece is the destination — see FORM_ENDPOINT in
+   src/data/site.ts.
+
+   While it is unset the submit button is disabled and the page says so, rather
+   than posting into a void and losing an enquiry. The email address and phone
+   number are the first thing on the page either way, so it is useful now. */
+
+const formReady = FORM_ENDPOINT.length > 0;
+
+if (!formReady) {
+  console.warn(
+    '\n[TGM] Contact form has no endpoint. Set FORM_ENDPOINT in src/data/site.ts before launch.\n'
+  );
+}
+
+const problems = [
+  'Growth has stalled, or growth is breaking the operation',
+  'Processes are slow, manual or inconsistent',
+  'Reporting is manual, late, or not trusted',
+  'We want to use AI or automation but do not know where',
+  'Strategy is agreed but nothing is moving',
+  'The leadership team is the bottleneck',
+  'Not sure yet',
+];
+---
+
+<Base
+  title="Contact TGM Group — book a discovery call"
+  description="Book a ninety-minute discovery call with TGM Group. No charge, no deck, no obligation. Email info@trevorgmenyatsogroup.co.za or call 081 517 1016."
+  jsonLd={[breadcrumbSchema([{ name: 'Contact', href: '/contact/' }])]}
+>
+  <PageHero
+    accent="gold"
+    title="Ninety minutes. A straight answer about what is actually holding you back."
+    lead="No charge, no deck, no obligation to engage us afterwards. Come with the problem as you currently understand it — working out whether that is the real problem is the point of the call."
+  />
+
+  <section class="section contact-section">
+    <div class="wrap contact-grid">
+      {/* Direct details first. Some people will never use a form, and the
+           form has no endpoint yet. */}
+      <aside class="direct">
+        <h2 class="t-h3">Reach us directly</h2>
+
+        <dl class="direct-list">
+          <div>
+            <dt class="t-caption direct-key">Email</dt>
+            <dd class="t-body">
+              <a href={`mailto:${site.email}`} class="direct-link">{site.email}</a>
+            </dd>
+          </div>
+          <div>
+            <dt class="t-caption direct-key">Telephone</dt>
+            <dd class="t-body">
+              <a href={site.phoneHref} class="direct-link">{site.phoneDisplay}</a>
+            </dd>
+          </div>
+          <div>
+            <dt class="t-caption direct-key">Where we work</dt>
+            <dd class="t-body-sm direct-plain">
+              South Africa, remotely and on site. Travel outside Gauteng is
+              agreed per engagement.
+            </dd>
+          </div>
+        </dl>
+
+        <div class="expect">
+          <h3 class="t-caption direct-key">What happens next</h3>
+          <ol class="expect-list">
+            <li class="t-body-sm">We reply within one working day.</li>
+            <li class="t-body-sm">
+              We book ninety minutes at a time that suits you.
+            </li>
+            <li class="t-body-sm">
+              You get a written summary of what we heard, whether or not there
+              is a proposal after it.
+            </li>
+          </ol>
+        </div>
+      </aside>
+
+      <div class="form-column">
+        <h2 class="t-h3 form-heading">Or send the details through</h2>
+
+        {
+          !formReady && (
+            <p class="form-notice t-body-sm" role="status">
+              <strong>This form is not connected yet.</strong> Until it is,
+              please email <a href={`mailto:${site.email}`}>{site.email}</a> or
+              call <a href={site.phoneHref}>{site.phoneDisplay}</a>. We would
+              rather say so than lose your message.
+            </p>
+          )
+        }
+
+        <form
+          id="enquiry"
+          class="form"
+          method="post"
+          action={formReady ? FORM_ENDPOINT : undefined}
+        >
+          <div class="field">
+            <label for="name" class="t-body-sm label">Your name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required />
+          </div>
+
+          <div class="field">
+            <label for="email" class="t-body-sm label">Work email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label for="company" class="t-body-sm label">Organisation</label>
+            <input
+              id="company"
+              name="company"
+              type="text"
+              autocomplete="organization"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label for="problem" class="t-body-sm label">
+              What is the problem, as you see it now?
+            </label>
+            <select id="problem" name="problem" required>
+              <option value="">Choose the closest one</option>
+              {problems.map((problem) => <option value={problem}>{problem}</option>)}
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="message" class="t-body-sm label">
+              Anything you want us to know before the call
+            </label>
+            <textarea id="message" name="message" rows="6"></textarea>
+            <p class="t-caption hint">Optional. A paragraph is plenty.</p>
+          </div>
+
+          {/* Honeypot. Off-screen rather than display:none, because some bots
+               skip hidden fields but fill positioned ones. Never focusable and
+               never announced. */}
+          <div class="honeypot" aria-hidden="true">
+            <label for="website">Do not fill this in</label>
+            <input id="website" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          {/* Time trap. Filled by the inline script below and checked on
+               submit. Without JavaScript the field stays empty and the form
+               still submits — spam filtering must not cost a real enquiry. */}
+          <input id="elapsed" name="_elapsed" type="hidden" value="" />
+
+          {/* POPIA. Explicit, unticked by default, and bound to a real
+               <label>. The statement below it says what the data is for and
+               how long it is kept in plain language. */}
+          <div class="consent">
+            <input id="consent" name="consent" type="checkbox" required />
+            <label for="consent" class="t-body-sm">
+              I agree that TGM Group may use the details above to respond to
+              this enquiry.
+            </label>
+          </div>
+
+          <p class="t-caption popia">
+            We use what you send here to reply to you and to prepare for the
+            call. We do not sell it, we do not add you to a mailing list, and we
+            do not share it outside TGM Group. We keep it for 24 months and then
+            delete it. You can ask us to delete it sooner, or ask what we hold,
+            at any time — email
+            <a href={`mailto:${site.email}`}>{site.email}</a>. See our
+            <a href="/privacy/">privacy policy</a> for the full position.
+          </p>
+
+          <p id="too-fast" class="t-body-sm error" hidden>
+            That was submitted faster than a person can type. If you are not a
+            bot, wait a moment and try again.
+          </p>
+
+          <Button
+            type="submit"
+            variant="gold"
+            size="lg"
+            disabled={!formReady}
+            class={formReady ? '' : 'is-disabled'}
+          >
+            Book a discovery call
+          </Button>
+        </form>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  /* The entire JavaScript budget for this page, and one of only two scripts on
+     the site. It stamps how long the form was on screen and rejects anything
+     submitted in under three seconds — which no human completing five fields
+     manages, and most bots do.
+
+     Everything degrades: with JS off the field stays empty, the check never
+     runs, and the form submits normally. */
+  const form = document.getElementById('enquiry') as HTMLFormElement | null;
+  const elapsed = document.getElementById('elapsed') as HTMLInputElement | null;
+  const warning = document.getElementById('too-fast');
+
+  if (form && elapsed) {
+    const loadedAt = Date.now();
+
+    form.addEventListener('submit', (event) => {
+      const ms = Date.now() - loadedAt;
+      elapsed.value = String(ms);
+
+      if (ms < 3000) {
+        event.preventDefault();
+        warning?.removeAttribute('hidden');
+      }
+    });
+  }
+</script>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  /* ---- Direct details -------------------------------------------------- */
+
+  .direct {
+    padding: var(--space-5);
+    background: var(--surface-sunken);
+    border-radius: var(--radius-md);
+  }
+
+  .direct-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin: var(--space-4) 0 0;
+  }
+
+  .direct-list dd {
+    margin: var(--space-1) 0 0;
+  }
+
+  .direct-key {
+    margin: 0;
+    color: var(--ink-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .direct-link {
+    color: var(--teal-ink);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    word-break: break-word;
+  }
+
+  .direct-link:hover {
+    border-bottom-color: var(--teal-ink);
+  }
+
+  .direct-plain {
+    color: var(--ink-muted);
+  }
+
+  .expect {
+    margin-top: var(--space-5);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border-strong);
+  }
+
+  .expect-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin: var(--space-3) 0 0;
+    padding-left: var(--space-4);
+    color: var(--ink-muted);
+  }
+
+  /* ---- Form ------------------------------------------------------------ */
+
+  .form-heading {
+    color: var(--ink);
+  }
+
+  .form-notice {
+    margin-top: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border-left: 3px solid var(--gold);
+    background: var(--surface-sunken);
+    color: var(--ink);
+  }
+
+  .form-notice a {
+    color: var(--teal-ink);
+    font-weight: 600;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-top: var(--space-5);
+    max-width: 640px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .label {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  input[type='text'],
+  input[type='email'],
+  select,
+  textarea {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 14px;
+    background: var(--surface);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: var(--text-body-sm);
+    line-height: 1.5;
+    /* --border-strong, not --hairline: a form field's border carries meaning,
+       so it has to clear 3:1. */
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  input:hover,
+  select:hover,
+  textarea:hover {
+    border-color: var(--navy);
+  }
+
+  .hint {
+    color: var(--ink-muted);
+  }
+
+  /* Off-screen, not hidden. Never reachable by keyboard or screen reader. */
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .consent {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--surface-sunken);
+    border-radius: var(--radius-sm);
+  }
+
+  /* 24px box inside a 44px hit area via the label's padding. */
+  .consent input[type='checkbox'] {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    margin-top: 2px;
+    accent-color: var(--teal);
+  }
+
+  .consent label {
+    color: var(--ink);
+  }
+
+  .popia {
+    color: var(--ink-muted);
+  }
+
+  .popia a {
+    color: var(--teal-ink);
+    font-weight: 600;
+  }
+
+  .error {
+    padding: var(--space-3) var(--space-4);
+    border-left: 3px solid var(--navy);
+    background: var(--surface-sunken);
+    color: var(--ink);
+  }
+
+  /* The submit button while there is no endpoint. The button carries a real
+     `disabled` attribute — this only styles it to match. */
+  .form :global(.is-disabled) {
+    background: var(--surface-sunken);
+    color: var(--ink-muted);
+    box-shadow: inset 0 0 0 1px var(--border-strong);
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 900px) {
+    .contact-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

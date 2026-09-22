@@ -1,0 +1,535 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+import Motif from '../components/Motif.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import PhaseStep from '../components/PhaseStep.astro';
+import StatBlock from '../components/StatBlock.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { cta, sectors, phases, stats, practices } from '../data/site';
+import { organizationSchema, localBusinessSchema } from '../lib/schema';
+
+const services = (await getCollection('services')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<Base
+  title="TGM Group — business transformation and growth partner, South Africa"
+  description="TGM Group fixes the operations, systems and data underneath your strategy. Consulting, analytics, AI and automation for South African organisations. Book a discovery call."
+  jsonLd={[organizationSchema(), localBusinessSchema()]}
+>
+  {/* 2. Hero -----------------------------------------------------------*/}
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <span class="rule" aria-hidden="true"></span>
+        <h1 class="t-hero hero-title">
+          Build the structure your growth is standing on
+        </h1>
+        <p class="t-lead hero-lead">
+          TGM Group is a South African business transformation partner. We fix
+          the operations, systems and data underneath the strategy — then stay
+          to make sure it holds.
+        </p>
+        <div class="hero-actions">
+          <Button href={cta.href} variant="gold">{cta.label}</Button>
+          <Button href="#approach" variant="outline">See how we work</Button>
+        </div>
+      </div>
+
+      <Motif />
+    </div>
+  </section>
+
+  {/* 3. Proof strip -------------------------------------------------------
+       Sector words, not logo placeholders. Until there is written permission
+       to use client logos, this is the honest version. */}
+  <section class="proof">
+    <div class="wrap proof-inner">
+      <p class="t-nav proof-label">Working with organisations across</p>
+      <ul class="proof-sectors">
+        {
+          sectors.map((sector) => (
+            <li class="proof-sector">
+              {sector ?? (
+                <>
+                  <span class="placeholder" aria-hidden="true">
+                    [Sector]
+                  </span>
+                  <span class="sr-only">Fourth sector to be supplied</span>
+                </>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* 4. Statement ---------------------------------------------------------
+       The section that does the persuading. It stays dark, it stays short,
+       and nothing else gets added to it. */}
+  <section class="statement on-dark">
+    <div class="wrap statement-inner">
+      <h2 class="t-h2-dark statement-heading">
+        You do not have a growth problem. You have an operations problem.
+      </h2>
+      <div class="statement-body">
+        <span class="rule" aria-hidden="true"></span>
+        <p class="t-lead">
+          Almost every organisation that comes to us arrives with a growth
+          target and a plan to hit it. The plan is usually fine. What is missing
+          is the operation underneath it — the process that breaks at volume,
+          the reporting nobody trusts, the decision that waits three weeks for
+          one person.
+        </p>
+        <p class="t-lead">
+          You cannot sell your way out of that. We find the constraint, design
+          the fix with the people who will run it, and stay long enough to see
+          whether it survives a busy quarter.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* 5. Services --------------------------------------------------------*/}
+  <section id="services" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="rule rule-teal" aria-hidden="true"></span>
+          <h2 class="t-h2 section-title">What we do</h2>
+        </div>
+        <p class="t-body section-intro">
+          Five areas of work, delivered through two practices. Most engagements
+          start in one and touch two — the constraint is rarely where the
+          symptom is.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        {
+          services.map((service) => (
+            <ServiceCard
+              title={service.data.title}
+              body={service.data.summary}
+              accent={service.data.accent}
+            />
+          ))
+        }
+
+        {/* The sixth cell is a CTA in the grid, not a seventh service. */}
+        <ServiceCard
+          variant="cta"
+          title="Not sure which one you need?"
+          body="Most people are not, at the start. That is what the discovery call is for — ninety minutes to work out where the actual constraint sits before anyone proposes anything."
+          href={cta.href}
+          ctaLabel={cta.label}
+        />
+      </div>
+    </div>
+  </section>
+
+  {/* 6. Approach --------------------------------------------------------*/}
+  <section id="approach" class="section approach">
+    <div class="wrap">
+      <span class="rule" aria-hidden="true"></span>
+      <h2 class="t-h2 section-title">How an engagement runs</h2>
+      <p class="t-lead approach-intro">
+        Four phases, in order. You can stop after any one of them.
+      </p>
+
+      <div class="phase-grid">
+        {
+          phases.map((phase) => (
+            <PhaseStep
+              number={phase.number}
+              name={phase.name}
+              headline={phase.headline}
+              body={phase.body}
+              accent={phase.accent}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* 7. Evidence --------------------------------------------------------*/}
+  <section id="evidence" class="section">
+    <div class="wrap evidence-inner">
+      <div class="evidence-copy">
+        <span class="rule rule-teal" aria-hidden="true"></span>
+        <h2 class="t-h2 section-title">Evidence, not adjectives</h2>
+        <p class="t-body evidence-body">
+          Consulting is full of claims that cannot be checked. Every figure we
+          publish names the client, the sector and the period it was measured
+          over, and we do not publish one until the client has agreed to it
+          being public.
+        </p>
+        {/* The case studies index does not exist yet: the cases collection is
+             empty by design. This link is intentionally left pointing at
+             /contact/ rather than a 404. Swap it to /cases/ when there is
+             something cleared to publish. */}
+        <a href="/contact/" class="link-arrow">
+          Ask for the case studies
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+
+      <div class="stat-grid">
+        {
+          /* Each block is wrapped in a cell we own, so the mobile rule that
+             drops the third one targets an element in this file rather than
+             reaching into StatBlock's scoped markup. */
+          stats.map((stat) => (
+            <div class="stat-cell">
+              <StatBlock
+                figure={stat.figure}
+                unit={stat.unit}
+                description={stat.description}
+                source={stat.source}
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* 8. Practices ---------------------------------------------------------
+       The coloured top border appears here and nowhere else. It is carrying
+       real information — which practice — not decoration. */}
+  <section id="about" class="section practices">
+    <div class="wrap">
+      <h2 class="t-h2 section-title">Two practices, one group</h2>
+
+      <div class="practice-grid">
+        {
+          practices.map((practice) => (
+            <article class:list={['practice-card', `practice-${practice.accent}`]}>
+              <h3 class="t-h3">{practice.name}</h3>
+              <p class="t-body-sm practice-body">{practice.description}</p>
+              <ul class="practice-list">
+                {practice.focus.map((item) => (
+                  <li class="t-body-sm">{item}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* 9. CTA band --------------------------------------------------------*/}
+  <CtaBand />
+</Base>
+
+<style>
+  /* ---- Hero ------------------------------------------------------------ */
+
+  .hero-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    padding-block: var(--space-7);
+  }
+
+  .hero-copy {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .hero-title {
+    margin-top: var(--space-4);
+    max-width: 740px;
+    color: var(--ink);
+  }
+
+  .hero-lead {
+    margin-top: var(--space-4);
+    max-width: 620px;
+    color: var(--ink-muted);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+  }
+
+  /* ---- Proof strip ----------------------------------------------------- */
+
+  .proof {
+    background: var(--surface-sunken);
+  }
+
+  .proof-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    min-height: 148px;
+    padding-block: var(--space-4);
+  }
+
+  .proof-label {
+    color: var(--ink-muted);
+    flex: none;
+  }
+
+  .proof-sectors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .proof-sector {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 19px;
+    color: var(--navy);
+  }
+
+  /* ---- Statement ------------------------------------------------------- */
+
+  .statement {
+    background: var(--surface-deep);
+    padding-block: var(--space-7);
+  }
+
+  .statement-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  .statement-heading {
+    max-width: 620px;
+    color: var(--ink-inverse);
+  }
+
+  .statement-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .statement-body p {
+    color: var(--ink-inverse-muted);
+  }
+
+  /* ---- Shared section furniture ---------------------------------------- */
+
+  .section-title {
+    margin-top: var(--space-4);
+    color: var(--ink);
+  }
+
+  .section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-6);
+    margin-bottom: var(--space-6);
+  }
+
+  .section-intro {
+    max-width: 460px;
+    text-align: right;
+    color: var(--ink-muted);
+  }
+
+  /* ---- Services grid ---------------------------------------------------- */
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  /* ---- Approach --------------------------------------------------------- */
+
+  .approach {
+    background: var(--surface-sunken);
+  }
+
+  .approach-intro {
+    margin-top: var(--space-4);
+    max-width: 620px;
+    color: var(--ink-muted);
+  }
+
+  .phase-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 32px;
+    margin-top: var(--space-6);
+  }
+
+  /* ---- Evidence --------------------------------------------------------- */
+
+  .evidence-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  .evidence-copy {
+    max-width: 420px;
+  }
+
+  .evidence-body {
+    margin-block: var(--space-4);
+    color: var(--ink-muted);
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+
+  /* ---- Practices -------------------------------------------------------- */
+
+  .practice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+  }
+
+  .practice-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-5);
+    border: 1px solid var(--hairline);
+    border-top: 5px solid var(--gold);
+    border-radius: var(--radius-md);
+  }
+
+  .practice-teal {
+    border-top-color: var(--teal);
+  }
+
+  .practice-body {
+    color: var(--ink-muted);
+  }
+
+  .practice-list {
+    margin: var(--space-2) 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .practice-list li {
+    position: relative;
+    padding-left: var(--space-4);
+    color: var(--ink-muted);
+  }
+
+  /* A 8x2 gold tick-mark. Decorative: the list is already a list. */
+  .practice-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 8px;
+    height: 2px;
+    background: var(--gold);
+  }
+
+  .practice-teal .practice-list li::before {
+    background: var(--teal);
+  }
+
+  /* ---- Responsive -------------------------------------------------------
+     Three breakpoints only: the grids collapse 3->2 then 2->1, and the two
+     split sections stack. */
+
+  @media (max-width: 1100px) {
+    .services-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .phase-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-5);
+    }
+    .evidence-inner {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .stat-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-5);
+      padding-block: var(--space-6);
+    }
+    .statement-inner {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-5);
+    }
+    .section-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-4);
+    }
+    .section-intro {
+      text-align: left;
+    }
+    .practice-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .services-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .phase-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .proof-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-3);
+      min-height: 0;
+    }
+    .proof-sectors {
+      gap: var(--space-3) var(--space-4);
+    }
+    .statement,
+    .hero-inner {
+      padding-block: var(--section-m);
+    }
+
+    /* Two stat blocks on mobile, stacked. The third is dropped rather than
+       squeezed — the design spec is explicit about this. */
+    .stat-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-5);
+    }
+    .stat-cell:nth-child(3) {
+      display: none;
+    }
+  }
+</style>

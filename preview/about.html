@@ -1,0 +1,240 @@
+<!doctype html>
+<!--
+  TGM GROUP — STANDALONE PREVIEW. NOT THE WEBSITE.
+
+  A hand-built mirror of the Astro source in ../src, so the site can be looked
+  at before Node is installed. It will drift; edit the Astro source, not this.
+  Do not deploy these files: they have no JSON-LD, no canonical URL, no sitemap
+  and no real font strategy.
+
+  TWO DELIBERATE DIFFERENCES FROM THE BUILD:
+  1. Fonts load from Google so you can see the real typefaces. The actual site
+     self-hosts them and must never load from fonts.googleapis.com.
+  2. Links point at local .html files (services.html) rather than the site's
+     real routes (/services/), so navigation works from the file system.
+-->
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About TGM Group — who we are and how we work</title>
+<meta name="description" content="TGM Group is a South African business transformation and growth partner founded by Trevor G. Menyatso, delivering through two practices.">
+<link rel="icon" href="../public/favicon.svg" type="image/svg+xml">
+<!-- PREVIEW ONLY — see the note above. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="preview.css">
+</head>
+
+<body class="page-about">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="index.html" aria-label="TGM Group — home" class="logo t-wordmark" style="--logo-colour:var(--navy);--logo-size:26px">TGM GROUP</a>
+
+    <nav class="desktop-nav" aria-label="Primary">
+      <ul>
+        <li><a href="services.html" class="nav-link t-nav">Services</a></li>
+        <li><a href="approach.html" class="nav-link t-nav">Approach</a></li>
+        <li><a href="index.html#evidence" class="nav-link t-nav">Evidence</a></li>
+        <li><a href="about.html" class="nav-link t-nav" aria-current="page">About</a></li>
+      </ul>
+      <a href="contact.html" class="btn btn-navy">Book a discovery call</a>
+    </nav>
+
+    <details class="mobile-nav">
+      <summary class="menu-button" aria-label="Menu">
+        <svg class="icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <svg class="icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true">
+          <line x1="4" y1="4" x2="20" y2="20"></line>
+          <line x1="20" y1="4" x2="4" y2="20"></line>
+        </svg>
+      </summary>
+      <div class="menu-panel">
+        <nav aria-label="Primary, mobile">
+          <ul>
+            <li><a href="services.html" class="mobile-link">Services</a></li>
+            <li><a href="approach.html" class="mobile-link">Approach</a></li>
+            <li><a href="index.html#evidence" class="mobile-link">Evidence</a></li>
+            <li><a href="about.html" class="mobile-link" aria-current="page">About</a></li>
+          </ul>
+        </nav>
+        <a href="contact.html" class="btn btn-gold btn-block">Book a discovery call</a>
+      </div>
+    </details>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="rule rule-navy" aria-hidden="true"></span>
+      <h1 class="t-hero page-title">A transformation partner that stays past the diagnosis</h1>
+      <p class="t-lead page-lead">TGM Group helps South African organisations improve how they operate, solve the problems underneath the symptoms, adopt AI and automation where it earns its cost, and grow in a way the business can absorb.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap about-grid">
+      <div>
+        <span class="rule" aria-hidden="true"></span>
+        <h2 class="t-h2 section-title">What we are</h2>
+      </div>
+      <div class="prose">
+        <p>TGM Group is a business transformation and growth partner working with organisations in South Africa. The work divides into two practices — one focused on how a business runs, the other on what it can see about itself — and most engagements involve both.</p>
+        <p>The position is narrow on purpose. We are not a generalist agency and we do not sell technology. We work on the operating layer: the processes, the decision rights, the reporting and the data that determine whether a strategy turns into anything.</p>
+        <p>We also stay. The common failure of consulting is a well-argued recommendation delivered to a team with no capacity to implement it. Our engagement model has four phases and implementation is two of them.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section practices-section">
+    <div class="wrap">
+      <span class="rule rule-teal" aria-hidden="true"></span>
+      <h2 class="t-h2 section-title">Two practices, one group</h2>
+      <p class="t-lead practices-intro">Separate capabilities, one engagement. You deal with one team and one scope, not two suppliers coordinating with each other.</p>
+
+      <div class="practice-grid">
+        <article class="practice-card practice-gold">
+          <h3 class="t-h3">TGM Business Services</h3>
+          <p class="t-body-sm practice-body">Consulting, operations and strategic execution. The work of finding the constraint in how an organisation runs, designing the fix, and being there while it is implemented.</p>
+          <ul class="practice-list">
+            <li class="t-body-sm">Operating model and process design</li>
+            <li class="t-body-sm">Business growth and go-to-market</li>
+            <li class="t-body-sm">Programme and strategic execution</li>
+            <li class="t-body-sm">Leadership and team capability</li>
+          </ul>
+        </article>
+
+        <article class="practice-card practice-teal">
+          <h3 class="t-h3">TGM Business Analytics</h3>
+          <p class="t-body-sm practice-body">Data, reporting, dashboards and AI. The work of making an organisation able to see itself clearly enough to decide, and automating what should never have been manual.</p>
+          <ul class="practice-list">
+            <li class="t-body-sm">Reporting and dashboard design</li>
+            <li class="t-body-sm">Data quality and single source of truth</li>
+            <li class="t-body-sm">AI and automation opportunity assessment</li>
+            <li class="t-body-sm">Measurement that survives scrutiny</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap about-grid">
+      <div>
+        <span class="rule" aria-hidden="true"></span>
+        <h2 class="t-h2 section-title">Trevor G. Menyatso</h2>
+        <p class="t-caption founder-role">Founder and lead consultant</p>
+      </div>
+
+      <div class="founder-body">
+        <p class="t-lead founder-lead">Trevor leads every engagement personally. The diagnosis is his work, not a junior's, and he is in the room for the implementation.</p>
+
+        <div class="gap-note">
+          <p class="t-body-sm"><span class="placeholder">[Founder biography]</span></p>
+          <p class="t-caption gap-detail">Professional background, sectors, qualifications and time in practice — to be supplied by Trevor. Left empty deliberately: an invented consulting biography is the fastest way to lose a reader who checks.</p>
+        </div>
+
+        <p class="t-body">In the meantime, the honest version is this: ask him directly. The discovery call is ninety minutes and costs nothing, and it is a better test of whether he knows your problem than a paragraph on a website would be.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section details-section">
+    <div class="wrap">
+      <span class="rule rule-navy" aria-hidden="true"></span>
+      <h2 class="t-h2 section-title">Company details</h2>
+
+      <dl class="details">
+        <div class="detail-row">
+          <dt class="t-caption detail-key">Registered name</dt>
+          <dd class="t-body-sm detail-value">TGM Group</dd>
+        </div>
+        <div class="detail-row">
+          <dt class="t-caption detail-key">Registration number</dt>
+          <dd class="t-body-sm detail-value"><span class="placeholder">[Registration number]</span></dd>
+        </div>
+        <div class="detail-row">
+          <dt class="t-caption detail-key">VAT number</dt>
+          <dd class="t-body-sm detail-value"><span class="placeholder">[VAT number, if registered]</span></dd>
+        </div>
+        <div class="detail-row">
+          <dt class="t-caption detail-key">Registered address</dt>
+          <dd class="t-body-sm detail-value"><span class="placeholder">[Registered address]</span></dd>
+        </div>
+        <div class="detail-row">
+          <dt class="t-caption detail-key">Email</dt>
+          <dd class="t-body-sm detail-value"><a href="mailto:info@trevorgmenyatsogroup.co.za">info@trevorgmenyatsogroup.co.za</a></dd>
+        </div>
+        <div class="detail-row">
+          <dt class="t-caption detail-key">Telephone</dt>
+          <dd class="t-body-sm detail-value"><a href="tel:+27815171016">081 517 1016</a></dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="contact" class="cta-band on-dark">
+    <div class="wrap cta-inner">
+      <div class="cta-copy">
+        <h2 class="t-h2 cta-heading">Ninety minutes. A straight answer about what is actually holding you back.</h2>
+        <p class="t-lead cta-sub">No charge, no deck, no obligation to engage us afterwards.</p>
+      </div>
+      <a href="contact.html" class="btn btn-gold btn-lg">Book a discovery call</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer on-dark">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo t-wordmark" style="--logo-colour:var(--ink-inverse);--logo-size:22px">TGM GROUP</span>
+        <p class="t-body-sm brand-copy">
+          A South African business transformation and growth partner. We fix the
+          operations, systems and data underneath the strategy, then stay to make
+          sure it holds.
+        </p>
+      </div>
+
+      <nav class="footer-group" aria-label="Company">
+        <h2 class="footer-heading t-caption">Company</h2>
+        <ul>
+          <li><a href="services.html" class="footer-link t-body-sm">Services</a></li>
+          <li><a href="approach.html" class="footer-link t-body-sm">Approach</a></li>
+          <li><a href="about.html" class="footer-link t-body-sm">About</a></li>
+          <li><a href="contact.html" class="footer-link t-body-sm">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer-group">
+        <h2 class="footer-heading t-caption">Contact</h2>
+        <ul>
+          <li><a href="mailto:info@trevorgmenyatsogroup.co.za" class="footer-link t-body-sm">info@trevorgmenyatsogroup.co.za</a></li>
+          <li><a href="tel:+27815171016" class="footer-link t-body-sm">081 517 1016</a></li>
+          <!-- LinkedIn omitted: the URL has not been supplied. -->
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="t-caption">&copy; 2026 TGM Group. All rights reserved.</p>
+      <ul class="legal">
+        <li><a href="privacy.html" class="footer-link t-caption">Privacy</a></li>
+        <li><a href="terms.html" class="footer-link t-caption">Terms</a></li>
+        <li><a href="paia.html" class="footer-link t-caption">PAIA manual</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<div class="preview-flag">PREVIEW — not the built site</div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+Empty on purpose. Case studies go here only when Trevor has supplied a
+measured result with a named client, a period, and written permission to
+name them. Do not seed this directory with illustrative examples — the
+site renders nothing while it is empty, which is the correct behaviour.

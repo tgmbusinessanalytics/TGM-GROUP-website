@@ -1,0 +1,194 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ReviewNotice from '../components/ReviewNotice.astro';
+import { site } from '../data/site';
+import { breadcrumbSchema } from '../lib/schema';
+
+/* The PAIA manual is a statutory obligation, not a nice-to-have. Section 51 of
+   the Promotion of Access to Information Act requires every private body to
+   compile one, keep it current, and make it available — including on its
+   website if it has one. POPIA amended what it must contain.
+
+   This page is the shape of a compliant manual with the facts that have not
+   been supplied left visible. It is not yet a compliant manual. */
+---
+
+<Base
+  title="PAIA manual | TGM Group"
+  description="TGM Group's manual in terms of section 51 of the Promotion of Access to Information Act, including how to request access to records."
+  jsonLd={[breadcrumbSchema([{ name: 'PAIA manual', href: '/paia/' }])]}
+>
+  <PageHero
+    accent="navy"
+    title="PAIA manual"
+    lead="Our manual under section 51 of the Promotion of Access to Information Act 2 of 2000, as amended by POPIA. It explains what records we hold and how to request access to them."
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="prose">
+        <ReviewNotice>
+          A PAIA manual is a statutory requirement with prescribed content and
+          a prescribed request form. This draft has the right structure, but it
+          is not compliant until the information officer, the registered
+          address and the records schedule below are completed and an attorney
+          has confirmed it.
+        </ReviewNotice>
+
+        <h2>1. Particulars of the private body</h2>
+        <ul>
+          <li>
+            <strong>Name:</strong> {site.legalName}
+          </li>
+          <li>
+            <strong>Registration number:</strong>
+            <span class="placeholder">[Registration number]</span>
+          </li>
+          <li>
+            <strong>Physical address:</strong>
+            <span class="placeholder">[Registered address]</span>
+          </li>
+          <li>
+            <strong>Postal address:</strong>
+            <span class="placeholder">[Postal address]</span>
+          </li>
+          <li>
+            <strong>Telephone:</strong>
+            <a href={site.phoneHref}>{site.phoneDisplay}</a>
+          </li>
+          <li>
+            <strong>Email:</strong>
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+          </li>
+          <li>
+            <strong>Website:</strong> {site.url}
+          </li>
+        </ul>
+
+        <h2>2. Information officer</h2>
+        <p>
+          <span class="placeholder">[Name, designation and contact details]</span>
+        </p>
+        <p>
+          The head of a private body is the information officer by default.
+          Confirm whether a deputy information officer has been designated, and
+          whether registration with the Information Regulator has been
+          completed.
+        </p>
+
+        <h2>3. The Information Regulator's guide</h2>
+        <p>
+          The Information Regulator has compiled a guide explaining how to use
+          PAIA. It is available from the Regulator in each official language,
+          and can be requested from:
+        </p>
+        <ul>
+          <li>The Information Regulator (South Africa), PO Box 31533, Braamfontein, Johannesburg, 2017</li>
+          <li>Email: <a href="mailto:inforeg@justice.gov.za">inforeg@justice.gov.za</a></li>
+          <li>Website: <a href="https://inforegulator.org.za" rel="noopener">inforegulator.org.za</a></li>
+        </ul>
+
+        <h2>4. Records held</h2>
+        <p>
+          A complete manual must list the categories of records we hold, and
+          state which are automatically available and which require a request.
+          The categories below are indicative and must be confirmed against
+          what the business actually keeps.
+        </p>
+        <ul>
+          <li>
+            <strong>Company records</strong> — incorporation documents, statutory
+            registers, minutes and resolutions
+          </li>
+          <li>
+            <strong>Financial records</strong> — annual financial statements,
+            tax returns, invoices, banking records
+          </li>
+          <li>
+            <strong>Client records</strong> — engagement agreements,
+            correspondence, deliverables, working papers
+          </li>
+          <li>
+            <strong>Personnel records</strong> — contracts, payroll, statutory
+            returns
+          </li>
+          <li>
+            <strong>Enquiry records</strong> — submissions through this website,
+            as described in our <a href="/privacy/">privacy policy</a>
+          </li>
+        </ul>
+        <p>
+          <span class="placeholder">[Confirm and complete this schedule]</span>
+        </p>
+
+        <h2>5. Records available without a formal request</h2>
+        <p>
+          Nothing has been published under section 52 of PAIA. Our privacy
+          policy, terms of use and this manual are freely available on this
+          website.
+        </p>
+
+        <h2>6. How to request access</h2>
+        <ol>
+          <li>
+            Complete the prescribed request form (Form 2 of the PAIA
+            Regulations). <span class="placeholder">[Link to the form]</span>
+          </li>
+          <li>
+            Send it to the information officer at
+            <a href={`mailto:${site.email}`}>{site.email}</a> or the postal
+            address above.
+          </li>
+          <li>
+            Provide enough detail to identify the record and to identify
+            yourself, and state the form of access you want.
+          </li>
+          <li>
+            If the request is in the public interest or relates to your own
+            personal information, say so and explain why.
+          </li>
+          <li>
+            Pay the prescribed request fee where one applies. Access fees are
+            payable before the record is released.
+          </li>
+        </ol>
+        <p>
+          We will respond within 30 days. That period may be extended once, by
+          up to 30 days, where the request is for a large number of records or
+          requires a search through records held elsewhere — we will tell you in
+          writing if that happens.
+        </p>
+
+        <h2>7. Grounds for refusal</h2>
+        <p>
+          We may refuse access where PAIA requires or permits it, including
+          where release would unreasonably disclose someone else's personal
+          information, breach a duty of confidence owed to a client, disclose
+          commercial information belonging to a third party, or where the record
+          is privileged in legal proceedings. If we refuse, we will tell you
+          which ground we relied on and how to appeal.
+        </p>
+
+        <h2>8. Fees</h2>
+        <p>
+          The request and access fees prescribed under PAIA apply. The current
+          schedule is published by the Information Regulator.
+          <span class="placeholder">[Confirm current fee schedule]</span>
+        </p>
+
+        <h2>9. Availability of this manual</h2>
+        <p>
+          This manual is available on this website, and on request at our
+          registered address, at no charge. It is also lodged with the
+          Information Regulator.
+          <span class="placeholder">[Confirm lodgement]</span>
+        </p>
+        <p>
+          <strong>Last updated:</strong>
+          <span class="placeholder">[Date of legal sign-off]</span>
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

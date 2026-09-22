@@ -1,0 +1,130 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ReviewNotice from '../components/ReviewNotice.astro';
+import { site } from '../data/site';
+import { breadcrumbSchema } from '../lib/schema';
+---
+
+<Base
+  title="Terms of use | TGM Group"
+  description="The terms on which the TGM Group website is made available, and the relationship between this website and any engagement agreement."
+  jsonLd={[breadcrumbSchema([{ name: 'Terms', href: '/terms/' }])]}
+>
+  <PageHero
+    accent="navy"
+    title="Terms of use"
+    lead="The terms on which this website is made available. These govern the website only — the terms of any actual engagement live in a separate signed agreement."
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="prose">
+        <ReviewNotice>
+          The ECTA disclosure block in particular needs the registration number
+          and physical address before it is complete, and the limitation of
+          liability needs an attorney's eye.
+        </ReviewNotice>
+
+        <h2>Who operates this website</h2>
+        <p>
+          This website is operated by {site.name}. Section 43 of the Electronic
+          Communications and Transactions Act requires the following
+          disclosures:
+        </p>
+        <ul>
+          <li>
+            <strong>Registered name:</strong> {site.legalName}
+          </li>
+          <li>
+            <strong>Registration number:</strong>
+            <span class="placeholder">[Registration number]</span>
+          </li>
+          <li>
+            <strong>Physical address:</strong>
+            <span class="placeholder">[Registered address]</span>
+          </li>
+          <li>
+            <strong>Email:</strong>
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+          </li>
+          <li>
+            <strong>Telephone:</strong>
+            <a href={site.phoneHref}>{site.phoneDisplay}</a>
+          </li>
+          <li>
+            <strong>Directors / members:</strong>
+            <span class="placeholder">[Names]</span>
+          </li>
+        </ul>
+
+        <h2>This website is not an offer</h2>
+        <p>
+          Everything on this site is general information about what we do. It is
+          not professional advice, it is not an offer capable of acceptance, and
+          nothing on it creates a contractual relationship between us.
+        </p>
+        <p>
+          Any engagement between {site.name} and a client is governed by a
+          separate written agreement setting out scope, fees, timelines and
+          deliverables. Where this website and that agreement differ, the
+          agreement applies.
+        </p>
+
+        <h2>Accuracy</h2>
+        <p>
+          We take care that what is published here is accurate at the time of
+          publication, and we correct errors when we find them. We do not
+          warrant that the site is free of error or that it will always be
+          available.
+        </p>
+        <p>
+          Any figures describing past results name the client, the sector and
+          the period they were measured over. They describe what happened in
+          that engagement. They are not a prediction of what will happen in
+          yours.
+        </p>
+
+        <h2>Intellectual property</h2>
+        <p>
+          The content, design, wordmark and visual system on this site belong to
+          {site.name} unless stated otherwise. You may read, print and share
+          pages for your own non-commercial purposes. You may not republish,
+          resell or pass off the material as your own.
+        </p>
+
+        <h2>Links to other websites</h2>
+        <p>
+          Where we link to another site, we do so because it was useful at the
+          time. We do not control those sites and are not responsible for their
+          content or their privacy practices.
+        </p>
+
+        <h2>Limitation of liability</h2>
+        <p>
+          <span class="placeholder">[Attorney to draft]</span> — this clause
+          should be written specifically for {site.name} rather than copied from
+          another site. A limitation of liability that is too broad is
+          unenforceable under South African consumer protection law, and one
+          that is absent leaves the business exposed.
+        </p>
+
+        <h2>Governing law</h2>
+        <p>
+          These terms are governed by the laws of the Republic of South Africa,
+          and the South African courts have jurisdiction.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          Questions about these terms:
+          <a href={`mailto:${site.email}`}>{site.email}</a>.
+        </p>
+        <p>
+          <strong>Last updated:</strong>
+          <span class="placeholder">[Date of legal sign-off]</span>
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

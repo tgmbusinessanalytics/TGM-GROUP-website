@@ -1,0 +1,230 @@
+---
+import Logo from './Logo.astro';
+import { nav, cta } from '../data/site';
+
+/* Mark the current page. Nav hrefs end in a slash; the Evidence entry is a
+   homepage anchor and never matches. */
+const normalise = (p: string) => (p.length > 1 ? p.replace(/\/+$/, '') : p);
+const path = normalise(Astro.url.pathname);
+const isCurrent = (href: string) => !href.includes('#') && normalise(href) === path;
+---
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <Logo variant="light" size={26} />
+
+    {/* Desktop navigation */}
+    <nav class="desktop-nav" aria-label="Primary">
+      <ul>
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="nav-link t-nav"
+                aria-current={isCurrent(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a href={cta.href} class="btn btn-navy">{cta.label}</a>
+    </nav>
+
+    {/* Mobile navigation.
+
+         A <details> element, so the menu costs zero JavaScript: <summary> is
+         focusable and operable by keyboard natively, and the browser announces
+         its expanded state. The panel is full-screen rather than a slide-in
+         drawer, per the design spec. It resets on navigation because each link
+         is a page load. */}
+    <details class="mobile-nav">
+      <summary class="menu-button" aria-label="Menu">
+        <svg
+          class="icon-open"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="square"
+          aria-hidden="true"
+        >
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <svg
+          class="icon-close"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="square"
+          aria-hidden="true"
+        >
+          <line x1="4" y1="4" x2="20" y2="20"></line>
+          <line x1="20" y1="4" x2="4" y2="20"></line>
+        </svg>
+      </summary>
+
+      <div class="menu-panel">
+        <nav aria-label="Primary, mobile">
+          <ul>
+            {
+              nav.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class="mobile-link"
+                    aria-current={isCurrent(item.href) ? 'page' : undefined}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+        <a href={cta.href} class="btn btn-gold btn-block">{cta.label}</a>
+      </div>
+    </details>
+  </div>
+</header>
+
+<style>
+  /* Solid background, no blur, no transparency, no shrink-on-scroll. */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--surface);
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    height: 96px;
+  }
+
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+  }
+
+  .desktop-nav ul {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+  }
+
+  .nav-link:hover {
+    border-bottom-color: var(--gold);
+  }
+
+  /* Gold is a shape here, not the text colour — the label stays --ink. */
+  .nav-link[aria-current='page'] {
+    border-bottom-color: var(--gold);
+  }
+
+  .mobile-nav {
+    display: none;
+  }
+
+  .menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    color: var(--ink);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  /* Suppress the native disclosure triangle in every engine. */
+  .menu-button::-webkit-details-marker {
+    display: none;
+  }
+  .menu-button::marker {
+    content: '';
+  }
+
+  .icon-close {
+    display: none;
+  }
+  .mobile-nav[open] .icon-open {
+    display: none;
+  }
+  .mobile-nav[open] .icon-close {
+    display: block;
+  }
+
+  .menu-panel {
+    position: fixed;
+    inset: 72px 0 0 0;
+    z-index: 49;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    padding: var(--space-5) var(--gutter-m) var(--space-6);
+    background: var(--surface);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .menu-panel ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .mobile-link {
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: var(--text-h3-m);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .mobile-link[aria-current='page'] {
+    color: var(--teal-ink);
+  }
+
+  @media (max-width: 900px) {
+    .desktop-nav {
+      display: none;
+    }
+    .mobile-nav {
+      display: block;
+    }
+    .header-inner {
+      height: 72px;
+    }
+  }
+</style>

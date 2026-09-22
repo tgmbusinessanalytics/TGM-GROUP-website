@@ -1,0 +1,189 @@
+---
+import Logo from './Logo.astro';
+import { site, footerLinks, legalLinks } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer on-dark">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <Logo variant="dark" size={22} as="text" />
+        <p class="t-body-sm brand-copy">
+          A South African business transformation and growth partner. We fix the
+          operations, systems and data underneath the strategy, then stay to make
+          sure it holds.
+        </p>
+      </div>
+
+      <nav class="footer-group" aria-label="Company">
+        <h2 class="footer-heading t-caption">Company</h2>
+        <ul>
+          {
+            footerLinks.map((link) => (
+              <li>
+                <a href={link.href} class="footer-link t-body-sm">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="footer-group">
+        <h2 class="footer-heading t-caption">Contact</h2>
+        <ul>
+          <li>
+            <a href={`mailto:${site.email}`} class="footer-link t-body-sm">{site.email}</a>
+          </li>
+          <li>
+            <a href={site.phoneHref} class="footer-link t-body-sm">{site.phoneDisplay}</a>
+          </li>
+          {
+            /* OPEN ITEM: the LinkedIn company page URL has not been supplied.
+               The design calls for it here. Set `linkedin` in src/data/site.ts
+               and it appears — we are not guessing a profile URL. */
+            site.linkedin && (
+              <li>
+                <a
+                  href={site.linkedin}
+                  class="footer-link t-body-sm"
+                  rel="noopener"
+                >
+                  LinkedIn
+                </a>
+              </li>
+            )
+          }
+        </ul>
+        {
+          /* OPEN ITEM 4: physical address. Rendered here and in the
+             LocalBusiness schema the moment it is confirmed. */
+          site.address && (
+            <address class="t-body-sm footer-address">
+              {site.address.street}
+              <br />
+              {site.address.locality}, {site.address.region}
+              <br />
+              {site.address.postalCode}
+            </address>
+          )
+        }
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="t-caption">
+        &copy; {year} {site.name}. All rights reserved.
+      </p>
+      <ul class="legal">
+        {
+          legalLinks.map((link) => (
+            <li>
+              <a href={link.href} class="footer-link t-caption">
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--surface-deep);
+    color: var(--ink-inverse-muted);
+    padding-block: var(--space-6);
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-6);
+    padding-bottom: var(--space-6);
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .brand-copy {
+    max-width: 320px;
+    color: var(--ink-inverse-muted);
+  }
+
+  .footer-heading {
+    margin: 0 0 var(--space-3);
+    color: var(--ink-inverse);
+    font-family: var(--font-body);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .footer-group ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--ink-inverse-muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .footer-link:hover {
+    color: var(--ink-inverse);
+    border-bottom-color: var(--gold);
+  }
+
+  .footer-address {
+    margin-top: var(--space-3);
+    font-style: normal;
+  }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--hairline-dark);
+  }
+
+  .footer-bottom p {
+    margin: 0;
+  }
+
+  .legal {
+    display: flex;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (max-width: 900px) {
+    .footer-top {
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+    }
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .legal {
+      flex-wrap: wrap;
+    }
+  }
+</style>

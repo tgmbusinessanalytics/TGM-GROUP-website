@@ -1,0 +1,93 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+interface Props {
+  /* Hand-written per page. Not templated, not generated from the h1. */
+  title: string;
+  description: string;
+  /* Structured data for this page. Homepage passes Organization and
+     LocalBusiness; inner pages pass a BreadcrumbList. */
+  jsonLd?: Record<string, unknown>[];
+}
+
+const { title, description, jsonLd = [] } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+
+/* OPEN ITEM: /og.png does not exist yet. public/og-image.svg is the source
+   artwork — export it to PNG at exactly 1200x630 and drop it in public/ as
+   og.png. Until then the tag points at a 404, which degrades to no preview
+   image rather than a wrong one. */
+const ogImage = new URL('/og.png', Astro.site).href;
+---
+
+<!doctype html>
+<html lang="en-ZA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    {/* Geographic targeting: this is a South African business serving South
+         African organisations. */}
+    <meta name="geo.region" content="ZA" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_ZA" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    {/* Only the two faces that block first paint are preloaded. The other
+         three are below the fold and preloading them would compete with these.
+         These tags do nothing until the files exist — see
+         public/fonts/README.md. */}
+    <link
+      rel="preload"
+      href="/fonts/archivo-latin-700.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/source-sans-3-latin-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    {
+      jsonLd.map((schema) => (
+        <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+      ))
+    }
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
