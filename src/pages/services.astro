@@ -30,13 +30,25 @@ const services = await Promise.all(
   />
 
   {/* A contents list. Five sections is enough for it to earn its place, and
-       it gives keyboard users a way past the whole page. */}
-  <nav class="wrap contents" aria-label="On this page">
+       it gives keyboard users a way past the whole page.
+
+       NAMED `toc`, NOT `contents`. Tailwind ships a `.contents` utility that
+       sets `display: contents`, which removes the element's box entirely — the
+       `.wrap` gutter and max-width are still computed but have nothing to
+       apply to, so the links render flush against the viewport edge. Astro's
+       scoped styles are unlayered and beat Tailwind on everything else, but
+       neither `.wrap` nor this block sets `display`, so Tailwind's rule was
+       the only one in play and won uncontested.
+
+       Before naming a class after a plain CSS value — contents, grid, table,
+       block, hidden, fixed, sticky, visible, isolate — check it is not a
+       Tailwind utility first. */}
+  <nav class="wrap toc" aria-label="On this page">
     <ul>
       {
         services.map((service) => (
           <li>
-            <a href={`#${service.id}`} class="contents-link t-body-sm">
+            <a href={`#${service.id}`} class="toc-link t-body-sm">
               {service.data.title}
             </a>
           </li>
@@ -81,12 +93,12 @@ const services = await Promise.all(
 </Base>
 
 <style>
-  .contents {
+  .toc {
     padding-bottom: var(--space-5);
     border-bottom: 1px solid var(--hairline);
   }
 
-  .contents ul {
+  .toc ul {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2) var(--space-4);
@@ -95,7 +107,7 @@ const services = await Promise.all(
     list-style: none;
   }
 
-  .contents-link {
+  .toc-link {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
@@ -105,7 +117,7 @@ const services = await Promise.all(
     border-bottom: 2px solid transparent;
   }
 
-  .contents-link:hover {
+  .toc-link:hover {
     border-bottom-color: var(--teal-ink);
   }
 

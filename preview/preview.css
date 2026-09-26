@@ -661,14 +661,14 @@ img, svg { display: block; max-width: 100%; }
    14. SERVICES — src/pages/services.astro
    ========================================================================== */
 
-.page-services .contents { padding-bottom: var(--space-5); border-bottom: 1px solid var(--hairline); }
-.page-services .contents ul { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); margin: 0; padding: 0; list-style: none; }
-.page-services .contents-link {
+.page-services .toc { padding-bottom: var(--space-5); border-bottom: 1px solid var(--hairline); }
+.page-services .toc ul { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); margin: 0; padding: 0; list-style: none; }
+.page-services .toc-link {
   display: inline-flex; align-items: center; min-height: 44px;
   color: var(--teal-ink); font-weight: 600; text-decoration: none;
   border-bottom: 2px solid transparent;
 }
-.page-services .contents-link:hover { border-bottom-color: var(--teal-ink); }
+.page-services .toc-link:hover { border-bottom-color: var(--teal-ink); }
 
 /* Alternating surfaces separate the sections — TGM separates with hairlines
    and surface changes, not shadow. */
