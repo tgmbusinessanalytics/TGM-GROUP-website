@@ -136,9 +136,17 @@ import { breadcrumbSchema } from '../lib/schema';
         </div>
         <div class="detail-row">
           <dt class="t-caption detail-key">Registration number</dt>
+          <dd class="t-body-sm detail-value">{site.registrationNumber}</dd>
+        </div>
+        <div class="detail-row">
+          <dt class="t-caption detail-key">Registered</dt>
           <dd class="t-body-sm detail-value">
-            <span class="placeholder">[Registration number]</span>
+            {site.registrationDate}, {site.companyType}
           </dd>
+        </div>
+        <div class="detail-row">
+          <dt class="t-caption detail-key">Directors</dt>
+          <dd class="t-body-sm detail-value">{site.directors.join(', ')}</dd>
         </div>
         <div class="detail-row">
           <dt class="t-caption detail-key">VAT number</dt>

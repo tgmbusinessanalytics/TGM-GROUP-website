@@ -29,29 +29,45 @@ import { breadcrumbSchema } from '../lib/schema';
     <div class="wrap">
       <div class="prose">
         <ReviewNotice>
-          A PAIA manual is a statutory requirement with prescribed content and
-          a prescribed request form. This draft has the right structure, but it
-          is not compliant until the information officer, the registered
-          address and the records schedule below are completed and an attorney
-          has confirmed it.
+          The particulars, the information officer and the registered address
+          below are now complete and taken from the CIPC registration
+          certificate and the Information Regulator certificate. The records
+          schedule in section 4 still needs confirming against what the
+          business actually keeps, and an attorney should review the whole
+          document before it is relied on.
         </ReviewNotice>
 
         <h2>1. Particulars of the private body</h2>
         <ul>
           <li>
-            <strong>Name:</strong> {site.legalName}
+            <strong>Registered name:</strong> {site.legalName}
           </li>
           <li>
-            <strong>Registration number:</strong>
-            <span class="placeholder">[Registration number]</span>
+            <strong>Trading as:</strong> {site.name}
+          </li>
+          <li>
+            <strong>Registration number:</strong> {site.registrationNumber}
+          </li>
+          <li>
+            <strong>Date of registration:</strong> {site.registrationDate}
+          </li>
+          <li>
+            <strong>Company type:</strong> {site.companyType}
           </li>
           <li>
             <strong>Physical address:</strong>
-            <span class="placeholder">[Registered address]</span>
+            {
+              site.address && (
+                <>
+                  {site.address.street}, {site.address.locality},{' '}
+                  {site.address.region}, {site.address.postalCode},{' '}
+                  {site.address.country}
+                </>
+              )
+            }
           </li>
           <li>
-            <strong>Postal address:</strong>
-            <span class="placeholder">[Postal address]</span>
+            <strong>Postal address:</strong> As above.
           </li>
           <li>
             <strong>Telephone:</strong>
@@ -64,17 +80,37 @@ import { breadcrumbSchema } from '../lib/schema';
           <li>
             <strong>Website:</strong> {site.url}
           </li>
+          <li>
+            <strong>Directors:</strong> {site.directors.join(', ')}
+          </li>
         </ul>
 
         <h2>2. Information officer</h2>
+        <ul>
+          <li>
+            <strong>Information officer:</strong> {site.informationOfficer.name}
+          </li>
+          <li>
+            <strong>Appointed:</strong> {site.informationOfficer.appointed}
+          </li>
+          <li>
+            <strong>Registered with the Information Regulator:</strong>{' '}
+            {site.informationOfficer.regulatorRegistrationDate}, registration
+            number {site.informationOfficer.regulatorRegistrationNumber}
+          </li>
+          <li>
+            <strong>Contact:</strong>
+            <a href={`mailto:${site.email}`}>{site.email}</a>, or by post to the
+            registered address in section 1. Please mark correspondence for the
+            attention of the information officer.
+          </li>
+        </ul>
         <p>
-          <span class="placeholder">[Name, designation and contact details]</span>
-        </p>
-        <p>
-          The head of a private body is the information officer by default.
-          Confirm whether a deputy information officer has been designated, and
-          whether registration with the Information Regulator has been
-          completed.
+          Registration with the Information Regulator is complete. No deputy
+          information officer has been designated.
+          <span class="placeholder">
+            [Confirm whether a deputy is required given current headcount]
+          </span>
         </p>
 
         <h2>3. The Information Regulator's guide</h2>
@@ -180,9 +216,18 @@ import { breadcrumbSchema } from '../lib/schema';
         <h2>9. Availability of this manual</h2>
         <p>
           This manual is available on this website, and on request at our
-          registered address, at no charge. It is also lodged with the
-          Information Regulator.
-          <span class="placeholder">[Confirm lodgement]</span>
+          registered address, at no charge.
+        </p>
+        <p>
+          Our information officer is registered with the Information Regulator
+          under registration number{' '}
+          {site.informationOfficer.regulatorRegistrationNumber}. Registering the
+          information officer and submitting this manual to the Regulator are
+          separate steps.
+          <span class="placeholder">
+            [Confirm whether the manual itself has been submitted to the
+            Information Regulator]
+          </span>
         </p>
         <p>
           <strong>Last updated:</strong>

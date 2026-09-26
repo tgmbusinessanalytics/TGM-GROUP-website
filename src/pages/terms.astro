@@ -21,9 +21,9 @@ import { breadcrumbSchema } from '../lib/schema';
     <div class="wrap">
       <div class="prose">
         <ReviewNotice>
-          The ECTA disclosure block in particular needs the registration number
-          and physical address before it is complete, and the limitation of
-          liability needs an attorney's eye.
+          The ECTA section 43 disclosure below is now complete, from the CIPC
+          registration certificate. The limitation of liability still needs an
+          attorney's eye before this page is relied on.
         </ReviewNotice>
 
         <h2>Who operates this website</h2>
@@ -37,12 +37,22 @@ import { breadcrumbSchema } from '../lib/schema';
             <strong>Registered name:</strong> {site.legalName}
           </li>
           <li>
-            <strong>Registration number:</strong>
-            <span class="placeholder">[Registration number]</span>
+            <strong>Trading as:</strong> {site.name}
+          </li>
+          <li>
+            <strong>Registration number:</strong> {site.registrationNumber}
           </li>
           <li>
             <strong>Physical address:</strong>
-            <span class="placeholder">[Registered address]</span>
+            {
+              site.address && (
+                <>
+                  {site.address.street}, {site.address.locality},{' '}
+                  {site.address.region}, {site.address.postalCode},{' '}
+                  {site.address.country}
+                </>
+              )
+            }
           </li>
           <li>
             <strong>Email:</strong>
@@ -53,8 +63,7 @@ import { breadcrumbSchema } from '../lib/schema';
             <a href={site.phoneHref}>{site.phoneDisplay}</a>
           </li>
           <li>
-            <strong>Directors / members:</strong>
-            <span class="placeholder">[Names]</span>
+            <strong>Directors:</strong> {site.directors.join(', ')}
           </li>
         </ul>
 

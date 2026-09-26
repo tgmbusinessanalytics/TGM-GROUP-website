@@ -4,9 +4,37 @@
    than guessed. Components check for null and render a visible placeholder or
    omit the element — nothing here invents a fact. */
 
+/* SOURCE OF THE STATUTORY DETAILS BELOW
+
+   Every registration fact here is taken from the company's own documents, not
+   inferred:
+
+   - CoR15.1A / COR14.3 registration certificate, CIPC, issued 13 August 2025
+     (tracking 9441298770): registered name, registration number, registered
+     office, postal address, location of records, directors.
+   - Information Officer Registration Certificate, Information Regulator,
+     issued 14 August 2025: information officer and regulator registration
+     number.
+
+   WHAT IS DELIBERATELY NOT HERE. Those documents also contain both directors'
+   ID numbers, their residential addresses, dates of birth and personal mobile
+   numbers. None of that is on this website. Director names and the registered
+   office are public record and are required by ECTA section 43 and PAIA
+   section 51; the rest is personal information, and publishing it would be a
+   POPIA contravention by the very company whose PAIA manual this is. */
+
 export const site = {
+  /* Trading name, used everywhere the brand speaks. */
   name: 'TGM Group',
-  legalName: 'TGM Group',
+
+  /* Registered name. Required verbatim on the PAIA manual and in the ECTA
+     disclosure — those are about the legal entity, not the brand. */
+  legalName: 'Trevor Goitsemodimo Menyatso Group (Pty) Ltd',
+  registrationNumber: '2025/628427/07',
+  registrationDate: '13 August 2025',
+  companyType: 'Private company',
+  financialYearEnd: 'February',
+
   url: 'https://trevorgmenyatsogroup.co.za',
   tagline: 'South African business transformation and growth partner',
 
@@ -17,22 +45,48 @@ export const site = {
   phoneDisplay: '081 517 1016',
   phoneHref: 'tel:+27815171016',
 
-  /* OPEN ITEM 4: physical address. Needed for the LocalBusiness schema and the
-     footer. Do not fill this in with a suburb or a PO box that has not been
-     confirmed — an incorrect address in structured data is worse than none. */
-  address: null as null | {
+  /* Registered office per CIPC. The same address is the company's postal
+     address and its recorded location of records. */
+  address: {
+    street: '260 Surrey Avenue',
+    locality: 'Ferndale, Randburg',
+    region: 'Gauteng',
+    postalCode: '2194',
+    country: 'South Africa',
+  } as null | {
     street: string;
     locality: string;
     region: string;
     postalCode: string;
+    country: string;
   },
+
+  /* Registered with the Information Regulator on 13 August 2025, certificate
+     issued 14 August 2025. PAIA requires the manual to name this person. The
+     contact route given on the site is the company's business email, not his
+     personal details. */
+  informationOfficer: {
+    name: 'Siyabonga Dube',
+    appointed: '13 August 2025',
+    regulatorRegistrationNumber: '2025-060527',
+    regulatorRegistrationDate: '13 August 2025',
+  },
+
+  /* Both active directors per CIPC, appointed 13 August 2025. Names only —
+     ECTA section 43 requires the names, nothing more. */
+  directors: ['Trevor Goitsemodimo Menyatso', 'Siyabonga Dube'],
 
   /* Not yet supplied. The footer omits the link entirely while this is null
      rather than pointing at a guessed profile URL. */
   linkedin: null as null | string,
 
-  /* OPEN ITEM 6: only render the ™ once CIPC registration of the mark is
-     confirmed. A company registration certificate is not a trade mark. */
+  /* OPEN ITEM 6 is now answered, and the answer is no. The CIPC cover letter
+     accompanying the registration states it directly: "registering your
+     company does not automatically result in a registration of a Trade Mark -
+     this is a separate legal process." Nothing in the supplied documents shows
+     a trade mark application, so the mark is unregistered and the site must
+     not carry a ™. Flip this only against an actual CIPC trade mark
+     certificate. */
   trademarkRegistered: false,
 
   founder: 'Trevor G. Menyatso',

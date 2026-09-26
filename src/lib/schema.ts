@@ -13,6 +13,12 @@ export function organizationSchema() {
     '@type': 'Organization',
     '@id': `${site.url}/#organization`,
     name: site.name,
+    legalName: site.legalName,
+    /* CIPC enterprise number. `identifier` is the correct property for a
+       company registration number; vatID is deliberately absent until VAT
+       registration is confirmed. */
+    identifier: site.registrationNumber,
+    foundingDate: '2025-08-13',
     url: site.url,
     email: site.email,
     telephone: site.phoneHref.replace('tel:', ''),
