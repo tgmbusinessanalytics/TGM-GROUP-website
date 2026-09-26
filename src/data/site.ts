@@ -152,11 +152,13 @@ export const cta = {
 
 /* Proof strip. Three sectors are real; the fourth is an open item and stays a
    visible placeholder until Trevor names it. */
+/* OPEN ITEM 3 closed. Plural to sit alongside 'Professional services', and
+   'centres' because the content rules call for South African English. */
 export const sectors = [
   'Education',
   'Professional services',
   'Logistics',
-  null, // OPEN ITEM 3
+  'Call centres',
 ] as const;
 
 export const practices = [

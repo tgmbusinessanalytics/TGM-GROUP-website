@@ -35,10 +35,13 @@ import { breadcrumbSchema } from '../lib/schema';
         </p>
         <p>
           <strong>Information officer:</strong>
-          <span class="placeholder">[Name and contact details]</span>. Under
-          POPIA every responsible party must register an information officer
-          with the Information Regulator. Confirm this is done and record the
-          details here.
+          {site.informationOfficer.name}, registered with the Information
+          Regulator on {site.informationOfficer.regulatorRegistrationDate} under
+          registration number{' '}
+          {site.informationOfficer.regulatorRegistrationNumber}. Write to the
+          address above, or email
+          <a href={`mailto:${site.email}`}>{site.email}</a> marked for their
+          attention.
         </p>
 
         <h2>What we collect</h2>
