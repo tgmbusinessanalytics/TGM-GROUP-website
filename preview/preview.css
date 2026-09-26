@@ -274,11 +274,28 @@ img, svg { display: block; max-width: 100%; }
 .logo {
   display: inline-flex;
   align-items: center;
+  gap: 0.42em;
   min-height: 44px;
   color: var(--logo-colour);
   font-size: var(--logo-size);
   text-decoration: none;
   white-space: nowrap;
+}
+
+/* The ascending-bars glyph. Same proportions as the hero motif — 84-wide bars
+   on a 108 pitch — so the lockup reads as the brand's own shape rather than a
+   line of type. Sized in em so it tracks the wordmark. The motif's three
+   gridlines are omitted: at this size each would be a fraction of a pixel and
+   would render as grey mud. */
+.logo-glyph {
+  flex: none;
+  height: 0.85em;
+  width: calc(0.85em * (408 / 460));
+  overflow: visible;
+}
+
+.logo .t-wordmark {
+  font-size: inherit;
 }
 
 .site-header {

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="TGM Group">
+  <!-- The hero motif reduced to four bars. No wordmark: at 16px a letterform
+       is mud, and the ascending shape still reads. -->
+  <rect width="32" height="32" fill="#16202E"/>
+  <!-- --navy-mid, not --navy: the primary navy is almost invisible against
+       --navy-deep at this size. --navy-mid keeps the first bar readable. -->
+  <rect x="5"  y="20" width="4" height="7"  fill="#4A5C78"/>
+  <rect x="11" y="16" width="4" height="11" fill="#177E6E"/>
+  <rect x="17" y="11" width="4" height="16" fill="#35A891"/>
+  <rect x="23" y="5"  width="4" height="22" fill="#F0BC20"/>
+</svg>
