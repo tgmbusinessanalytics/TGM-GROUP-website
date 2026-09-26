@@ -3,7 +3,9 @@ title: Business growth
 order: 1
 accent: gold
 practice: TGM Business Services
-summary: Growth that the business can actually absorb — the right customers, a repeatable way of winning them, and an operation that does not buckle when it works.
+# Quoted because the value contains a colon. Unquoted, YAML reads everything
+# before the colon as the key and fails to parse the file.
+summary: "Growth that the business can actually absorb: the right customers, a repeatable way of winning them, and an operation that does not buckle when it works."
 outcomes:
   - A written view of where revenue is actually coming from, and what it costs to get
   - A defined offer and pricing position you can hold in a negotiation
@@ -16,8 +18,7 @@ larger contract and then discovers the process that worked at ten clients does
 not work at forty, that nobody owns onboarding, and that the founder is the only
 person who can resolve an exception.
 
-We start by working out where revenue genuinely comes from — not the story, the
-actual distribution across clients, offers and channels. That usually reframes
+We start by working out where revenue genuinely comes from. Not the story, but the actual distribution across clients, offers and channels. That usually reframes
 the question. The organisation that thinks it has a lead generation problem
 frequently has a conversion problem, a pricing problem, or a retention problem
 that is quietly cancelling out every new client won.

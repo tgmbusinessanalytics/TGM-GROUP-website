@@ -17,13 +17,9 @@ to automate at all.
 
 Automating a broken process makes it break faster. So the assessment starts with
 the work itself: what is manual, how many hours it consumes, how often it goes
-wrong, and what happens downstream when it does. Some of what surfaces needs no
-AI whatsoever — a report that takes two days a month is often a data structure
-problem rather than an intelligence problem, and the cheap fix is the right one.
+wrong, and what happens downstream when it does. Some of what surfaces needs no AI whatsoever. A report that takes two days a month is often a data structure problem rather than an intelligence problem, and the cheap fix is the right one.
 
-What remains is a shortlist with real numbers against it. Where AI genuinely
-fits — document handling, classification, drafting, summarising volumes of text
-nobody has time to read — we build it, put it in production, and make sure
+What remains is a shortlist with real numbers against it. Where AI genuinely fits (document handling, classification, drafting, summarising volumes of text nobody has time to read), we build it, put it in production, and make sure
 somebody inside the organisation understands it well enough to change it.
 Automation you cannot modify is a dependency, not an asset.
 

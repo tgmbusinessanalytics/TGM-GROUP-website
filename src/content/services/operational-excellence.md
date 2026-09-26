@@ -15,15 +15,13 @@ Every organisation has a process that exists on paper and a process that
 happens. The gap between them is where margin goes.
 
 We map the real one. That means sitting with the people doing the work, walking
-a job through end to end, and finding the steps that were never designed —
-the spreadsheet someone maintains privately, the approval that waits for one
+a job through end to end, and finding the steps that were never designed: the spreadsheet someone maintains privately, the approval that waits for one
 person's inbox, the rework that has become normal enough that nobody counts it
 any more.
 
 Then we find the constraint. Not all the problems; the one that is actually
 limiting throughput. Fixing anything else first feels productive and changes
-nothing. Once it is named and measured, the redesign is usually smaller than
-expected — a handful of decisions about ownership, sequence and what stops
+nothing. Once it is named and measured, the redesign is usually smaller than expected: a handful of decisions about ownership, sequence and what stops
 being done at all.
 
 The last part matters most. A process that only works while a consultant is in

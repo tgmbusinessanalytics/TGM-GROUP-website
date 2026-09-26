@@ -153,18 +153,18 @@ export const stats = [
     figure: null as null | string,
     unit: '%',
     description: 'reduction in order-to-delivery cycle time',
-    source: 'Client, sector, period — to be supplied',
+    source: 'Client, sector and period to be supplied',
   },
   {
     figure: null as null | string,
     unit: 'hrs',
     description: 'of manual reporting removed each month',
-    source: 'Client, sector, period — to be supplied',
+    source: 'Client, sector and period to be supplied',
   },
   {
     figure: null as null | string,
     unit: 'x',
     description: 'return on the engagement fee within the first year',
-    source: 'Client, sector, period — to be supplied',
+    source: 'Client, sector and period to be supplied',
   },
 ] as const;

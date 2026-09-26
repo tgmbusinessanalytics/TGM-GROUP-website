@@ -43,7 +43,7 @@ const detail = [
       'Regular checkpoints against the measures agreed in phase two',
       'Documentation written by your team, in their language',
     ],
-    duration: 'Varies with scope — agreed up front, not open-ended',
+    duration: 'Varies with scope, but agreed up front rather than open-ended',
     stopHere:
       'The change is live and running. Most engagements could end here, and some should.',
   },
@@ -64,14 +64,14 @@ const combined = phases.map((phase, i) => ({ ...phase, ...detail[i] }));
 ---
 
 <Base
-  title="Our approach — four phases, in order | TGM Group"
+  title="Our approach: four phases, in order | TGM Group"
   description="How a TGM Group engagement runs: diagnose, design, implement, embed. Four phases in order, with a defined stopping point after each one."
   jsonLd={[breadcrumbSchema([{ name: 'Approach', href: '/approach/' }])]}
 >
   <PageHero
     accent="gold"
     title="Four phases, in order. You can stop after any one of them."
-    lead="Every phase produces something you own and can use on its own. That is deliberate — an engagement that only pays off at the end is an engagement you cannot get out of."
+    lead="Every phase produces something you own and can use on its own. That is deliberate. An engagement that only pays off at the end is one you cannot get out of."
   />
 
   <div class="wrap">
@@ -81,7 +81,7 @@ const combined = phases.map((phase, i) => ({ ...phase, ...detail[i] }));
           <div class="phase-grid">
             <div class="phase-head">
               <p class="t-mono phase-label">
-                {phase.number} — {phase.name}
+                {phase.number} · {phase.name}
               </p>
               <h2 class="t-h2 phase-title">{phase.headline}</h2>
             </div>

@@ -22,7 +22,7 @@ const { number, name, headline, body, accent = 'navy' } = Astro.props;
 ---
 
 <div class:list={['phase', accent === 'gold' && 'phase-gold']}>
-  <p class="t-mono phase-label">{number} — {name}</p>
+  <p class="t-mono phase-label">{number} · {name}</p>
   <h3 class="t-h3-sm phase-headline">{headline}</h3>
   <p class="t-body-sm phase-body">{body}</p>
 </div>

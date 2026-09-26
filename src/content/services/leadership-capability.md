@@ -26,7 +26,7 @@ decisions. How to give feedback that changes something. How to hold a number
 without micromanaging the person holding it. How to hire for a role you have
 never done yourself.
 
-We also look at concentration risk honestly — the roles where one person's
+We also look at concentration risk honestly: the roles where one person's
 resignation would cost the organisation months, and what to do about that before
 it happens rather than during.
 
