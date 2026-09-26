@@ -17,6 +17,17 @@ npm install
 npm run dev
 ```
 
+Two generator scripts exist. Neither runs as part of `npm run build`, because
+both produce committed files that rarely change:
+
+- `npm run fonts:sync` re-copies the five webfonts out of `node_modules` into
+  `public/fonts/` and checks every `@font-face` resolves.
+- `npm run og:generate` rasterises `public/og-image.svg` to `public/og.png` at
+  1200x630. It is more careful than it looks — see the comment at the top of
+  `scripts/generate-og.mjs` for the silent failure it guards against.
+
+Both exit non-zero on failure, so they are safe in CI.
+
 Then `npm run build` writes static output to `dist/`, and `npm run preview`
 serves that build locally. `npm run check` type-checks the Astro and TypeScript
 files.
@@ -94,7 +105,8 @@ bites.
    visible "draft — awaiting legal review" banner. The PAIA manual is a
    statutory obligation under POPIA and is not compliant as it stands.
 7. **The fourth sector** in the proof strip.
-8. **`public/og.png`.** Export `public/og-image.svg` to PNG at 1200x630.
+8. ~~**`public/og.png`.**~~ Done — generated at 1200x630, 34.6 KB, by
+   `npm run og:generate`. Re-run it whenever `og-image.svg` changes.
 9. **LinkedIn URL.** Set `linkedin` in `src/data/site.ts` and the footer link
    appears.
 10. **The ™ on the logo.** `trademarkRegistered` is `false`. Confirm the mark is
