@@ -76,9 +76,18 @@ export const site = {
      ECTA section 43 requires the names, nothing more. */
   directors: ['Trevor Goitsemodimo Menyatso', 'Siyabonga Dube'],
 
-  /* Not yet supplied. The footer omits the link entirely while this is null
-     rather than pointing at a guessed profile URL. */
-  linkedin: null as null | string,
+  /* Company page. The ?viewAsMember=true parameter on the URL as supplied is
+     LinkedIn's own preview flag, not part of the address, so it is stripped.
+
+     Feeds two things: the footer link, and sameAs in the Organization schema,
+     which is how search engines tie the site and the LinkedIn page to the same
+     entity.
+
+     NOT VERIFIED as publicly visible. LinkedIn serves an authwall to anything
+     automated, so whether a logged-out visitor can actually see this page has
+     to be checked by hand in a private window. If they cannot, set this back
+     to null and the footer link disappears again. */
+  linkedin: 'https://www.linkedin.com/company/trevorgmenyatsogroup/' as null | string,
 
   /* OPEN ITEM 6 is now answered, and the answer is no. The CIPC cover letter
      accompanying the registration states it directly: "registering your
