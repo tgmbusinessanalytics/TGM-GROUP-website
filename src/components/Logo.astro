@@ -1,123 +1,76 @@
 ---
-/* OPEN ITEM 1 in CLAUDE.md, and the "Critical gap" section of
-   src/assets/logo/LOGO-NOTES.md.
+/* The vector master now exists, so OPEN ITEM 1 is closed and the Archivo
+   substitution is gone.
 
-   The design calls for the mark at 150x56 in the header. The only artwork that
-   exists is tgm-logo-primary.png, and it does not fit that slot:
+   THE ARTWORK
+   src/assets/logo/ holds the SVG masters; public/logo/ holds the two files
+   this component serves. Both are the horizontal lockup — TG, the mark as the
+   M, then GROUP on the same baseline at 1.2x its stacked size. It is 4.7:1,
+   which is the shape the 150x56 header slot was designed around. The stacked
+   lockup (tgm-logo-primary.svg) is 1.63:1 and belongs on decks, proposals and
+   advertising, not in a site header.
 
-   - It is 802x516 — a 1.55:1 stacked lockup, not the 2.68:1 wordmark the
-     header was designed around. At 150px wide it stands 96px tall, which is
-     the entire height of the header.
-   - Sized to fit the header instead, it falls below the 120px minimum width
-     that LOGO-NOTES.md sets, where the GROUP line closes up.
-   - It is raster on an opaque white background, so it cannot go on the footer
-     or the dark CTA band at all.
+   Served as <img> from public/ rather than imported through astro:assets: the
+   file is 23KB of path data, it never needs resizing or format negotiation,
+   and referencing it by absolute path keeps this component independent of the
+   Astro image pipeline.
 
-   So header and footer use the Archivo wordmark that LOGO-NOTES.md specifies
-   as the documented substitution, preceded by the ascending-bars glyph below.
+   The dark variant is the REVERSED file, not the white one — white bars, white
+   wordmark, gold arrow. The all-white file exists for single-colour print and
+   embroidery and would flatten the arrow into the M here.
 
-   THE GLYPH
-   The same four ascending bars as the hero motif, at the same proportions —
-   heights 180/268/356/460 on an 84-wide bar at 108 pitch, straight out of
-   design-spec.md. It is the brand's own shape, so the lockup reads as a mark
-   rather than as a line of type, and the header now rhymes with the motif
-   beside the headline.
-
-   The motif's three horizontal gridlines are deliberately NOT included. At
-   this size each would be well under a tenth of a pixel and would render as
-   grey mud across the bars rather than as gridlines. The cuts are a
-   large-format detail.
-
-   Decorative: the wordmark beside it already carries the name, so the glyph is
-   aria-hidden and the link keeps its own label.
-
-   TO SWAP WHEN THE VECTOR ARRIVES: set LOGO_MODE to 'mark' below and drop
-   tgm-logo.svg and tgm-logo-reversed.svg into src/assets/logo/. */
-
-const LOGO_MODE: 'wordmark' | 'mark' = 'wordmark';
+   Minimum width is 120px, per LOGO-NOTES.md. At size <= 20 the GROUP line
+   starts to close up; the header uses 26 and the footer 22. */
 
 interface Props {
-  /* 'light' renders navy ink for use on --surface.
-     'dark' renders white ink for --surface-deep and --surface-inverse. */
+  /* 'light' is the navy lockup for --surface.
+     'dark' is the reversed lockup for --surface-deep and --surface-inverse. */
   variant?: 'light' | 'dark';
-  /* Header uses 26px, footer uses the 22px the design spec sets. */
+  /* Retained from the wordmark build so callers do not change: it is the
+     nominal type size the lockup is scaled against. Header 26, footer 22. */
   size?: number;
-  /* The header logo is a link home and needs no extra label; the footer
-     wordmark is not a link. */
+  /* The header logo is a link home; the footer lockup is not. */
   as?: 'link' | 'text';
 }
 
 const { variant = 'light', size = 26, as = 'link' } = Astro.props;
 
-const dark = variant === 'dark';
-const colour = dark ? 'var(--ink-inverse)' : 'var(--navy)';
-
-/* Bar colours follow the hero motif on light. On dark, --navy is only 1.2:1
-   against --surface-deep and the first bar would vanish, so the sequence steps
-   up to --navy-mid and --teal-accent — the same substitution the favicon makes,
-   and for the same reason. */
-const bars = dark
-  ? ['var(--navy-mid)', 'var(--teal)', 'var(--teal-accent)', 'var(--gold)']
-  : ['var(--navy)', 'var(--teal)', 'var(--teal)', 'var(--gold)'];
-
-/* Straight from the motif: 84-wide bars on a 108 pitch, so the artwork is
-   408x460 and the glyph sits at 0.887 of its own height in width. */
-const heights = [180, 268, 356, 460];
+const src =
+  variant === 'dark'
+    ? '/logo/tgm-logo-horizontal-reversed.svg'
+    : '/logo/tgm-logo-horizontal.svg';
 
 const Tag = as === 'link' ? 'a' : 'span';
 const attrs = as === 'link' ? { href: '/', 'aria-label': 'TGM Group home' } : {};
+
+/* 4.7:1. At size 26 the lockup stands 32.5px and runs 153px — inside the
+   150x56 slot and above the 120px floor. */
+const height = size * 1.25;
 ---
 
-{
-  LOGO_MODE === 'wordmark' ? (
-    <Tag
-      {...attrs}
-      class="logo"
-      style={`--logo-colour:${colour};--logo-size:${size}px`}
-    >
-      <svg
-        class="logo-glyph"
-        viewBox="0 0 408 460"
-        role="presentation"
-        aria-hidden="true"
-        focusable="false"
-      >
-        {heights.map((h, i) => (
-          <rect x={i * 108} y={460 - h} width="84" height={h} fill={bars[i]} />
-        ))}
-      </svg>
-      <span class="t-wordmark">TGM GROUP</span>
-    </Tag>
-  ) : (
-    /* Placeholder branch. Deliberately empty until the vector master exists —
-       it must never fall through to the raster on a dark ground. */
-    <Tag {...attrs} class="logo" />
-  )
-}
+<Tag {...attrs} class="logo" style={`--logo-height:${height}px`}>
+  <img
+    src={src}
+    alt={as === 'link' ? '' : 'TGM Group'}
+    width="470"
+    height="100"
+    decoding="async"
+    class="logo-lockup"
+  />
+</Tag>
 
 <style>
   .logo {
     display: inline-flex;
     align-items: center;
-    gap: 0.42em;
     min-height: 44px;
-    color: var(--logo-colour);
-    font-size: var(--logo-size);
     text-decoration: none;
-    white-space: nowrap;
   }
 
-  /* Sized in em so the glyph tracks the wordmark at any size. 0.85em lands it
-     just above Archivo's cap height, which keeps the bars reading as taller
-     than the letters rather than crowded by them. */
-  .logo-glyph {
-    flex: none;
-    height: 0.85em;
-    width: calc(0.85em * (408 / 460));
-    overflow: visible;
-  }
-
-  .t-wordmark {
-    font-size: inherit;
+  .logo-lockup {
+    display: block;
+    height: var(--logo-height);
+    width: auto;
+    /* The artwork carries its own colour; nothing here should tint it. */
   }
 </style>

@@ -17,10 +17,10 @@ const { title, description, jsonLd = [] } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 
-/* OPEN ITEM: /og.png does not exist yet. public/og-image.svg is the source
-   artwork — export it to PNG at exactly 1200x630 and drop it in public/ as
-   og.png. Until then the tag points at a 404, which degrades to no preview
-   image rather than a wrong one. */
+/* public/og.png, 1200x630: the reversed horizontal lockup over navy with the
+   positioning line. Rendered from the vector master — see
+   src/assets/logo/LOGO-NOTES.md. public/og-image.svg is the earlier source
+   artwork and is now superseded. */
 const ogImage = new URL('/og.png', Astro.site).href;
 ---
 
@@ -54,6 +54,12 @@ const ogImage = new URL('/og.png', Astro.site).href;
     <meta name="twitter:image" content={ogImage} />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    {/* icon-192 and icon-512 are referenced from the manifest, which is the
+        only thing that uses them. `display: browser` on purpose: this is a
+        marketing site, not an installable app, and we do not want Chrome
+        offering to install it. */}
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     {/* Only the two faces that block first paint are preloaded. The other

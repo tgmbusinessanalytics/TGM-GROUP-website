@@ -1,19 +1,59 @@
 The TGM Group mark: a navy wordmark, teal ascending bars and a gold arrow forming the M.
 
-`tgm-logo-primary.png` is the primary mark — navy `#27364A`, teal `#177E6E`, gold `#F0BC20`. Use it on `surface` and on light photography. This is the mark for decks, proposals, company profiles and advertising.
+Colours are fixed: navy `#27364A` (`navy-800`), teal `#177E6E` (`teal-600`), gold `#F0BC20` (`gold-500`). Never recolour outside the variants below.
 
-`tgm-logo-navy-gold.png` is the two-colour variant, navy and gold with no teal. Use it where the teal bars would not survive: small sizes, single-colour print, embroidery, and fax-grade reproduction.
+## Vector masters
 
-Clear space on every side is at least the height of the `G` in GROUP. Minimum width 120px on screen, 30mm in print — below that the GROUP line closes up.
+`vector/` holds the SVG masters. These are the files to use. The PNGs in this folder are kept only for anything that cannot take an SVG.
 
-Never recolour the mark, never set it on a busy photograph, never place it on navy or any dark ground with the files as they stand.
+### Stacked lockup — 1.63:1
 
-## Critical gap
+The primary mark. Decks, proposals, company profiles, advertising, print.
 
-Both files are raster PNG on an opaque white background, trimmed from supplied artwork. There is no vector master and no transparency.
+| File | Use |
+|---|---|
+| `tgm-logo-primary.svg` | Default, on `surface` and light photography |
+| `tgm-logo-reversed.svg` | On `surface-inverse`, navy, teal — white wordmark and bars, gold arrow kept |
+| `tgm-logo-navy-gold.svg` | Two-colour, where teal will not survive: small sizes, single-colour print |
+| `tgm-logo-navy.svg` | Single colour navy — embroidery, engraving, fax-grade |
+| `tgm-logo-white.svg` | Single colour white — single-colour reversed print |
 
-Consequences, until vector and transparent-PNG versions exist: the mark cannot appear on `surface-inverse`, on a dark statement slide, on a coloured ad panel or over photography; it cannot be enlarged past its pixel size for print, signage or large-format; and it cannot be recoloured for single-colour applications.
+### Horizontal lockup — 4.7:1
 
-Commission from the original designer: an SVG master, a transparent PNG at 2048px, a reversed (light-on-dark) version, and a single-colour version. Until then, on any dark ground set "TGM GROUP" in Archivo 700 in `ink-inverse` and note the substitution.
+TG, the mark as the M, then GROUP on the same baseline at 1.2× its stacked size. Built for anything wider than it is tall: website headers and footers, email signatures, letterheads, banner ads, exhibition panels.
 
-The mark carries a ™. Confirm the trade mark is actually filed with CIPC before it appears on further published material.
+`tgm-logo-horizontal.svg` · `tgm-logo-horizontal-reversed.svg` · `tgm-logo-horizontal-navy.svg` · `tgm-logo-horizontal-white.svg`
+
+### Mark alone
+
+`tgm-mark-primary.svg` · `tgm-mark-reversed.svg` · `tgm-mark-white.svg`
+
+The bars and arrow with no wordmark. Social avatars, app icons, watermarks, favicon at 48px and above. **Minimum 48px** — below that the three bars close up and it reads as a smear. Use the simplified four-bar `favicon.svg` instead at 16–32px.
+
+### Raster fallbacks
+
+`tgm-logo-primary-2048.png`, `tgm-logo-reversed-2048.png`, `tgm-logo-horizontal-2048.png`, `tgm-logo-horizontal-reversed-2048.png`, `tgm-mark-1024.png`, `tgm-mark-reversed-1024.png` — all transparent. For tools that will not take SVG. Prefer the SVG everywhere else.
+
+## Clear space and minimum size
+
+Clear space on every side is at least the height of the `G` in GROUP.
+
+Stacked: minimum width 120px on screen, 30mm in print — below that the GROUP line closes up.
+Horizontal: minimum width 150px on screen, 38mm in print.
+Mark alone: minimum 48px.
+
+Never set the mark on a busy photograph. Never stretch, rotate, outline, add a drop shadow, or rebuild the lockup by placing the mark next to typed-out "TGM GROUP" — the M in the lockup *is* the mark, and doing so states it twice.
+
+## The trade mark
+
+`tgm-logo-primary-tm.svg` and `tgm-logo-reversed-tm.svg` carry a ™ after GROUP.
+
+The ™ in the original artwork was roughly three pixels wide — invisible at every real size, and it traced as noise, so it is not in the standard files. The two `-tm` files carry a redrawn one at 34% of the GROUP cap height, which is legible from about 200px wide.
+
+**Do not publish either file until the trade mark is confirmed filed with CIPC.** Claiming a mark that is not registered is the kind of small inaccuracy that costs credibility in a tender response.
+
+## Provenance
+
+The vectors were traced from `2026-08-30_TGM-BRAND_TGM_LOGO_v01.png` at 6× and cleaned per colour layer, then normalised to a 1000-unit viewBox. Registration against the source was checked at 55% overlay with no visible drift. The letterforms are the original artwork's, not a substitute typeface.
+
+Two things the trace inherits and a redraw would not: the source was a raster export, so the straight edges are potrace's reconstruction rather than mathematically true, and the counters of the G carry a fraction of a unit of softness. Neither is visible above 100px. If the mark ever goes to large-format signage or embroidery digitising, redraw it from these vectors as true geometry first.
