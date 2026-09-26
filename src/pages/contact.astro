@@ -176,13 +176,24 @@ const problems = [
             </label>
           </div>
 
+          {/* POPIA section 18 requires the data subject to be told at the
+               point of collection, not only in the policy, where their
+               information goes. That includes the transfer to the United
+               States, so it is stated here as well as on /privacy. */}
           <p class="t-caption popia">
             We use what you send here to reply to you and to prepare for the
             call. We do not sell it, we do not add you to a mailing list, and we
             do not share it outside TGM Group. We keep it for 24 months and then
             delete it. You can ask us to delete it sooner, or ask what we hold, at any time by emailing
-            <a href={`mailto:${site.email}`}>{site.email}</a>. See our
-            <a href="/privacy/">privacy policy</a> for the full position.
+            <a href={`mailto:${site.email}`}>{site.email}</a>.
+          </p>
+          <p class="t-caption popia">
+            This form is processed by Formspree, which stores submissions in the
+            United States, so submitting it sends your details outside South
+            Africa. Ticking the box above is your consent to that transfer under
+            section 72 of POPIA. If you would rather not, email or call us
+            instead. Our <a href="/privacy/">privacy policy</a> sets out the full
+            position.
           </p>
 
           <p id="too-fast" class="t-body-sm error" hidden>

@@ -95,10 +95,21 @@ export const site = {
   areaServed: 'ZA',
 } as const;
 
-/* CLAUDE.md, contact form section. Replace with the real endpoint before
-   launch — Formspree form ID, Netlify Forms, or the Cloudflare Worker URL.
-   The form markup is complete and correct; only the destination is missing. */
-export const FORM_ENDPOINT: string = '';
+/* Formspree endpoint for the contact form.
+
+   Not a secret: it is visible in the page source of /contact by design, which
+   is how a static form service works. Abuse is handled by the honeypot and
+   the time trap in contact.astro, plus Formspree's own server-side validation
+   (name, email, company, problem and consent are all required there, so a bot
+   posting straight at this URL cannot skip the POPIA consent).
+
+   Notifications go to info@trevorgmenyatsogroup.co.za.
+
+   Formspree stores submissions in the United States. That is a cross-border
+   transfer under POPIA section 72 and is disclosed on /privacy and at the
+   point of collection on /contact. If this endpoint ever moves to a different
+   provider, both of those need updating too. */
+export const FORM_ENDPOINT: string = 'https://formspree.io/f/xdekwbyr';
 
 export const nav = [
   { label: 'Services', href: '/services/' },
