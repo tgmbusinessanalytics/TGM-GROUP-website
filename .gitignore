@@ -8,3 +8,6 @@ npm-debug.log*
 
 # Claude Code launch config is machine-specific (absolute npm path).
 .claude/
+
+# Upload bundle produced from dist/ — regenerate, do not commit.
+*.zip
