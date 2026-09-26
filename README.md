@@ -76,9 +76,9 @@ Two scripts ship, totalling well under 1 KB:
 These are blockers, not polish. Each one is marked in the code at the point it
 bites.
 
-1. **Fonts.** Five `.woff2` files are missing — see `public/fonts/README.md`.
-   The site falls back to Segoe UI / Helvetica and stays usable without them,
-   but it is not on brand.
+1. ~~**Fonts.**~~ Done — five self-hosted `.woff2` files committed, 73.5 KB
+   total, ~30 KB preloaded. `npm run fonts:sync` re-copies them. See
+   `public/fonts/README.md`.
 2. **Contact form endpoint.** `FORM_ENDPOINT` in `src/data/site.ts` is empty, so
    the submit button renders disabled and the page tells the visitor to email or
    call instead. Set it and the form goes live.

@@ -1,51 +1,63 @@
-# Fonts — five files to add before launch
+# Fonts — self-hosted, committed, done
 
-`src/styles/fonts.css` expects exactly these five files in this directory:
+The five `.woff2` files here are the webfonts the site uses. They are committed
+deliberately: the brief rules out loading from fonts.googleapis.com, because a
+consulting site on a South African mobile connection cannot afford the extra
+DNS lookup, TLS handshake and round trip before text can paint.
 
-```
-archivo-latin-600.woff2
-archivo-latin-700.woff2
-source-sans-3-latin-400.woff2
-source-sans-3-latin-600.woff2
-ibm-plex-mono-latin-600.woff2
-```
+| File | Weight | Size |
+|---|---|---|
+| `archivo-latin-600.woff2` | Archivo 600 | 13.5 KB |
+| `archivo-latin-700.woff2` | Archivo 700 | 14.2 KB |
+| `source-sans-3-latin-400.woff2` | Source Sans 3 400 | 15.3 KB |
+| `source-sans-3-latin-600.woff2` | Source Sans 3 600 | 15.3 KB |
+| `ibm-plex-mono-latin-600.woff2` | IBM Plex Mono 600 | 15.3 KB |
 
-They are not committed because they had not been produced when the site was
-built. Without them the site falls back to Helvetica Neue / Segoe UI and stays
-readable — the layout does not break — but it is not on brand and the type
-metrics shift slightly. Add them before launch.
+73.5 KB for all five, but no visitor downloads all five on first paint. Only
+`archivo-latin-700` and `source-sans-3-latin-400` are preloaded in
+`src/layouts/Base.astro` — about 30 KB — because those are the two faces that
+block first paint. The other three load as the page needs them. The
+`unicode-range` on each `@font-face` means a browser skips the download
+entirely for content outside the latin range.
 
-## Getting them
+`.htaccess` caches them `immutable` for a year.
 
-The quickest correct route is [google-webfonts-helper](https://gwfh.mranftl.com/fonts):
+## Where they came from
 
-1. Search for **Archivo**. Select charset **latin** only, styles **600** and
-   **700**, and copy the woff2 files out of the download.
-2. Repeat for **Source Sans 3**, styles **400** and **600**.
-3. Repeat for **IBM Plex Mono**, style **600**.
-4. Rename each file to match the list above and drop it in this directory.
+The `@fontsource` npm packages, not scraped from Google's CSS API — those
+packages are versioned, carry their licences, and ship files already subset by
+`unicode-range`, so the `latin` slice is exactly what is needed.
 
-All three families are open licensed — Archivo and IBM Plex Mono under the SIL
-Open Font License, Source Sans 3 under the SIL OFL as well. Redistribution as
-part of a website is permitted. Keep a copy of each licence in this directory.
-
-## If you want them smaller
-
-The `unicode-range` in `fonts.css` already tells the browser to skip the
-download entirely for pages with no Latin text, but it does not shrink the
-file. To actually subset, use `pyftsubset` from `fonttools`:
+To re-copy them after a fresh `npm install`:
 
 ```bash
-pyftsubset Archivo-Bold.ttf --output-file=archivo-latin-700.woff2 --flavor=woff2 --layout-features=kern,liga --unicodes=U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215
+npm run fonts:sync
 ```
 
-A latin subset of each face should land around 15–25 KB. If any file comes out
-over 40 KB, something was not subset — check before shipping it.
+That runs `scripts/sync-fonts.mjs`, which copies the five files and the three
+licences out of `node_modules/@fontsource`, checks none exceeds 40 KB, and
+verifies every `url()` in `src/styles/fonts.css` resolves. It exits non-zero if
+anything is wrong, so it is safe to put in CI.
 
-## After they land
+The `@fontsource/*` packages are `devDependencies`. They are not shipped — they
+only exist so this is reproducible.
 
-`src/layouts/Base.astro` preloads the two faces that block first paint —
-`archivo-latin-700.woff2` and `source-sans-3-latin-400.woff2`. Those preload
-tags are already in place and will start working the moment the files exist.
-Do not preload the other three: they are used below the fold and preloading
-them competes with the two that matter.
+## Licensing
+
+All three families are under the **SIL Open Font License 1.1**, which permits
+redistribution as part of a website. The full licences are alongside the fonts:
+
+- `LICENSE-Archivo.txt`
+- `LICENSE-SourceSans3.txt`
+- `LICENSE-IBMPlexMono.txt`
+
+Keep them here. The OFL requires the copyright notice and licence to travel
+with the font files.
+
+## If you add a weight
+
+Add it in three places or it will not work: the `@font-face` block in
+`src/styles/fonts.css`, the `fonts` array in `scripts/sync-fonts.mjs`, and then
+re-run `npm run fonts:sync`. Do not add weights speculatively — each one is a
+separate download on a metered connection, and the design uses exactly these
+five.
