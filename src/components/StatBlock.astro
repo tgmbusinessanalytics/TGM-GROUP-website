@@ -29,9 +29,18 @@ const { figure, unit, description, source } = Astro.props;
         <span class="t-bignum">{figure}</span>
       ) : (
         <>
-          <span class="t-bignum placeholder" aria-hidden="true">
-            [__]
-          </span>
+          {/* An empty dashed slot, NOT the literal "[__]" used elsewhere.
+              At 60-72px in Archivo Bold those four characters fuse: the
+              brackets become tall strokes and the two underscores join into a
+              single low bar, so the whole thing reads as a broken glyph rather
+              than as a blank awaiting a number. A dashed outline is the
+              universal signal for "content goes here" and cannot be mistaken
+              for a font that failed to load.
+
+              Sized in em off the bignum step so it tracks the type scale, and
+              it keeps the line's height so the three blocks stay aligned
+              whether or not a figure is present. */}
+          <span class="t-bignum figure-slot" aria-hidden="true" />
           <span class="sr-only">Figure to be supplied</span>
         </>
       )
@@ -55,6 +64,19 @@ const { figure, unit, description, source } = Astro.props;
     align-items: baseline;
     gap: var(--space-2);
     color: var(--ink);
+  }
+
+  /* The empty slot where a figure will go. Width is about two digits at the
+     bignum step, so a real number dropping in later barely shifts the layout.
+     --border-strong, not --hairline: this is carrying meaning, so it has to
+     clear 3:1. */
+  .figure-slot {
+    display: inline-block;
+    width: 1.35em;
+    height: 0.72em;
+    border: 2px dashed var(--border-strong);
+    border-radius: 2px;
+    vertical-align: baseline;
   }
 
   .stat-unit {
