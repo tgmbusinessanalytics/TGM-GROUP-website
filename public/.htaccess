@@ -1,0 +1,178 @@
+# Apache configuration for cPanel / shared hosting.
+#
+# This is the Apache equivalent of public/_headers, which only works on
+# Cloudflare Pages and Netlify. If you deploy to cPanel, THIS is the file that
+# does the work and _headers is dead weight. If you later move to Cloudflare
+# Pages, the reverse is true. Keeping both is fine — each host ignores the
+# other's file — but keep them in step if you change one.
+#
+# Every block is wrapped in <IfModule>. A missing Apache module then means the
+# feature is silently skipped rather than throwing a 500 on every page, which
+# is the usual way a first cPanel deploy dies.
+#
+# This file lives in public/ so Astro copies it into dist/ at build time.
+# VERIFY IT ARRIVED: after `npm run build`, check that dist/.htaccess exists.
+# Some tooling skips dotfiles. If it is missing, upload it to public_html by
+# hand — remember to enable "show hidden files" in cPanel's File Manager.
+
+# ---------------------------------------------------------------------------
+# Default document and custom 404
+# ---------------------------------------------------------------------------
+
+DirectoryIndex index.html
+
+# Astro's static build writes 404.html at the site root.
+ErrorDocument 404 /404.html
+
+# Never expose a directory listing if an index file is ever missing.
+Options -Indexes
+
+# ---------------------------------------------------------------------------
+# Force HTTPS
+#
+# Turn this on ONLY after AutoSSL has issued a certificate and you have loaded
+# https://yourdomain successfully in a browser. Enabling it before the
+# certificate exists redirects every visitor into a security warning.
+# ---------------------------------------------------------------------------
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Redirect http -> https
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # Redirect www -> non-www. Pick ONE canonical host and stick to it: the
+  # canonical URLs Astro generates have no www, so this matches them.
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Security headers — the Apache translation of public/_headers
+# ---------------------------------------------------------------------------
+
+<IfModule mod_headers.c>
+  # The site loads no third-party scripts, frames or fonts, so the policy can
+  # be strict. 'unsafe-inline' on style-src is required by Astro's scoped
+  # styles. If you switch the contact form away from Formspree, change
+  # form-action to match the new endpoint or the submission will be blocked.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; form-action 'self' https://formspree.io; frame-ancestors 'none'; base-uri 'self'; object-src 'none'"
+
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+
+  # HSTS. Deliberately WITHOUT includeSubDomains and preload.
+  #
+  # On cPanel your account also answers on cpanel.yourdomain, webmail.yourdomain
+  # and mail.yourdomain. includeSubDomains forces every one of those to HTTPS
+  # for a year, and if AutoSSL has not covered them they become unreachable.
+  # `preload` is worse: it is a one-way door that is slow and painful to undo.
+  #
+  # Once you have confirmed AutoSSL covers every subdomain, upgrade to:
+  #   "max-age=31536000; includeSubDomains"
+  # and only consider preload after that has been stable for months.
+  Header always set Strict-Transport-Security "max-age=31536000"
+
+  # Do not advertise the exact stack.
+  Header unset X-Powered-By
+  Header always unset X-Powered-By
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Caching
+#
+# Astro fingerprints everything under /_astro/ with a content hash, so those
+# can be cached forever. HTML must NOT be, or visitors keep seeing the old
+# site after you upload a new one — the single most common "I deployed but
+# nothing changed" cause on shared hosting.
+# ---------------------------------------------------------------------------
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/xml "access plus 0 seconds"
+  ExpiresByType text/xml "access plus 0 seconds"
+
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType image/avif "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Hashed build assets and fonts never change under the same URL.
+  <FilesMatch "\.(woff2|woff)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # HTML always revalidates.
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# /_astro/ is Astro's hashed output directory.
+<IfModule mod_headers.c>
+  <IfModule mod_rewrite.c>
+    RewriteCond %{REQUEST_URI} ^/_astro/
+    RewriteRule .* - [E=IMMUTABLE:1]
+  </IfModule>
+  Header set Cache-Control "public, max-age=31536000, immutable" env=IMMUTABLE
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Compression
+#
+# Matters more than anything else here on a South African mobile connection.
+# ---------------------------------------------------------------------------
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json application/xml
+  AddOutputFilterByType DEFLATE image/svg+xml
+  # woff2 is already compressed — recompressing wastes CPU and gains nothing.
+</IfModule>
+
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/xml text/css
+  AddOutputFilterByType BROTLI_COMPRESS application/javascript application/json
+  AddOutputFilterByType BROTLI_COMPRESS image/svg+xml
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# MIME types
+#
+# Older cPanel Apache builds do not know these and serve them as
+# application/octet-stream, which makes browsers refuse the fonts.
+# ---------------------------------------------------------------------------
+
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+  AddType image/avif .avif
+  AddType image/webp .webp
+  AddType image/svg+xml .svg
+  AddType application/manifest+json .webmanifest
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Block files that should never be served
+#
+# _headers is Cloudflare/Netlify config. Harmless, but there is no reason to
+# serve it as a public text file.
+# ---------------------------------------------------------------------------
+
+<IfModule mod_authz_core.c>
+  <FilesMatch "^(_headers|_redirects|\.htaccess|\.gitignore|\.gitattributes|README\.md)$">
+    Require all denied
+  </FilesMatch>
+</IfModule>
