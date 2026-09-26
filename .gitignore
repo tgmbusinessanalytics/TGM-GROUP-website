@@ -5,3 +5,6 @@ node_modules/
 .env.production
 .DS_Store
 npm-debug.log*
+
+# Claude Code launch config is machine-specific (absolute npm path).
+.claude/

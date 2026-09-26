@@ -9,8 +9,8 @@ like an omission in this repo is a deliberate decision recorded in one of them.
 
 ## Running it
 
-Node 18.20+, 20.3+ or 22+ is required. **It is not currently installed on this
-machine** — install it from [nodejs.org](https://nodejs.org) first.
+Node 18.20+, 20.3+ or 22+ is required. Built and verified against Node 24.19.0
+with npm 11.17.0.
 
 ```bash
 npm install
@@ -120,6 +120,22 @@ way to meet the last one. If photography is added later, use Astro's `<Image>`
 component so the formats and dimensions are handled at build time. Test against
 throttled connections — South African mobile networks are the constraint that
 matters.
+
+### Measured at the first build
+
+- **308 bytes** of executable JavaScript across the whole site, inlined on
+  `/contact` only. Budget was 10 KB. The mobile menu ships none at all.
+- Two CSS files, 20.5 KB and 7.5 KB uncompressed, linked rather than inlined so
+  they cache across pages. Both compress hard — `.htaccess` enables Brotli and
+  gzip.
+- Nine pages, 18–24 KB of HTML each, uncompressed.
+- Verified in the browser at 1440 and 375: motif geometry exact to the spec
+  (84px bars at 180/268/356/460 with gridlines at 92/214/336, rescaling to 64px
+  bars at 137/204/271/350 on mobile), grids collapsing 3→1, the third statistic
+  dropping on mobile, no horizontal overflow at 375px, and the `<details>` menu
+  opening full-screen with 56px tap targets.
+
+Lighthouse has **not** been run — that needs the site on a real host.
 
 ## Things that are deliberate
 
