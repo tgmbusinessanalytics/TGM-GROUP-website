@@ -101,6 +101,17 @@ export const site = {
   founder: 'Trevor G. Menyatso',
   founderRole: 'Founder and lead consultant',
 
+  /* The second named person on the site. He is also one of the two directors
+     and the registered information officer, both recorded above, so /about
+     names him three times in three different capacities. That is correct, not
+     a duplication. */
+  clientRelationships: {
+    name: 'Siyabonga Dube',
+    /* Sentence case, per the content rules. The brief supplied it as Client
+       Relationship Manager. */
+    role: 'Client relationship manager',
+  },
+
   areaServed: 'ZA',
 } as const;
 

@@ -141,6 +141,54 @@ import { breadcrumbSchema } from '../lib/schema';
     </div>
   </section>
 
+  <section class="section second-person">
+    <div class="wrap about-grid">
+      <div>
+        <span class="rule rule-teal" aria-hidden="true"></span>
+        <h2 class="t-h2 section-title">{site.clientRelationships.name}</h2>
+        <p class="t-caption founder-role">{site.clientRelationships.role}</p>
+      </div>
+
+      <div class="founder-body">
+        {/* Written from the biography Trevor supplied. Every fact is his: the
+             roles, the Head of Administration and Strategy post, and both
+             degrees. What is not carried over is the adjective run that came
+             with it, describing him as motivated and versatile with strong
+             analytical, communication, leadership and problem-solving
+             abilities. On a site whose evidence section is headed "Evidence,
+             not adjectives", that paragraph would have undercut the argument
+             two screens above it. Nothing invented, nothing substantive cut. */}
+
+        <p class="t-lead founder-lead">
+          Siyabonga is who you deal with between sessions. He is also one of the
+          two directors and the company's registered information officer.
+        </p>
+
+        <p class="t-body">
+          His background is administration, operations and strategy. He has
+          served as Head of Administration and Strategy, coordinating
+          administrative functions, supporting strategic planning, working on
+          the processes underneath both, and contributing to organisational
+          growth. Before that, team leadership and customer service.
+        </p>
+
+        <p class="t-body">
+          He holds a BA in Politics and International Relations and a BA Honours
+          in Development Studies, and he is committed to continuous learning and
+          to work that contributes something real to organisations and the
+          communities they serve.
+        </p>
+
+        <p class="t-body">
+          The pairing is deliberate. Trevor works on what the numbers say.
+          Siyabonga works on whether the organisation around them can absorb the
+          change. Most of what goes wrong in a transformation sits between those
+          two things.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <section class="section details-section">
     <div class="wrap">
       <span class="rule rule-navy" aria-hidden="true"></span>
@@ -252,6 +300,13 @@ import { breadcrumbSchema } from '../lib/schema';
   }
 
   .practices-section {
+    background: var(--surface-sunken);
+  }
+
+  /* Sunken so the two people read as separate blocks. Without it the page
+     would run white for three sections: Trevor, Siyabonga and the company
+     details. TGM separates with surface changes, not rules or shadow. */
+  .second-person {
     background: var(--surface-sunken);
   }
 
