@@ -36,7 +36,7 @@ export const site = {
   financialYearEnd: 'February',
 
   url: 'https://trevorgmenyatsogroup.co.za',
-  tagline: 'South African business transformation and growth partner',
+  tagline: 'Operational systems and analytics for site-based service contractors',
 
   /* OPEN ITEM 5 in CLAUDE.md is settled: info@ is the single public address.
      The business@ address in the old banners is not used on this site. */
@@ -99,7 +99,7 @@ export const site = {
   trademarkRegistered: false,
 
   founder: 'Trevor G. Menyatso',
-  founderRole: 'Founder and lead consultant',
+  founderRole: 'Founder and director',
 
   /* The second named person on the site. He is also one of the two directors
      and the registered information officer, both recorded above, so /about
@@ -131,12 +131,14 @@ export const site = {
    provider, both of those need updating too. */
 export const FORM_ENDPOINT: string = 'https://formspree.io/f/xdekwbyr';
 
+/* Evidence was removed when the stats block went: with zero paying clients
+   there was nothing to put in it, and three empty slots on the most persuasive
+   part of the page was worse than no section. The nav entry pointed at
+   /#evidence, an anchor that no longer exists anywhere, so it is gone too.
+   Put it back the day there is a measured result to show. */
 export const nav = [
   { label: 'Services', href: '/services/' },
   { label: 'Approach', href: '/approach/' },
-  /* Evidence is a homepage section, not a page. Absolute so the link works
-     from inner pages too. */
-  { label: 'Evidence', href: '/#evidence' },
   { label: 'About', href: '/about/' },
 ] as const;
 
@@ -156,45 +158,64 @@ export const legalLinks = [
 /* The one CTA. It appears in the header, the hero, the services grid and the
    CTA band, and it is the same action every time. Do not add a second
    conversion path in v1. */
+/* The one CTA, repeated in the header, hero, services grid and CTA band.
+
+   It sells the paid diagnostic, not a free call. POSITIONING section 5 is
+   explicit about why: "the diagnostic is the qualifying gate. Anyone who will
+   not pay R12,500 will not pay for a build." A free ninety-minute consultation
+   gives away most of the diagnostic's interview time and attracts exactly the
+   prospects the gate exists to filter out. */
 export const cta = {
-  label: 'Book a discovery call',
+  label: 'Book the diagnostic',
   href: '/contact/',
 } as const;
 
-/* Proof strip. Three sectors are real; the fourth is an open item and stays a
-   visible placeholder until Trevor names it. */
-/* OPEN ITEM 3 closed. Plural to sit alongside 'Professional services', and
-   'centres' because the content rules call for South African English. */
+/* Published price. POSITIONING is the single source; this restates the
+   diagnostic only, which is the one rung a prospect can buy without a
+   conversation. Build tiers and the retainer are quoted after the diagnostic,
+   so they are described on the site but not priced.
+
+   Always "excl. VAT": the company is VAT-registered and POSITIONING requires
+   every quoted figure to say so. */
+export const diagnosticPrice = {
+  amount: 'R12,500',
+  vatNote: 'excl. VAT',
+  duration: '3 weeks',
+} as const;
+
+/* Who the work is built for. These are the segments TGM sells to, not a list
+   of clients. TGM has no clients to name yet, so the homepage strip says
+   "Built for", never "Working with". */
 export const sectors = [
-  'Education',
-  'Professional services',
-  'Logistics',
-  'Call centres',
+  'Security',
+  'Cleaning',
+  'Facilities management',
+  'Industrial and specialist contractors',
 ] as const;
 
 export const practices = [
   {
-    name: 'TGM Business Services',
+    name: 'TGM Business Systems',
     accent: 'gold' as const,
     description:
-      'Consulting, operations and strategic execution. The work of finding the constraint in how an organisation runs, designing the fix, and being there while it is implemented.',
+      'Working systems that fix a named operational failure. Registers, trackers and multi-user tools rebuilt on the tools you already run, so the work is captured once and the proof is there when someone asks for it.',
     focus: [
-      'Operating model and process design',
-      'Business growth and go-to-market',
-      'Programme and strategic execution',
-      'Leadership and team capability',
+      'Attendance and timesheet capture across sites',
+      'Compliance and certificate tracking',
+      'Job and project status tracking',
+      'Integration between the tools you already run',
     ],
   },
   {
     name: 'TGM Business Analytics',
     accent: 'teal' as const,
     description:
-      'Data, reporting, dashboards and AI. The work of making an organisation able to see itself clearly enough to decide, and automating what should never have been manual.',
+      'Data cleaning, dashboards and automated reporting. The work of making the numbers correct at source, so a report is a by-product rather than a monthly project.',
     focus: [
-      'Reporting and dashboard design',
-      'Data quality and single source of truth',
-      'AI and automation opportunity assessment',
-      'Measurement that survives scrutiny',
+      'Data cleaning and consolidation',
+      'Dashboards on your own tools',
+      'Automated monthly client reports',
+      'A single source of truth for the data you report on',
     ],
   },
 ] as const;
@@ -205,53 +226,22 @@ export const phases = [
   {
     number: '01',
     name: 'Diagnose',
-    headline: 'Find the real constraint',
-    body: 'We look at how the organisation actually runs, not how the org chart says it does. Interviews, process walkthroughs and whatever data exists. The output is a written diagnosis of what is limiting growth, which is usually not what you were told it was.',
+    headline: 'Name the real failure',
+    body: 'Three weeks, fixed fee. We review the files and registers you use now, interview the person who keeps them and the person who uses the reports, and examine the real data. You receive every defect found in your own numbers, and a scoped build specification that is yours to keep.',
     accent: 'navy' as const,
   },
   {
     number: '02',
-    name: 'Design',
-    headline: 'Build the target state',
-    body: 'A specific description of how the process, the team or the reporting should work instead, costed and sequenced. Concrete enough that someone else could implement it. You can take this and run it yourself.',
+    name: 'Build',
+    headline: 'Fixed scope, fixed price',
+    body: 'A working system on your own tools, running on your real data rather than a sample. Scope, price and acceptance criteria are agreed in writing before work begins, and overruns inside the scope are ours.',
     accent: 'navy' as const,
   },
   {
     number: '03',
-    name: 'Implement',
-    headline: 'Do it with your team',
-    body: 'We work alongside the people who will own it afterwards, rather than delivering to them. Slower in week one and considerably faster by week six, because nothing has to be handed over at the end.',
-    accent: 'navy' as const,
-  },
-  {
-    number: '04',
-    name: 'Embed',
-    headline: 'Make it stick',
-    body: 'Measurement, documentation and the handful of habits that decide whether a change survives contact with a busy quarter. Most transformation work fails here, which is why it is a phase and not a closing email.',
+    name: 'Support',
+    headline: 'Keep it working',
+    body: 'A monthly retainer after you have accepted the build: up to five hours of fixes, changes and support on the delivered system. Offered only after acceptance, and never bundled into the build price.',
     accent: 'gold' as const,
-  },
-] as const;
-
-/* Evidence section. All three figures are placeholders and stay that way until
-   Trevor supplies a measured result with a named client and a period. An
-   unsourced number on a consulting site is worse than no number. */
-export const stats = [
-  {
-    figure: null as null | string,
-    unit: '%',
-    description: 'reduction in order-to-delivery cycle time',
-    source: 'Client, sector and period to be supplied',
-  },
-  {
-    figure: null as null | string,
-    unit: 'hrs',
-    description: 'of manual reporting removed each month',
-    source: 'Client, sector and period to be supplied',
-  },
-  {
-    figure: null as null | string,
-    unit: 'x',
-    description: 'return on the engagement fee within the first year',
-    source: 'Client, sector and period to be supplied',
   },
 ] as const;

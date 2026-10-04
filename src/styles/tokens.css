@@ -41,7 +41,7 @@
   --focus-ring:       #0F6155;  /* 7.34:1 on surface */
 
   /* Sub-brands — accent only, never a separate palette */
-  --brand-services:   #F0BC20;  /* TGM Business Services */
+  --brand-services:   #F0BC20;  /* TGM Business Systems (token name kept, renamed in copy only) */
   --brand-analytics:  #177E6E;  /* TGM Business Analytics */
 
   /* Charts — separated by lightness as well as hue, so they survive

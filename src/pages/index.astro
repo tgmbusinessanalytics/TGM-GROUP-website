@@ -5,9 +5,8 @@ import Button from '../components/Button.astro';
 import Motif from '../components/Motif.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import PhaseStep from '../components/PhaseStep.astro';
-import StatBlock from '../components/StatBlock.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { cta, sectors, phases, stats, practices } from '../data/site';
+import { cta, sectors, phases, practices } from '../data/site';
 import { organizationSchema, localBusinessSchema } from '../lib/schema';
 
 const services = (await getCollection('services')).sort(
@@ -16,8 +15,8 @@ const services = (await getCollection('services')).sort(
 ---
 
 <Base
-  title="TGM Group: business transformation and growth partner, South Africa"
-  description="TGM Group fixes the operations, systems and data underneath your strategy. Consulting, analytics, AI and automation for South African organisations. Book a discovery call."
+  title="TGM Group: operational systems and analytics for service contractors"
+  description="TGM Group builds working systems for site-based service contractors in South Africa: attendance, compliance, job status and client reporting, built on the tools you already run. Book the diagnostic."
   jsonLd={[organizationSchema(), localBusinessSchema()]}
 >
   {/* 2. Hero -----------------------------------------------------------*/}
@@ -26,12 +25,12 @@ const services = (await getCollection('services')).sort(
       <div class="hero-copy">
         <span class="rule" aria-hidden="true"></span>
         <h1 class="t-hero hero-title">
-          Build the structure your growth is standing on
+          Replace the spreadsheet your client is waiting on
         </h1>
         <p class="t-lead hero-lead">
-          TGM Group is a South African business transformation partner. We fix
-          the operations, systems and data underneath the strategy, then stay
-          to make sure it holds.
+          TGM Group builds working systems and analytics for site-based service
+          contractors: attendance, compliance files, job status and the client
+          reporting that comes out of them. Built on the tools you already run.
         </p>
         <div class="hero-actions">
           <Button href={cta.href} variant="gold">{cta.label}</Button>
@@ -48,7 +47,7 @@ const services = (await getCollection('services')).sort(
        to use client logos, this is the honest version. */}
   <section class="proof">
     <div class="wrap proof-inner">
-      <p class="t-nav proof-label">Working with organisations across</p>
+      <p class="t-nav proof-label">Built for site-based service contractors</p>
       <ul class="proof-sectors">
         {
           sectors.map((sector) => (
@@ -74,21 +73,20 @@ const services = (await getCollection('services')).sort(
   <section class="statement on-dark">
     <div class="wrap statement-inner">
       <h2 class="t-h2-dark statement-heading">
-        You do not have a growth problem. You have an operations problem.
+        You do not have a reporting problem. You have a capture problem.
       </h2>
       <div class="statement-body">
         <span class="rule" aria-hidden="true"></span>
         <p class="t-lead">
-          Almost every organisation that comes to us arrives with a growth
-          target and a plan to hit it. The plan is usually fine. What is missing
-          is the operation underneath it: the process that breaks at volume,
-          the reporting nobody trusts, the decision that waits three weeks for
-          one person.
+          When a business is spread across client sites, the same wall tends to
+          appear. A client asks for proof of attendance, a certificate before an
+          audit, or a monthly report on a deadline. The report is rarely the
+          problem. The record underneath it is: timesheets reconciled by hand,
+          files chased by email, job status that lives in one supervisor's head.
         </p>
         <p class="t-lead">
-          You cannot sell your way out of that. We find the constraint, design
-          the fix with the people who will run it, and stay long enough to see
-          whether it survives a busy quarter.
+          You cannot report your way out of that. We find the failure, build the
+          system that captures the work once, and stay on to keep it working.
         </p>
       </div>
     </div>
@@ -103,8 +101,8 @@ const services = (await getCollection('services')).sort(
           <h2 class="t-h2 section-title">What we do</h2>
         </div>
         <p class="t-body section-intro">
-          Five areas of work, delivered through two practices. Most engagements
-          start in one and touch two. The constraint is rarely where the symptom is.
+          Five areas of work across two divisions. Systems comes first and
+          Analytics follows, because a report is only as good as the data under it.
         </p>
       </div>
 
@@ -122,8 +120,8 @@ const services = (await getCollection('services')).sort(
         {/* The sixth cell is a CTA in the grid, not a seventh service. */}
         <ServiceCard
           variant="cta"
-          title="Not sure which one you need?"
-          body="Most people are not, at the start. That is what the discovery call is for: ninety minutes to work out where the actual constraint sits before anyone proposes anything."
+          title="Not sure where to start?"
+          body="That is what the diagnostic is for: three weeks to find where the actual failure sits, and what it costs you, before anyone proposes a build."
           href={cta.href}
           ctaLabel={cta.label}
         />
@@ -137,7 +135,7 @@ const services = (await getCollection('services')).sort(
       <span class="rule" aria-hidden="true"></span>
       <h2 class="t-h2 section-title">How an engagement runs</h2>
       <p class="t-lead approach-intro">
-        Four phases, in order. You can stop after any one of them.
+        Three steps, in order. You can stop after any one of them.
       </p>
 
       <div class="phase-grid">
@@ -163,38 +161,13 @@ const services = (await getCollection('services')).sort(
         <span class="rule rule-teal" aria-hidden="true"></span>
         <h2 class="t-h2 section-title">Evidence, not adjectives</h2>
         <p class="t-body evidence-body">
-          Consulting is full of claims that cannot be checked. Every figure we
-          publish names the client, the sector and the period it was measured
-          over, and we do not publish one until the client has agreed to it
-          being public.
+          TGM Group is new, so there are no case studies to show you yet. When
+          there are, every figure will name the client, the sector and the
+          period it was measured over, and we will not publish one until the
+          client has agreed to it being public.
         </p>
-        {/* The case studies index does not exist yet: the cases collection is
-             empty by design. This link is intentionally left pointing at
-             /contact/ rather than a 404. Swap it to /cases/ when there is
-             something cleared to publish. */}
-        <a href="/contact/" class="link-arrow">
-          Ask for the case studies
-          <span aria-hidden="true">&rarr;</span>
-        </a>
       </div>
 
-      <div class="stat-grid">
-        {
-          /* Each block is wrapped in a cell we own, so the mobile rule that
-             drops the third one targets an element in this file rather than
-             reaching into StatBlock's scoped markup. */
-          stats.map((stat) => (
-            <div class="stat-cell">
-              <StatBlock
-                figure={stat.figure}
-                unit={stat.unit}
-                description={stat.description}
-                source={stat.source}
-              />
-            </div>
-          ))
-        }
-      </div>
     </div>
   </section>
 
@@ -203,7 +176,7 @@ const services = (await getCollection('services')).sort(
        real information — which practice — not decoration. */}
   <section id="about" class="section practices">
     <div class="wrap">
-      <h2 class="t-h2 section-title">Two practices, one group</h2>
+      <h2 class="t-h2 section-title">Two divisions, one group</h2>
 
       <div class="practice-grid">
         {
@@ -370,7 +343,7 @@ const services = (await getCollection('services')).sort(
 
   .phase-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 32px;
     margin-top: var(--space-6);
   }
@@ -379,7 +352,7 @@ const services = (await getCollection('services')).sort(
 
   .evidence-inner {
     display: grid;
-    grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 640px);
     gap: var(--space-6);
     align-items: start;
   }

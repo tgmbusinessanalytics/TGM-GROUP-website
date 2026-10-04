@@ -23,7 +23,7 @@ export function organizationSchema() {
     email: site.email,
     telephone: site.phoneHref.replace('tel:', ''),
     description:
-      'TGM Group is a South African business transformation partner. We fix the operations, systems and data underneath the strategy, then stay to make sure it holds.',
+      'TGM Group builds operational systems and analytics for site-based service contractors in South Africa: attendance, compliance, job status and client reporting, built on the tools you already run.',
     founder: {
       '@type': 'Person',
       name: site.founder,
@@ -35,7 +35,7 @@ export function organizationSchema() {
     },
     /* Two practices, one group. */
     department: [
-      { '@type': 'Organization', name: 'TGM Business Services' },
+      { '@type': 'Organization', name: 'TGM Business Systems' },
       { '@type': 'Organization', name: 'TGM Business Analytics' },
     ],
     /* sameAs is omitted entirely until a LinkedIn URL is confirmed. */

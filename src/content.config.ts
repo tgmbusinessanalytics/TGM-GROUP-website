@@ -12,7 +12,7 @@ const services = defineCollection({
        practice. This is set per service in the design spec's table — do not
        derive it from `practice`, the two do not agree in every row. */
     accent: z.enum(['gold', 'teal']),
-    practice: z.enum(['TGM Business Services', 'TGM Business Analytics']),
+    practice: z.enum(['TGM Business Systems', 'TGM Business Analytics']),
     /* Homepage card copy. Kept short on purpose — the cards are 280px tall and
        whitespace is structural. */
     summary: z.string(),

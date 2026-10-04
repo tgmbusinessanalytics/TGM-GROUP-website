@@ -6,9 +6,12 @@ below without saying why.
 
 ## What TGM Group is
 
-A South African business transformation and growth partner. It helps organisations
-improve operations, solve business problems, adopt AI and automation, and achieve
-measurable growth. Two practices: TGM Business Services (consulting, operations,
+UPDATED 4 Oct 2026: the buyer, offer and prices are set by
+`00_COMPANY/02_Positioning/POSITIONING.md`, which wins over anything below.
+TGM Group builds operational systems and analytics for site-based service
+contractors in South Africa. Two divisions: TGM Business Systems (sold first)
+and TGM Business Analytics (follows). The text below is the original brief and is
+superseded where it mentions transformation, AI strategy or consulting. Original: (consulting, operations,
 strategic execution) and TGM Business Analytics (data, reporting, dashboards, AI).
 
 Founder and lead consultant: Trevor G. Menyatso.

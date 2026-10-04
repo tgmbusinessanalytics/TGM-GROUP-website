@@ -16,47 +16,36 @@ import { breadcrumbSchema } from '../lib/schema';
 const detail = [
   {
     involves: [
-      'Interviews with the people doing the work, not only the people managing it',
-      'Walking a live job end to end, from first contact to money received',
-      'A look at whatever data exists, including the spreadsheets nobody mentions',
-      'A written diagnosis, circulated before anyone proposes a solution',
+      'A review of the files and registers you use now',
+      'Two interviews: the person who keeps the records and the person who uses the reports',
+      'An examination of the real data, including the spreadsheets nobody mentions',
+      'Findings and a scoped build specification, written for you',
     ],
-    duration: 'Typically two to four weeks',
+    duration: 'Three weeks, fixed fee, paid before work starts',
     stopHere:
-      'You have a written, evidenced view of what is limiting the business. That is a useful thing to own whether or not we do anything else together.',
+      'You have every defect named in your own numbers, and a specification you own outright. That is a useful thing to hold whether or not we do anything else together. If you sign a build within 30 days, the fee is credited against it.',
   },
   {
     involves: [
-      'A target-state design for the process, structure or reporting in question',
-      'Sequencing and dependencies, so the work runs in a survivable order',
-      'A cost and effort estimate honest enough to be argued with',
-      'Agreement on what success is measured by, before implementation starts',
+      'A working system on your own tools, running on your real data',
+      'Scope, price and acceptance criteria agreed in writing before work begins',
+      'Roles, approvals and capture that match how your sites actually work',
+      'Written acceptance from you before the build is complete',
     ],
-    duration: 'Typically two to six weeks',
+    duration: 'Set by the specification and agreed up front, not open-ended',
     stopHere:
-      'You have a specification another party could implement. Some clients take this in-house, and that is a legitimate outcome rather than a lost sale.',
+      'The system is live and running. Many engagements could end here, and some should.',
   },
   {
     involves: [
-      'Working alongside the people who will own the process afterwards',
-      'Building in the open, so decisions are visible while they are reversible',
-      'Regular checkpoints against the measures agreed in phase two',
-      'Documentation written by your team, in their language',
+      'Fixes, changes and support on the delivered system',
+      'Up to five hours a month, planned rather than ad hoc',
+      'Work beyond five hours quoted before it starts',
+      'Offered only after acceptance, never bundled into the build price',
     ],
-    duration: 'Varies with scope, but agreed up front rather than open-ended',
+    duration: 'Six months minimum, then month to month',
     stopHere:
-      'The change is live and running. Most engagements could end here, and some should.',
-  },
-  {
-    involves: [
-      'Measurement that continues after we leave, owned by someone named',
-      'The management habits that decide whether a change survives a busy quarter',
-      'A review at a defined interval, agreed at the start',
-      'An honest assessment of what did not hold, and why',
-    ],
-    duration: 'A defined review period, not a retainer by default',
-    stopHere:
-      'This is the phase most transformation work skips, which is why so much of it quietly reverses within a year.',
+      'You can end it after the minimum term. A system that nobody looks after drifts, which is why the option exists, but it is an option.',
   },
 ];
 
@@ -64,13 +53,13 @@ const combined = phases.map((phase, i) => ({ ...phase, ...detail[i] }));
 ---
 
 <Base
-  title="Our approach: four phases, in order | TGM Group"
-  description="How a TGM Group engagement runs: diagnose, design, implement, embed. Four phases in order, with a defined stopping point after each one."
+  title="Our approach: three steps, in order | TGM Group"
+  description="How a TGM Group engagement runs: diagnose, build, support. Three steps in order, with a defined stopping point after each one."
   jsonLd={[breadcrumbSchema([{ name: 'Approach', href: '/approach/' }])]}
 >
   <PageHero
     accent="gold"
-    title="Four phases, in order. You can stop after any one of them."
+    title="Three steps, in order. You can stop after any one of them."
     lead="Every phase produces something you own and can use on its own. That is deliberate. An engagement that only pays off at the end is one you cannot get out of."
   />
 

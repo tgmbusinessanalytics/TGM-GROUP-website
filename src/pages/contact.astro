@@ -22,25 +22,24 @@ if (!formReady) {
 }
 
 const problems = [
-  'Growth has stalled, or growth is breaking the operation',
-  'Processes are slow, manual or inconsistent',
-  'Reporting is manual, late, or not trusted',
-  'We want to use AI or automation but do not know where',
-  'Strategy is agreed but nothing is moving',
-  'The leadership team is the bottleneck',
+  'Attendance or timesheets are reconciled by hand',
+  'Compliance files and certificates are chased before audits',
+  'Job or project status is only known by phoning people',
+  'Client reports are compiled by hand every month',
+  'A client or regulator is asking for proof we cannot produce quickly',
   'Not sure yet',
 ];
 ---
 
 <Base
-  title="Contact TGM Group: book a discovery call"
-  description="Book a ninety-minute discovery call with TGM Group. No charge, no deck, no obligation. Email info@trevorgmenyatsogroup.co.za or call 081 517 1016."
+  title="Contact TGM Group: book the operational diagnostic"
+  description="Book the TGM Group operational diagnostic. R12,500 excl. VAT, three weeks, and a build specification you own whether or not you hire us. Email info@trevorgmenyatsogroup.co.za or call 081 517 1016."
   jsonLd={[breadcrumbSchema([{ name: 'Contact', href: '/contact/' }])]}
 >
   <PageHero
     accent="gold"
-    title="Ninety minutes. A straight answer about what is actually holding you back."
-    lead="No charge, no deck, no obligation to engage us afterwards. Come with the problem as you currently understand it. Working out whether that is the real problem is the point of the call."
+    title="Three weeks. Every defect named in your own numbers."
+    lead="The operational diagnostic is R12,500 excl. VAT. Tell us what is failing as you currently understand it, and we will tell you whether a diagnostic is the right next step before anyone pays for anything."
   />
 
   <section class="section contact-section">
@@ -77,11 +76,11 @@ const problems = [
           <ol class="expect-list">
             <li class="t-body-sm">We reply within one working day.</li>
             <li class="t-body-sm">
-              We book ninety minutes at a time that suits you.
+              We talk through what is failing, and say whether a diagnostic is
+              the right next step. If it is not, we say so.
             </li>
             <li class="t-body-sm">
-              You get a written summary of what we heard, whether or not there
-              is a proposal after it.
+              If it is, we scope it, you pay, and the three weeks start.
             </li>
           </ol>
         </div>
@@ -208,7 +207,7 @@ const problems = [
             disabled={!formReady}
             class={formReady ? '' : 'is-disabled'}
           >
-            Book a discovery call
+            Book the diagnostic
           </Button>
         </form>
       </div>

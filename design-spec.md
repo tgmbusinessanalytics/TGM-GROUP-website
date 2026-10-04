@@ -27,11 +27,11 @@ Two columns, text left (flexible), motif right (420px fixed).
 
 - 72x6 `--gold` rule above the headline.
 - H1 `--text-hero`, `--ink`, max-width 740px:
-  **"Build the structure your growth is standing on"**
+  **"Replace the spreadsheet your client is waiting on"**
 - Lead `--text-lead`, `--ink-muted`, max-width 620px:
-  "TGM Group is a South African business transformation partner. We fix the
-  operations, systems and data underneath the strategy — then stay to make sure
-  it holds."
+  "TGM Group builds working systems and analytics for site-based service
+  contractors: attendance, compliance files, job status and the client
+  reporting that comes out of them. Built on the tools you already run."
 - Two buttons: gold "Book a discovery call" (primary), outlined
   "See how we work" (`--border-strong`, transparent).
 
@@ -48,7 +48,7 @@ an 80px pitch.
 
 `--surface-sunken`. Left: "Working with organisations across" in
 `--text-nav`/`--ink-muted`. Right: four sector words in `--font-display` 600,
-19px, `--navy`. Currently Education, Professional services, Logistics, `[Sector]`.
+19px, `--navy`. Currently Security, Cleaning, Facilities management, Industrial and specialist contractors (label: "Built for site-based service contractors").
 
 Replace with real client logos once there is permission to use them. Until then
 sector words are the honest version — do not substitute generic logo placeholders.
@@ -83,14 +83,14 @@ Six cells in a 3-column grid, 24px gap, `--surface-sunken`, `--radius-md`,
 | "Not sure which one you need?" | `--navy` background, white text, gold button |
 
 The sixth cell is a CTA in the grid rather than a seventh service. Gold and teal
-alternate by practice: gold cells belong to Business Services, teal to Business
+alternate by practice: gold cells belong to Business Systems, teal to Business
 Analytics.
 
 Mobile: single column, cards stacked, 28px padding.
 
 ## 6. Approach — `#approach`, `--surface-sunken`
 
-Gold rule, H2 "How an engagement runs", intro "Four phases, in order. You can
+Gold rule, H2 "How an engagement runs", intro "Three steps, in order. You can
 stop after any one of them."
 
 Four columns, 32px gap. Each has a 3px `--navy` top border (the fourth is
@@ -124,8 +124,8 @@ Mobile: two stat blocks, stacked. Drop the third.
 
 ## 8. Practices — `#about`
 
-H2 "Two practices, one group". Two cards, 1px `--hairline` border with a 5px
-coloured top border — gold for TGM Business Services, teal for TGM Business
+H2 "Two divisions, one group". Two cards, 1px `--hairline` border with a 5px
+coloured top border — gold for TGM Business Systems, teal for TGM Business
 Analytics — `--radius-md`, 40px padding.
 
 This is the only place a coloured top border is used. It is carrying real
