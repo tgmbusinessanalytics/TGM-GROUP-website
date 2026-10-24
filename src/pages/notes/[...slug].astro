@@ -1,0 +1,165 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { site } from '../../data/site';
+import { breadcrumbSchema } from '../../lib/schema';
+import { formatDate } from '../../lib/date';
+
+/* One page per published note.
+ *
+ * Drafts are excluded here as well as on the index. This is the filter that
+ * actually matters: without it a draft would still get a URL, and an unlisted
+ * URL is only unlisted until someone shares it.
+ */
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes', ({ data }) => !data.draft);
+  return notes.map((note) => ({
+    params: { slug: note.id },
+    props: { note },
+  }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+
+/* Article schema so a note can surface as a dated piece of writing rather
+   than a generic page. headline, datePublished and author are the fields
+   search engines actually use. */
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: note.data.title,
+  description: note.data.description,
+  datePublished: note.data.publishDate.toISOString(),
+  ...(note.data.updated ? { dateModified: note.data.updated.toISOString() } : {}),
+  author: { '@type': 'Person', name: note.data.author },
+  publisher: { '@type': 'Organization', name: site.name, url: site.url },
+  mainEntityOfPage: `${site.url}/notes/${note.id}/`,
+};
+---
+
+<Base
+  title={`${note.data.title} | TGM Group`}
+  description={note.data.description}
+  jsonLd={[
+    breadcrumbSchema([
+      { name: 'Notes', href: '/notes/' },
+      { name: note.data.title, href: `/notes/${note.id}/` },
+    ]),
+    articleSchema,
+  ]}
+>
+  <article>
+    <header class="note-header">
+      <div class="wrap">
+        <p class="t-caption note-meta">
+          <a href="/notes/" class="back-link">Notes</a>
+          <span class="note-sep" aria-hidden="true">·</span>
+          <span class="note-topic">{note.data.topic}</span>
+        </p>
+
+        <h1 class="t-hero note-title">{note.data.title}</h1>
+
+        <p class="t-lead note-standfirst">{note.data.description}</p>
+
+        <p class="t-caption note-byline">
+          {note.data.author}
+          <span class="note-sep" aria-hidden="true">·</span>
+          <time datetime={note.data.publishDate.toISOString()}>
+            {formatDate(note.data.publishDate)}
+          </time>
+          {
+            note.data.updated && (
+              <>
+                <span class="note-sep" aria-hidden="true">
+                  ·
+                </span>
+                <span>Updated {formatDate(note.data.updated)}</span>
+              </>
+            )
+          }
+        </p>
+      </div>
+    </header>
+
+    <div class="section note-body">
+      <div class="wrap">
+        <div class="prose">
+          <Content />
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .note-header {
+    padding-block: var(--space-6) 0;
+  }
+
+  .note-meta,
+  .note-byline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+    color: var(--ink-muted);
+  }
+
+  .back-link {
+    color: var(--teal-ink);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+  }
+
+  .back-link:hover {
+    border-bottom-color: var(--teal-ink);
+  }
+
+  /* --gold-ink, never --gold: gold on white is 1.76:1. */
+  .note-topic {
+    color: var(--gold-ink);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .note-sep {
+    color: var(--border-strong);
+  }
+
+  .note-title {
+    margin: var(--space-4) 0 0;
+    /* Inner pages carry more words than the homepage headline, so the hero
+       step is dialled back here as it is on PageHero. */
+    font-size: 54px;
+    max-width: 900px;
+    color: var(--ink);
+  }
+
+  .note-standfirst {
+    margin: var(--space-4) 0 var(--space-5);
+    max-width: 680px;
+    color: var(--ink-muted);
+  }
+
+  .note-byline {
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--hairline);
+  }
+
+  .note-body {
+    padding-block: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .note-title {
+      font-size: var(--text-hero-m);
+    }
+  }
+</style>

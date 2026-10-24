@@ -11,3 +11,9 @@ npm-debug.log*
 
 # Upload bundle produced from dist/ — regenerate, do not commit.
 *.zip
+*.tar.gz
+
+# Google Drive writes a desktop.ini into every folder it syncs. They are not
+# project files: they break the build when Astro tries to copy public/ into
+# dist, and would otherwise be served from the live site.
+desktop.ini

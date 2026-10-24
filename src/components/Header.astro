@@ -1,4 +1,5 @@
 ---
+import { getCollection } from 'astro:content';
 import Logo from './Logo.astro';
 import { nav, cta } from '../data/site';
 
@@ -6,7 +7,17 @@ import { nav, cta } from '../data/site';
    homepage anchor and never matches. */
 const normalise = (p: string) => (p.length > 1 ? p.replace(/\/+$/, '') : p);
 const path = normalise(Astro.url.pathname);
-const isCurrent = (href: string) => !href.includes('#') && normalise(href) === path;
+const isCurrent = (href: string) =>
+  !href.includes('#') && (normalise(href) === path || path.startsWith(normalise(href) + '/'));
+
+/* Notes only enters the navigation once there is a published note to read.
+   The section can therefore ship before the first one is written without a
+   visitor ever clicking through to an empty page. The moment a note has
+   `draft: false` and the site is rebuilt, the link appears by itself. */
+const publishedNotes = await getCollection('notes', ({ data }) => !data.draft);
+const navItems = publishedNotes.length
+  ? [...nav, { label: 'Notes', href: '/notes/' }]
+  : nav;
 ---
 
 <header class="site-header">
@@ -16,8 +27,7 @@ const isCurrent = (href: string) => !href.includes('#') && normalise(href) === p
     {/* Desktop navigation */}
     <nav class="desktop-nav" aria-label="Primary">
       <ul>
-        {
-          nav.map((item) => (
+        {navItems.map((item) => (
             <li>
               <a
                 href={item.href}
@@ -76,8 +86,7 @@ const isCurrent = (href: string) => !href.includes('#') && normalise(href) === p
       <div class="menu-panel">
         <nav aria-label="Primary, mobile">
           <ul>
-            {
-              nav.map((item) => (
+            {navItems.map((item) => (
                 <li>
                   <a
                     href={item.href}

@@ -1,0 +1,186 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { breadcrumbSchema } from '../../lib/schema';
+import { formatDate } from '../../lib/date';
+
+/* The notes index.
+ *
+ * Drafts are filtered out here and in [...slug].astro. Both filters matter:
+ * this one keeps a draft off the list, that one stops a page being generated
+ * for it at all. Leaving either out would publish work in progress.
+ *
+ * Sorted newest first. A note's date is the day it was published, not the day
+ * the file was created, so back-dating a file does not quietly reorder things.
+ */
+
+const notes = (await getCollection('notes', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+---
+
+<Base
+  title="Notes | TGM Group"
+  description="Notes on building TGM Group from zero: what we are trying, what is working, what is not, and what we are learning about operations and reporting for site-based contractors."
+  jsonLd={[breadcrumbSchema([{ name: 'Notes', href: '/notes/' }])]}
+>
+  <PageHero
+    accent="teal"
+    title="Notes from building this"
+    lead="One note a month on building this business from nothing, and on how site-based contractors actually run. What we are trying, what is working, and what is not. Written in the open, including the parts that go wrong."
+  />
+
+  <section class:list={['section', notes.length === 0 && 'section-empty']}>
+    <div class="wrap">
+      {
+        notes.length === 0 ? (
+          /* Honest empty state. It is only ever seen if someone reaches this
+             URL directly, because the header does not link to Notes until a
+             published note exists. */
+          <div class="empty">
+            <p class="t-lead">The first note is being written.</p>
+            <p class="t-body empty-body">
+              It will be here mid-month, and monthly after that. If you would
+              rather not check back, the feed is at{' '}
+              <a href="/notes/rss.xml">/notes/rss.xml</a>.
+            </p>
+          </div>
+        ) : (
+          <>
+          <ol class="note-list">
+            {notes.map((note) => (
+              <li class="note-item">
+                <article>
+                  <p class="t-caption note-meta">
+                    <span class="note-topic">{note.data.topic}</span>
+                    <span class="note-sep" aria-hidden="true">
+                      ·
+                    </span>
+                    <time datetime={note.data.publishDate.toISOString()}>
+                      {formatDate(note.data.publishDate)}
+                    </time>
+                    {note.data.updated && (
+                      <>
+                        <span class="note-sep" aria-hidden="true">
+                          ·
+                        </span>
+                        <span>Updated {formatDate(note.data.updated)}</span>
+                      </>
+                    )}
+                  </p>
+
+                  <h2 class="t-h3 note-title">
+                    <a href={`/notes/${note.id}/`}>{note.data.title}</a>
+                  </h2>
+
+                  <p class="t-body-sm note-desc">{note.data.description}</p>
+                </article>
+              </li>
+            ))}
+          </ol>
+
+          {/* The feed is offered once per page. The empty state already
+              carries its own mention, so repeating it here would put the
+              same link on screen twice. */}
+          <p class="t-caption feed-note">
+            These notes are also available as a feed:{' '}
+            <a href="/notes/rss.xml">/notes/rss.xml</a>
+          </p>
+        </>
+        )
+      }
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  /* With no notes yet the page carries the hero and three lines of text. The
+     standard section top padding below a hero that is already generously
+     padded leaves a band of nothing between them that reads as a broken
+     layout rather than as space. It comes back the moment there is a list. */
+  .section-empty {
+    padding-top: 0;
+  }
+
+  .empty {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-width: 620px;
+  }
+
+  .empty-body,
+  .note-desc {
+    color: var(--ink-muted);
+  }
+
+  .note-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: 760px;
+  }
+
+  /* A hairline between entries rather than cards. The list is the content;
+     boxing each row would add furniture without adding meaning. */
+  .note-item {
+    padding-block: var(--space-5);
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .note-item:first-child {
+    padding-top: 0;
+  }
+
+  .note-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0 0 var(--space-3);
+    color: var(--ink-muted);
+  }
+
+  /* --gold-ink, not --gold. Gold on white is 1.76:1 and is never text. */
+  .note-topic {
+    color: var(--gold-ink);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .note-sep {
+    color: var(--border-strong);
+  }
+
+  .note-title {
+    margin: 0 0 var(--space-2);
+  }
+
+  .note-title a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+  }
+
+  .note-title a:hover {
+    border-bottom-color: var(--gold);
+  }
+
+  .feed-note {
+    margin-top: var(--space-6);
+    color: var(--ink-muted);
+  }
+
+  .feed-note a,
+  .empty-body a {
+    color: var(--teal-ink);
+    font-weight: 600;
+  }
+</style>

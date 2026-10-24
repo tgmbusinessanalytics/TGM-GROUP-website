@@ -1,0 +1,8 @@
+One .md file per note. The template and the full writing routine live in
+docs/writing-notes.md.
+
+draft: true keeps a file out of the build. A note only goes live when you
+set it to false and rebuild, so unfinished drafts are safe to commit.
+
+This file is .txt on purpose: the collection globs **/*.md, so a .md file
+here would be parsed as a note and fail schema validation.

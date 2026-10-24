@@ -41,18 +41,37 @@ const cases = defineCollection({
   }),
 });
 
-/* Scaffolding only. Insights is explicitly out of scope for v1: there is no
-   /insights route and the sitemap filters the path. The schema is here so the
-   section can be switched on later without a restructure. */
-const insights = defineCollection({
-  loader: glob({ base: './src/content/insights', pattern: '**/*.md' }),
+/* The monthly notes. This is the scaffolding CLAUDE.md told us to build and
+   leave switched off, now switched on.
+
+   RENAMED FROM `insights`. The word is the same consulting register the
+   content rules already ban alongside "leading", "innovative" and "solutions",
+   and it describes the wrong thing: these are notes on building a business in
+   public, including the parts that go wrong. There were zero posts, so the
+   rename cost nothing.
+
+   `draft` defaults to TRUE on purpose. A post has to be switched on
+   deliberately, so a half-written file can sit in the repo for a fortnight
+   without any risk of it appearing on the live site. */
+const notes = defineCollection({
+  loader: glob({ base: './src/content/notes', pattern: '**/*.md' }),
   schema: z.object({
     title: z.string(),
+    /* Doubles as the meta description and the card copy on the index, so it
+       has to stand alone. One or two sentences. */
     description: z.string(),
     publishDate: z.date(),
+    /* Set this when a post is materially revised after publication. The index
+       and the post itself both show it, because quietly editing a published
+       claim is the thing that costs trust. */
+    updated: z.date().optional(),
     author: z.string().default('Trevor G. Menyatso'),
+    /* The strand a post belongs to. "Building TGM" is the running account of
+       the business from zero, failures included; the other two are the
+       research pieces. */
+    topic: z.enum(['Building TGM', 'Operations', 'Reporting and data']),
     draft: z.boolean().default(true),
   }),
 });
 
-export const collections = { services, cases, insights };
+export const collections = { services, cases, notes };

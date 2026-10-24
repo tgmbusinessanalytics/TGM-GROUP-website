@@ -1,8 +1,17 @@
 ---
+import { getCollection } from 'astro:content';
 import Logo from './Logo.astro';
 import { site, footerLinks, legalLinks } from '../data/site';
 
 const year = new Date().getFullYear();
+
+/* Notes joins the footer on the same condition as the header: only once a
+   published note exists. Keeping the two in step means the section never
+   appears in one place and not the other. */
+const publishedNotes = await getCollection('notes', ({ data }) => !data.draft);
+const companyLinks = publishedNotes.length
+  ? [...footerLinks, { label: 'Notes', href: '/notes/' }]
+  : footerLinks;
 ---
 
 <footer class="site-footer on-dark">
@@ -21,7 +30,7 @@ const year = new Date().getFullYear();
         <h2 class="footer-heading t-caption">Company</h2>
         <ul>
           {
-            footerLinks.map((link) => (
+            companyLinks.map((link) => (
               <li>
                 <a href={link.href} class="footer-link t-body-sm">
                   {link.label}

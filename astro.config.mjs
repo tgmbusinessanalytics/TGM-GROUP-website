@@ -1,6 +1,8 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 
 // Target domain is confirmed in CLAUDE.md. Canonicals and the sitemap derive from it.
 export default defineConfig({
@@ -8,12 +10,25 @@ export default defineConfig({
   output: 'static',
   integrations: [
     sitemap({
-      // Insights is out of scope for v1 — the collection exists but nothing is
-      // routed under it. This filter is belt and braces.
-      filter: (page) => !page.includes('/insights'),
+      // Notes (formerly the out-of-scope "insights" collection) is now live and
+      // belongs in the sitemap: the whole point of the section is being found.
+      // Drafts never reach the sitemap because no page is generated for them.
+      //
+      // The feed is excluded because it is not a page. Listing an RSS document
+      // in a sitemap invites it to be indexed as a search result.
+      filter: (page) => !page.endsWith('/notes/rss.xml'),
     }),
   ],
   vite: {
     plugins: [tailwindcss()],
+
+    // This repository lives inside a Google Drive folder, and Drive's virtual
+    // filesystem holds handles open on files it is syncing. Vite's default
+    // cache sits in node_modules/.vite, which it clears and rewrites whenever
+    // the config changes, and on Drive that rmdir fails with ENOTEMPTY and
+    // takes the build process down with it. Keeping the cache on local disk
+    // removes the whole class of failure. Nothing in it is a build artefact,
+    // so it does not need to be in the repository or in a backup.
+    cacheDir: join(tmpdir(), 'tgm-site-vite-cache'),
   },
 });
