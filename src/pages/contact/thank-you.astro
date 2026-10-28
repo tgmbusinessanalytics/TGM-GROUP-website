@@ -3,13 +3,16 @@ import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import { site } from '../../data/site';
 
-/* Where Formspree sends people after a successful submission, via the _next
-   field on the contact form.
+/* Where public/enquiry.php sends people after it has delivered the enquiry.
  *
- * Without it they land on a Formspree-hosted page on formspree.io: a different
+ * It replaced a Formspree-hosted confirmation on formspree.io: a different
  * domain, none of this brand, and no restatement of what happens next. Someone
  * who has just handed over their details and been thrown to a stranger's
  * holding page has no way of telling whether it worked.
+ *
+ * The companion page is /contact/could-not-send/, which is where the handler
+ * sends people if the mail server refuses the message. This page is only ever
+ * reached when the enquiry has actually been sent, so it can promise a reply.
  *
  * Deliberately not indexed, and excluded from the sitemap in astro.config.mjs.
  * It is also reachable directly by anyone who types the URL, so it promises

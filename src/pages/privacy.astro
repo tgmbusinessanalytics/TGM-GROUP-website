@@ -51,7 +51,10 @@ import { breadcrumbSchema } from '../lib/schema';
             <strong>What you send us.</strong> If you complete the enquiry form
             or email us, we receive your name, work email address, organisation,
             the problem category you selected and anything you wrote in the
-            message field.
+            message field. A submitted form is sent to our mailbox and a copy is
+            also kept in a file on our own web server, which is not reachable
+            from the internet and exists so that a mail failure cannot lose your
+            enquiry. Both copies are subject to the retention period below.
           </li>
           <li>
             <strong>What the website records.</strong> This site is static and
@@ -80,38 +83,35 @@ import { breadcrumbSchema } from '../lib/schema';
 
         <h2>Who else sees it</h2>
         <p>
-          Two third parties handle your information on our instruction. Both act
-          as operators under POPIA and are bound to protect it.
+          No third party processes our enquiry form. It posts to our own web
+          server, which stores the enquiry there and sends it to our mailbox on
+          the same domain. Your details are not handed to any form service,
+          marketing platform or analytics provider, because the site uses none.
+        </p>
+        <p>
+          One third party is involved after that point:
         </p>
         <ul>
           <li>
-            <strong>Formspree</strong> (Formspree, Inc.) processes our enquiry
-            form. When you submit it, what you typed is transmitted to and
-            stored on Formspree's servers in the <strong>United States</strong>,
-            and forwarded to our email address.
-          </li>
-          <li>
             <strong>Our email provider.</strong> Mail sent to our published
-            address is handled by the mail platform attached to our domain
-            registration.
+            address, including the notification our own form generates, is
+            handled by the mail platform attached to our domain registration.
+            It acts as an operator under POPIA and is bound to protect your
+            information.
             <span class="placeholder">[Name the email host and its country]</span>
           </li>
         </ul>
 
         <h3>Transfer outside South Africa</h3>
         <p>
-          Because Formspree stores submissions in the United States, using the
-          enquiry form transfers your personal information outside South Africa.
-          Section 72 of POPIA permits this where the data subject consents to
-          the transfer, and the consent checkbox on the form is that consent. It
-          is required rather than optional for exactly that reason: without it
-          there is no lawful basis to send your details abroad, so the form will
-          not accept a submission without it.
+          Using the enquiry form does not transfer your personal information
+          outside South Africa. The form is handled entirely on our own hosting
+          and the enquiry is delivered to a mailbox on the same domain.
         </p>
         <p>
-          If you would prefer your information stayed in South Africa, do not
-          use the form. Email or telephone us instead, using the details in this
-          policy, and say so.
+          The one thing we cannot yet state is where our email provider holds
+          mail once it is in the mailbox.
+          <span class="placeholder">[Confirm the email host's country. If it is outside South Africa, section 72 of POPIA applies to mail stored there and this section must say so.]</span>
         </p>
 
         <h2>Your rights</h2>

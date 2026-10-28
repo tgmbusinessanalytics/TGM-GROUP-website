@@ -5,13 +5,13 @@ import Button from '../components/Button.astro';
 import { site, FORM_ENDPOINT } from '../data/site';
 import { breadcrumbSchema } from '../lib/schema';
 
-/* The form markup, validation, honeypot, time-trap and POPIA consent are all
-   complete. The only missing piece is the destination — see FORM_ENDPOINT in
-   src/data/site.ts.
+/* The form posts to public/enquiry.php on our own hosting. See FORM_ENDPOINT
+   in src/data/site.ts for why it is no longer Formspree.
 
-   While it is unset the submit button is disabled and the page says so, rather
-   than posting into a void and losing an enquiry. The email address and phone
-   number are the first thing on the page either way, so it is useful now. */
+   If FORM_ENDPOINT is ever emptied, the submit button is disabled and the page
+   says the form is not connected, rather than posting into a void and losing
+   an enquiry. The email address and phone number are the first thing on the
+   page either way. */
 
 const formReady = FORM_ENDPOINT.length > 0;
 
@@ -159,20 +159,11 @@ const problems = [
             <input id="website" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
           </div>
 
-          {/* Where Formspree sends the browser after a successful submission.
-               Without it the visitor lands on a Formspree-hosted page on
-               another domain with none of this brand on it, having just handed
-               over their details. Must be absolute: Formspree resolves it on
-               its own origin, not ours. */}
-          <input type="hidden" name="_next" value={`${site.url}/contact/thank-you/`} />
-
-          {/* Without this every enquiry arrives under the same generic
-               Formspree subject, which is how a real one gets missed. */}
-          <input
-            type="hidden"
-            name="_subject"
-            value="Website enquiry: diagnostic"
-          />
+          {/* No hidden _next or _subject any more. Those were Formspree
+               parameters: where to redirect to, and what subject line to use.
+               Both now live in public/enquiry.php, which is our own code, so
+               they are decided on the server rather than announced in the page
+               source where anyone could change them before posting. */}
 
           {/* POPIA. Explicit, unticked by default, and bound to a real
                <label>. The statement below it says what the data is for and
@@ -187,8 +178,13 @@ const problems = [
 
           {/* POPIA section 18 requires the data subject to be told at the
                point of collection, not only in the policy, where their
-               information goes. That includes the transfer to the United
-               States, so it is stated here as well as on /privacy. */}
+               information goes.
+
+               The second paragraph used to disclose a transfer to the United
+               States, because Formspree stored submissions there and section
+               72 required consent to it. The form now posts to our own server
+               in South Africa, so there is no transfer and no such paragraph.
+               Put it back the day any part of this runs off our hosting. */}
           <p class="t-caption popia">
             We use what you send here to reply to you and to prepare for the
             call. We do not sell it, we do not add you to a mailing list, and we
@@ -197,12 +193,10 @@ const problems = [
             <a href={`mailto:${site.email}`}>{site.email}</a>.
           </p>
           <p class="t-caption popia">
-            This form is processed by Formspree, which stores submissions in the
-            United States, so submitting it sends your details outside South
-            Africa. Ticking the box above is your consent to that transfer under
-            section 72 of POPIA. If you would rather not, email or call us
-            instead. Our <a href="/privacy/">privacy policy</a> sets out the full
-            position.
+            This form is handled by our own server in South Africa and sent
+            straight to our mailbox. Your details are not passed to any other
+            company or stored outside the country. Our
+            <a href="/privacy/">privacy policy</a> sets out the full position.
           </p>
 
           <p id="too-fast" class="t-body-sm error" hidden>
@@ -231,14 +225,14 @@ const problems = [
      rejects anything submitted in under three seconds, which no human
      completing five fields manages and most bots do.
 
-     The elapsed time is never submitted. It used to go across in a hidden
-     field named _elapsed, which put a field of ours inside the underscore
-     namespace Formspree reserves for its own parameters (_next, _subject,
-     _cc, _gotcha). The check runs entirely here, so the field bought nothing
-     and risked the submission being rejected or mangled.
+     The elapsed time is never submitted. The check runs entirely here, so a
+     hidden field carrying it would buy nothing.
 
-     Everything degrades: with JavaScript off the check never runs and the form
-     submits normally. Spam filtering must not cost a real enquiry. */
+     This is the only spam check that needs a browser. The honeypot and the
+     rate limit both run server-side in enquiry.php, which is what actually
+     stops a bot posting straight at the URL, and everything degrades: with
+     JavaScript off this check never runs and the form submits normally. Spam
+     filtering must not cost a real enquiry. */
   const form = document.getElementById('enquiry') as HTMLFormElement | null;
   const warning = document.getElementById('too-fast');
 

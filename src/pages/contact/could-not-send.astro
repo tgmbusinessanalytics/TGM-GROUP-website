@@ -1,0 +1,128 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { site } from '../../data/site';
+
+/* Where enquiry.php sends people when the mail server refuses the message.
+ *
+ * It should never be seen. It exists because the alternative is worse: a
+ * visitor who has typed out what is going wrong in their business, pressed the
+ * button and been shown a confirmation that is not true. They would wait a
+ * working day for a reply to an enquiry that never arrived.
+ *
+ * Their details are not lost when this page appears. enquiry.php writes every
+ * submission to the log above the web root before it attempts to send, so the
+ * enquiry is on disk. This page cannot promise a reply, though, because
+ * nothing has reached the mailbox, so it asks them to use the phone or email
+ * instead and says plainly what happened.
+ *
+ * A static page rather than a message revealed by JavaScript on /contact: it
+ * has to work whatever the browser is doing, which is the whole point of it.
+ *
+ * Not indexed, and excluded from the sitemap in astro.config.mjs.
+ */
+---
+
+<Base
+  title="We could not send that | TGM Group"
+  description="The contact form could not reach our mail server. Please email or call us directly."
+  noindex={true}
+>
+  <PageHero
+    accent="navy"
+    title="That did not send, and we would rather tell you."
+    lead="Our mail server refused the message. Nothing you typed was wrong, and this is ours to fix. Please reach us directly in the meantime."
+  />
+
+  <section class="section fail-section">
+    <div class="wrap">
+      <div class="fail">
+        <div class="direct">
+          <h2 class="t-caption direct-key">Email</h2>
+          <p class="t-body direct-line">
+            <a href={`mailto:${site.email}`} class="direct-link">{site.email}</a>
+          </p>
+
+          <h2 class="t-caption direct-key spaced">Telephone</h2>
+          <p class="t-body direct-line">
+            <a href={site.phoneHref} class="direct-link">{site.phoneDisplay}</a>
+          </p>
+        </div>
+
+        <p class="t-body-sm note">
+          A copy of what you sent was saved on our own server before the
+          message was attempted, so it is not lost. We would still rather you
+          emailed or called, because we cannot promise anyone has seen it.
+        </p>
+
+        <p class="t-body-sm back">
+          <a href="/contact/" class="back-link">Back to the contact page</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .fail-section {
+    padding-top: 0;
+  }
+
+  .fail {
+    max-width: 640px;
+  }
+
+  .direct {
+    padding: var(--space-4);
+    background: var(--surface-sunken);
+    border-radius: var(--radius-sm);
+  }
+
+  .direct-key {
+    margin: 0;
+    color: var(--ink-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .spaced {
+    margin-top: var(--space-4);
+  }
+
+  .direct-line {
+    margin: var(--space-2) 0 0;
+  }
+
+  .direct-link {
+    color: var(--teal-ink);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    word-break: break-word;
+  }
+
+  .direct-link:hover {
+    border-bottom-color: var(--teal-ink);
+  }
+
+  .note {
+    margin-top: var(--space-5);
+    color: var(--ink-muted);
+  }
+
+  .back {
+    margin-top: var(--space-5);
+  }
+
+  .back-link {
+    color: var(--teal-ink);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+  }
+
+  .back-link:hover {
+    border-bottom-color: var(--teal-ink);
+  }
+</style>

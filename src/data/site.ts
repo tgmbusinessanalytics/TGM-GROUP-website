@@ -115,21 +115,33 @@ export const site = {
   areaServed: 'ZA',
 } as const;
 
-/* Formspree endpoint for the contact form.
-
-   Not a secret: it is visible in the page source of /contact by design, which
-   is how a static form service works. Abuse is handled by the honeypot and
-   the time trap in contact.astro, plus Formspree's own server-side validation
-   (name, email, company, problem and consent are all required there, so a bot
-   posting straight at this URL cannot skip the POPIA consent).
-
-   Notifications go to info@trevorgmenyatsogroup.co.za.
-
-   Formspree stores submissions in the United States. That is a cross-border
-   transfer under POPIA section 72 and is disclosed on /privacy and at the
-   point of collection on /contact. If this endpoint ever moves to a different
-   provider, both of those need updating too. */
-export const FORM_ENDPOINT: string = 'https://formspree.io/f/xdekwbyr';
+/* Where the contact form posts.
+ *
+ * A PHP file on our own hosting, public/enquiry.php, which Astro copies into
+ * the build like any other static file. It replaced Formspree on 28 October
+ * 2026, because Formspree required an account, a dashboard and a verified
+ * recipient address before it would deliver anything, and until that was done
+ * it accepted submissions and dropped them.
+ *
+ * What this buys, beyond there being nothing to set up:
+ *
+ *  - Nothing a visitor types leaves our server. Formspree stored submissions
+ *    in the United States, which was a cross-border transfer under POPIA
+ *    section 72 that had to be disclosed at the point of collection. There is
+ *    no transfer now, so that disclosure is gone from /contact and /privacy.
+ *  - Delivery is local: the mail goes from the host to a mailbox on the same
+ *    domain and never crosses the public internet.
+ *  - Every enquiry is written to a log above the web root before the mail is
+ *    attempted, so a mail failure cannot lose one.
+ *
+ * Relative, not absolute, so a local preview posts to the local server. The
+ * handler validates name, email, organisation, problem and the POPIA consent
+ * again on the server, because a bot posting straight at the URL never ran the
+ * browser's checks.
+ *
+ * Only ever change this together with form-action in public/.htaccess and
+ * public/_headers, or the browser will block the submission. */
+export const FORM_ENDPOINT: string = '/enquiry.php';
 
 /* Evidence was removed when the stats block went: with zero paying clients
    there was nothing to put in it, and three empty slots on the most persuasive
