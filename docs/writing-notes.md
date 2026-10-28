@@ -101,13 +101,19 @@ Then open `http://localhost:4321/notes/` and read the note as a stranger would.
 ### Package it
 
 ```bash
-cd dist && tar -czf ../tgm-site.tar.gz . && cd ..
+tar --exclude='desktop.ini' -czf tgm-site.tar.gz -C dist .
 ```
 
 `tar.gz` rather than a zip, deliberately. A zip built on Windows carries no
 Unix permission bits, and the host has extracted those at `0700` before, which
 returns 403 on every URL. A tar.gz stores the modes, so files arrive at 644 and
 directories at 755 and the site works without a chmod step.
+
+`--exclude='desktop.ini'` matters because this project sits on Google Drive,
+which writes one of those into every folder it syncs, `dist/` included. They
+are not part of the site and should not be served from it. The build strips
+them out of `public/` by itself, but it cannot stop Drive putting fresh ones
+into `dist/` after the build has finished, so the archive excludes them too.
 
 ### Upload it
 
@@ -119,7 +125,9 @@ directories at 755 and the site works without a chmod step.
 4. Upload `tgm-site.tar.gz`, then right-click it and **Extract** into
    `/public_html`.
 5. Delete the archive afterwards. While it sits there it is downloadable by
-   anyone at `/tgm-site.tar.gz`.
+   anyone at `/tgm-site.tar.gz`. This has been missed before: check the URL
+   after an upload rather than assuming, because a 200 there means the whole
+   site is sitting on the server as a single file anyone can pull down.
 6. Hard refresh with Ctrl+F5.
 
 If the session drops mid-upload, that is the IP rotation problem: the
