@@ -159,10 +159,20 @@ const problems = [
             <input id="website" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
           </div>
 
-          {/* Time trap. Filled by the inline script below and checked on
-               submit. Without JavaScript the field stays empty and the form
-               still submits — spam filtering must not cost a real enquiry. */}
-          <input id="elapsed" name="_elapsed" type="hidden" value="" />
+          {/* Where Formspree sends the browser after a successful submission.
+               Without it the visitor lands on a Formspree-hosted page on
+               another domain with none of this brand on it, having just handed
+               over their details. Must be absolute: Formspree resolves it on
+               its own origin, not ours. */}
+          <input type="hidden" name="_next" value={`${site.url}/contact/thank-you/`} />
+
+          {/* Without this every enquiry arrives under the same generic
+               Formspree subject, which is how a real one gets missed. */}
+          <input
+            type="hidden"
+            name="_subject"
+            value="Website enquiry: diagnostic"
+          />
 
           {/* POPIA. Explicit, unticked by default, and bound to a real
                <label>. The statement below it says what the data is for and
@@ -217,24 +227,26 @@ const problems = [
 
 <script>
   /* The entire JavaScript budget for this page, and one of only two scripts on
-     the site. It stamps how long the form was on screen and rejects anything
-     submitted in under three seconds — which no human completing five fields
-     manages, and most bots do.
+     the site. The time trap: it measures how long the form was on screen and
+     rejects anything submitted in under three seconds, which no human
+     completing five fields manages and most bots do.
 
-     Everything degrades: with JS off the field stays empty, the check never
-     runs, and the form submits normally. */
+     The elapsed time is never submitted. It used to go across in a hidden
+     field named _elapsed, which put a field of ours inside the underscore
+     namespace Formspree reserves for its own parameters (_next, _subject,
+     _cc, _gotcha). The check runs entirely here, so the field bought nothing
+     and risked the submission being rejected or mangled.
+
+     Everything degrades: with JavaScript off the check never runs and the form
+     submits normally. Spam filtering must not cost a real enquiry. */
   const form = document.getElementById('enquiry') as HTMLFormElement | null;
-  const elapsed = document.getElementById('elapsed') as HTMLInputElement | null;
   const warning = document.getElementById('too-fast');
 
-  if (form && elapsed) {
+  if (form) {
     const loadedAt = Date.now();
 
     form.addEventListener('submit', (event) => {
-      const ms = Date.now() - loadedAt;
-      elapsed.value = String(ms);
-
-      if (ms < 3000) {
+      if (Date.now() - loadedAt < 3000) {
         event.preventDefault();
         warning?.removeAttribute('hidden');
       }

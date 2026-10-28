@@ -17,3 +17,6 @@ npm-debug.log*
 # project files: they break the build when Astro tries to copy public/ into
 # dist, and would otherwise be served from the live site.
 desktop.ini
+
+# Drive desktop.ini files moved aside by scripts/strip-drive-cruft.mjs.
+.drive-cruft/

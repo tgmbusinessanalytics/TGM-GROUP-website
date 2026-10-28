@@ -1,0 +1,133 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { site } from '../../data/site';
+
+/* Where Formspree sends people after a successful submission, via the _next
+   field on the contact form.
+ *
+ * Without it they land on a Formspree-hosted page on formspree.io: a different
+ * domain, none of this brand, and no restatement of what happens next. Someone
+ * who has just handed over their details and been thrown to a stranger's
+ * holding page has no way of telling whether it worked.
+ *
+ * Deliberately not indexed, and excluded from the sitemap in astro.config.mjs.
+ * It is also reachable directly by anyone who types the URL, so it promises
+ * nothing it cannot keep: it says what was sent and what happens next, rather
+ * than naming details it does not have.
+ */
+---
+
+<Base
+  title="Thank you: we have your enquiry | TGM Group"
+  description="Your enquiry has reached TGM Group. We reply within one working day."
+  noindex={true}
+>
+  <PageHero
+    accent="teal"
+    title="That is with us."
+    lead="We reply within one working day, usually sooner. If it is urgent, call rather than wait."
+  />
+
+  <section class="section confirm-section">
+    <div class="wrap">
+      <div class="confirm">
+        <h2 class="t-h3">What happens now</h2>
+
+        <ol class="steps">
+          <li class="t-body">
+            We read what you sent and come back to you within one working day.
+          </li>
+          <li class="t-body">
+            We talk through what is failing, and say whether a diagnostic is the
+            right next step. If it is not, we say so.
+          </li>
+          <li class="t-body">
+            If it is, we scope it, you pay, and the three weeks start.
+          </li>
+        </ol>
+
+        <div class="direct">
+          <h3 class="t-caption direct-key">If it is urgent</h3>
+          <p class="t-body direct-line">
+            <a href={site.phoneHref} class="direct-link">{site.phoneDisplay}</a>
+          </p>
+          <p class="t-body direct-line">
+            <a href={`mailto:${site.email}`} class="direct-link">{site.email}</a>
+          </p>
+        </div>
+
+        <p class="t-body-sm back">
+          <a href="/" class="back-link">Back to the homepage</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* The hero already carries generous padding and this page is three short
+     blocks. The standard section top step under it leaves a band of nothing. */
+  .confirm-section {
+    padding-top: 0;
+  }
+
+  .confirm {
+    max-width: 640px;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin: var(--space-4) 0 0;
+    padding-left: var(--space-4);
+    color: var(--ink-muted);
+  }
+
+  .direct {
+    margin-top: var(--space-5);
+    padding: var(--space-4);
+    background: var(--surface-sunken);
+    border-radius: var(--radius-sm);
+  }
+
+  .direct-key {
+    margin: 0;
+    color: var(--ink-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .direct-line {
+    margin: var(--space-2) 0 0;
+  }
+
+  .direct-link {
+    color: var(--teal-ink);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    word-break: break-word;
+  }
+
+  .direct-link:hover {
+    border-bottom-color: var(--teal-ink);
+  }
+
+  .back {
+    margin-top: var(--space-5);
+  }
+
+  .back-link {
+    color: var(--teal-ink);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+  }
+
+  .back-link:hover {
+    border-bottom-color: var(--teal-ink);
+  }
+</style>

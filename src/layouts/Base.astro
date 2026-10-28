@@ -11,9 +11,15 @@ interface Props {
   /* Structured data for this page. Homepage passes Organization and
      LocalBusiness; inner pages pass a BreadcrumbList. */
   jsonLd?: Record<string, unknown>[];
+  /* Pages that exist only as the end of a journey, such as the form
+     confirmation. They are reachable and linkable, but there is no reason for
+     them to be a search result: landing on a thank-you page without having
+     sent anything is a dead end for the visitor. "follow" is kept so the links
+     out of them still count. */
+  noindex?: boolean;
 }
 
-const { title, description, jsonLd = [] } = Astro.props;
+const { title, description, jsonLd = [], noindex = false } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 
@@ -33,6 +39,7 @@ const ogImage = new URL('/og.png', Astro.site).href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
 
     {/* Geographic targeting: this is a South African business serving South
          African organisations. */}

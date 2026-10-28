@@ -16,7 +16,12 @@ export default defineConfig({
       //
       // The feed is excluded because it is not a page. Listing an RSS document
       // in a sitemap invites it to be indexed as a search result.
-      filter: (page) => !page.endsWith('/notes/rss.xml'),
+      //
+      // The form confirmation is excluded for the same reason it carries
+      // noindex: it is the end of a journey, and landing on it from a search
+      // result without having sent anything is a dead end.
+      filter: (page) =>
+        !page.endsWith('/notes/rss.xml') && !page.endsWith('/contact/thank-you/'),
     }),
   ],
   vite: {
