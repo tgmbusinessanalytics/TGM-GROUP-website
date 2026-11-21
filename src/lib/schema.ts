@@ -15,8 +15,9 @@ export function organizationSchema() {
     name: site.name,
     legalName: site.legalName,
     /* CIPC enterprise number. `identifier` is the correct property for a
-       company registration number; vatID is deliberately absent until VAT
-       registration is confirmed. */
+       company registration number. There is deliberately no vatID: the
+       company is not registered, confirmed on SARS eFiling on 7 November
+       2026. Add one only against an actual registration. */
     identifier: site.registrationNumber,
     foundingDate: '2025-08-13',
     url: site.url,

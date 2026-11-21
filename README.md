@@ -98,9 +98,11 @@ bites.
    number, a named client, a sector and a period.
 4. **The founder biography** on `/about`. Currently a visible placeholder. On a
    consulting site this is probably worth more than the statistics.
-5. **Registration number, VAT number and physical address.** Needed on `/about`,
-   in the ECTA disclosure on `/terms`, in the PAIA manual, and for the
-   `LocalBusiness` schema. Set `address` in `src/data/site.ts`.
+5. ~~**Registration number, VAT number and physical address.**~~ Done. The
+   registration number and address are in `src/data/site.ts`, taken from the
+   CIPC certificate. There is no VAT number: the company is not registered for
+   VAT, confirmed on SARS eFiling on 7 November 2026, so no price on the site
+   carries a VAT line and the `/about` details table has no VAT row.
 6. **Legal review** of `/privacy`, `/terms` and `/paia`. All three carry a
    visible "draft — awaiting legal review" banner. The PAIA manual is a
    statutory obligation under POPIA and is not compliant as it stands.

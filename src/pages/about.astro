@@ -214,12 +214,14 @@ import { breadcrumbSchema } from '../lib/schema';
           <dt class="t-caption detail-key">Directors</dt>
           <dd class="t-body-sm detail-value">{site.directors.join(', ')}</dd>
         </div>
-        <div class="detail-row">
-          <dt class="t-caption detail-key">VAT number</dt>
-          <dd class="t-body-sm detail-value">
-            <span class="placeholder">[VAT number, if registered]</span>
-          </dd>
-        </div>
+        {/* There was a "VAT number" row here, carrying a placeholder reading
+             "[VAT number, if registered]". The row is gone rather than filled
+             in: TGM Group is not registered for VAT, confirmed on SARS
+             eFiling on 7 November 2026, so there is no number and a row
+             saying so would only raise the question. Nothing in the ECTA
+             section 43 disclosure requires a VAT number from a business that
+             does not have one. Put the row back the day a registration
+             exists. */}
         <div class="detail-row">
           <dt class="t-caption detail-key">Registered address</dt>
           <dd class="t-body-sm detail-value">

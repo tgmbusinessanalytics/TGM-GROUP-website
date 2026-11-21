@@ -3,7 +3,7 @@ title: Operational diagnostic
 order: 1
 accent: gold
 practice: TGM Business Systems
-summary: R12,500 excl. VAT, three weeks. Every defect named in your own numbers, and a build specification you own whether or not you hire us.
+summary: R12,500, three weeks. Every defect named in your own numbers, and a build specification you own whether or not you hire us.
 outcomes:
   - Every defect found and quantified in your own numbers
   - The cost of the failure, worked out from your records
@@ -20,7 +20,7 @@ data. We look for two kinds of failure: work that is not being captured
 properly, and work that is not being reported properly. The output is a written
 findings document and a scoped build specification.
 
-The diagnostic is R12,500 excl. VAT, paid in full before work starts. If you
+The diagnostic is R12,500, paid in full before work starts. If you
 sign a build within 30 days of the handover, the full R12,500 is credited
 against the build price. If the right answer is that you do not need a build, we
 say so. The specification is yours either way.

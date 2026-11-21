@@ -187,11 +187,15 @@ export const cta = {
    conversation. Build tiers and the retainer are quoted after the diagnostic,
    so they are described on the site but not priced.
 
-   Always "excl. VAT": the company is VAT-registered and POSITIONING requires
-   every quoted figure to say so. */
+   The figure is quoted bare, with nothing after it. TGM Group is not
+   registered for VAT, confirmed on SARS eFiling on 7 November 2026, so
+   R12,500 is the whole price and there is nothing to add. This block
+   previously carried a vatNote reading "excl. VAT", on the mistaken basis
+   that the company was registered. Do not reintroduce any VAT wording unless
+   and until a registration actually exists, and then change POSITIONING
+   first: that file is the single source for every price. */
 export const diagnosticPrice = {
   amount: 'R12,500',
-  vatNote: 'excl. VAT',
   duration: '3 weeks',
 } as const;
 
